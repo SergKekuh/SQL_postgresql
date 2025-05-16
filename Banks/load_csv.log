@@ -1,0 +1,310 @@
+Начинаем загрузку файлов...
+Загрузка файла: /home/serg/Downloads/Banks/export_01052025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_01052025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_02042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_02042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_02052025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_02052025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_03042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_03042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_04042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_04042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_07042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_07042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_08042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_08042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_09042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_09042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_10032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_10032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_10042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_10042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_11032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_11032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_11042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_11042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_12032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_12032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_13032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_13032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_14032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_14032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_14042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_14042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_15032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_15032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_15042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_15042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_16032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_16032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_16042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_16042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_17032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_17032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_17042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_17042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_18032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_18032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_18042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_18042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_19032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_19032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_19042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_19042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_20032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_20032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_21032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_21032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_21042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_21042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_22032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_22032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_22042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_22042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_23042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_23042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_24032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_24032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_24042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_24042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_25032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_25032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_25042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_25042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_26032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_26032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_27032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_27032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_28032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_28032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_28042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_28042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_29032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_29032025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_29042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_29042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_30042025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_30042025_utf8.csv успешно загружен.
+Загрузка файла: /home/serg/Downloads/Banks/export_31032025_utf8.csv
+SET
+\copy: parse error at end of line
+ERROR:  syntax error at or near "edrpou"
+LINE 1: edrpou, mfo, account, currency, operation_date, operation_co...
+        ^
+Файл /home/serg/Downloads/Banks/export_31032025_utf8.csv успешно загружен.
+✅ Все файлы обработаны!
