@@ -12,30 +12,28 @@ set(CMAKE_CXX_EXTENSIONS OFF)  # Отключаем нестандартные �
 # Поиск PostgreSQL
 find_package(PostgreSQL REQUIRED)
 
-# Добавляем пути к заголовкам
+# Подключаем заголовочные файлы
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
     ${PostgreSQL_INCLUDE_DIRS}
-    ${PROJECT_SOURCE_DIR}/libxl/include_cpp
+    ${PROJECT_SOURCE_DIR}/libxl/include_cpp # ✅ Правильный путь к заголовкам libxl (C++)
 )
 
 # Указываем путь к libxl
-set(LIBXL_PATH ${PROJECT_SOURCE_DIR}/libxl/lib64)
+set(LIBXL_PATH ${PROJECT_SOURCE_DIR}/libxl/lib64)  # ✅ Правильный путь к lib64
 
 # Добавляем исходники из src/
 file(GLOB SOURCES "src/*.cpp")
-
-# Создаём исполняемый файл
 add_executable(main main.cpp ${SOURCES})
 
 # Линковка библиотек
 target_link_libraries(main
     PRIVATE
     ${PostgreSQL_LIBRARIES}
-    ${LIBXL_PATH}/libxl.so
+    ${LIBXL_PATH}/libxl.so  # ✅ Здесь будет найден libxl.so
 )
 
-# (Опционально) Можно указать RPATH для libxl.so
+# RPATH для libxl
 set_target_properties(main PROPERTIES
     INSTALL_RPATH "${LIBXL_PATH}"
     BUILD_WITH_INSTALL_RPATH TRUE
@@ -45,5 +43,27 @@ set_target_properties(main PROPERTIES
 add_custom_command(
     TARGET main POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:main> ${PROJECT_SOURCE_DIR}/main
-    COMMENT "Копируем main в корень проекта"
+    COMMENT "Копируем исполняемый файл main в корень проекта"
 )
+
+# --- ТЕСТЫ ---
+# Включаем поддержку тестов
+enable_testing()
+
+# Указываем, где лежат заголовки GTest
+include_directories(/usr/src/googletest/googletest/include)
+
+# Создаём исполняемый файл тестов
+add_executable(tests test/main.cpp test/database_test.cpp)
+
+# Линковка тестов
+target_link_libraries(tests
+    PRIVATE
+    main
+    gtest
+    gtest_main
+    pthread
+)
+
+# Добавляем цель запуска тестов
+add_test(NAME RunTests COMMAND tests)
