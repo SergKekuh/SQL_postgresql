@@ -1,0 +1,6 @@
+2025-05-29 11:49:31 [INFO] | Program started
+2025-05-29 11:49:31 [INFO] | Successfully connected to the database
+2025-05-29 11:49:31 Fetching data for year: 2023
+2025-05-29 11:49:31 [INFO] | Printing statistics to console
+2025-05-29 11:49:31 [INFO] | Data successfully exported to: reports/statistics_report_2025-05-29_11-49-31.xlsx
+2025-05-29 11:49:31 [INFO] | Program finished successfully

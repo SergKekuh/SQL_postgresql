@@ -15,14 +15,15 @@
       <div style="margin-left: 13em; margin-top: 2em;">
         <span id="title">LibXL</span>
           <br/> 
-          <div id="subtitle">API reference version 3.9.1</div>
+          <div id="subtitle">C++ API reference version 4.6.0</div>
       </div>
     </td>
   </tr>
   <tr>
     <td valign="top" width="100%">
       <div id="content">
-        <div><b>Index</b>&nbsp;<a href="workbook.html">Book</a>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a></div>  
+        <div><b>Index</b>&nbsp;<a href="workbook.html">Book</a>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a>&nbsp;<a href="formControl.html">FormControl</a>&nbsp;<a href="conditionalFormatting.html">ConditionalFormatting</a>&nbsp;<a href="conditionalFormat.html">ConditionalFormat</a><br/>
+             <a href="coreProperties.html">CoreProperties</a>&nbsp;<a href="table.html">Table</a></div>  
 <h3>Factory functions</h3>
 
  <a name="xlCreateBook"></a>
@@ -57,7 +58,7 @@
     <li><a href="workbook.html#load3"><span class="keyword">bool</span> <span class="fname">loadPartially</span>(<span class="keyword">const wchar_t</span>* filename, <span class="keyword">int</span> sheetIndex, <span class="keyword">int</span> firstRow, <span class="keyword">int</span> lastRow, <span class="keyword">const wchar_t</span>* tempFile = 0)</a></li>
       <li><a href="workbook.html#save"><span class="keyword">bool</span> <span class="fname">save</span>(<span class="keyword">const wchar_t</span>* filename, <span class="keyword">bool</span> useTempFile = <span class="keyword">false</span>)</a></li>
   
-  
+    <li><a href="workbook.html#load7"><span class="keyword">bool</span> <span class="fname">loadWithoutEmptyCells</span>(<span class="keyword">const wchar_t</span>* filename)</a></li>   
     <li><a href="workbook.html#loadInfo"><span class="keyword">bool</span> <span class="fname">loadInfo</span>(<span class="keyword">const wchar_t</span>* filename)</a></li>
     <li style="margin-top:16px;"><a href="workbook.html#loadRaw"><span class="keyword">bool</span> <span class="fname">loadRaw</span>(<span class="keyword">const char</span>* data, <span class="keyword">unsigned</span> size, <span class="keyword">int</span> sheetIndex = -1, <span class="keyword">int</span> firstRow = -1, <span class="keyword">int</span> lastRow = -1)</a></li>
       <li><a href="workbook.html#saveRaw"><span class="keyword">bool</span> <span class="fname">saveRaw</span>(<span class="keyword">const char</span>** data, <span class="keyword">unsigned</span>* size)</a></li>
@@ -84,6 +85,8 @@
   <li><a href="workbook.html#formatSize"><span class="keyword">int</span> <span class="fname">formatSize</span>()</a></li>
   <li><a href="workbook.html#font">Font* <span class="fname">font</span>(<span class="keyword">int</span> index)</a></li>
   <li><a href="workbook.html#fontSize"><span class="keyword">int</span> <span class="fname">fontSize</span>()</a></li>
+
+  <li style="margin-top:16px;"><a href="workbook.html#addConditionalFormat">ConditionalFormat* <span class="fname">addConditionalFormat</span>()</a></li>
 
   <li style="margin-top:16px;"><a href="workbook.html#datePack"><span class="keyword">double</span> <span class="fname">datePack</span>(<span class="keyword">int</span> year, <span class="keyword">int</span> month, <span class="keyword">int</span> day,
 <span class="keyword">int</span> hour = 0, <span class="keyword">int</span> min = 0, <span class="keyword">int</span> sec = 0, <span class="keyword">int</span> msec = 0)
@@ -124,8 +127,8 @@
     
     <li><a href="workbook.html#setRefR1C1"><span class="keyword">void</span> <span class="fname">setRefR1C1</span>(<span class="keyword">bool</span> refR1C1 = <span class="keyword">true</span>)</a></li>
      
-
-  <li style="margin-top:16px;"><a href="workbook.html#biffVersion"><span class="keyword">int</span> <span class="fname">biffVersion</span>() <span class="keyword">const</span></a></li>
+  <li style="margin-top:16px;"><a href="workbook.html#version"><span class="keyword">int</span> <span class="fname">version</span>() <span class="keyword">const</span></a></li>
+  <li><a href="workbook.html#biffVersion"><span class="keyword">int</span> <span class="fname">biffVersion</span>() <span class="keyword">const</span></a></li>
 
   <li style="margin-top:16px;"><a href="workbook.html#isDate1904"><span class="keyword">bool</span> <span class="fname">isDate1904</span>() <span class="keyword">const</span></a></li>
     
@@ -135,7 +138,13 @@
   <li style="margin-top:16px;"><a href="workbook.html#isTemplate"><span class="keyword">bool</span> <span class="fname">isTemplate</span>() <span class="keyword">const</span></a></li>
     
     <li><a href="workbook.html#setTemplate"><span class="keyword">void</span> <span class="fname">setTemplate</span>(<span class="keyword">bool</span> tmpl = <span class="keyword">true</span>)</a></li>
-     
+
+    <li style="margin-top:16px;"><a href="workbook.html#isWriteProtected"><span class="keyword">bool</span> <span class="fname">isWriteProtected</span>() <span class="keyword">const</span></a></li>     
+
+  <li style="margin-top:16px;"><a href="workbook.html#coreProperties">CoreProperties* <span class="fname">coreProperties</span>()</a></li>  
+  <li style="margin-top:16px;"><a href="workbook.html#removeVBA"><span class="keyword">bool</span> <span class="fname">removeVBA</span>()</a></li>
+  <li><a href="workbook.html#removePrinterSettings"><span class="keyword">bool</span> <span class="fname">removePrinterSettings</span>()</a></li>
+  <li><a href="workbook.html#removeAllPhonetics"><span class="keyword">void</span> <span class="fname">removeAllPhonetics</span>()</a></li>
 
   <li style="margin-top:16px;"><a href="workbook.html#setKey"><span class="keyword">void</span> <span class="fname">setKey</span>(<span class="keyword">const wchar_t</span>* name, <span class="keyword">const wchar_t</span>* key)</a></li>
       <li><a href="workbook.html#setLocale"><span class="keyword">bool</span> <span class="fname">setLocale</span>(<span class="keyword">const char</span>* locale)</a></li>
@@ -193,7 +202,7 @@
   <li><a href="spreadsheet.html#removeComment"><span class="keyword">void</span> <span class="fname">removeComment</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col)</a></li>
 
   <li style="margin-top:16px;"><a href="spreadsheet.html#isDate"><span class="keyword">bool</span> <span class="fname">isDate</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col) <span class="keyword">const</span></a></li>
-  <li><a href="spreadsheet.html#isRichString"><span class="keyword">bool</span> <span class="fname">isRichString</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col) <span class="keyword">const</span></a></li>
+  <li><a href="spreadsheet.html#isRichStr"><span class="keyword">bool</span> <span class="fname">isRichStr</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col) <span class="keyword">const</span></a></li>
 
   <li style="margin-top:16px;"><a href="spreadsheet.html#readError">ErrorType <span class="fname">readError</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col) <span class="keyword">const</span></a></li>
   <li><a href="spreadsheet.html#writeError"><span class="keyword">void</span> <span class="fname">writeError</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col, ErrorType error, Format* format = 0)</a></li>
@@ -203,6 +212,9 @@
 
   <li style="margin-top:16px;"><a href="spreadsheet.html#colWidthPx"><span class="keyword">int</span> <span class="fname">colWidthPx</span>(<span class="keyword">int</span> col) <span class="keyword">const</span></a></li>
   <li><a href="spreadsheet.html#rowHeightPx"><span class="keyword">int</span> <span class="fname">rowHeightPx</span>(<span class="keyword">int</span> row) <span class="keyword">const</span></a></li>
+
+  <li style="margin-top:16px;"><a href="spreadsheet.html#colFormat">Format* <span class="fname">colFormat</span>(<span class="keyword">int</span> col) <span class="keyword">const</span></a></li>
+  <li><a href="spreadsheet.html#rowFormat">Format* <span class="fname">rowFormat</span>(<span class="keyword">int</span> row) <span class="keyword">const</span></a></li>
 
   <li style="margin-top:16px;"><a href="spreadsheet.html#setCol"><span class="keyword">bool</span> <span class="fname">setCol</span>(<span class="keyword">int</span> colFirst, <span class="keyword">int</span> colLast, <span class="keyword">double</span> width, Format* format = 0, <span class="keyword">bool</span> hidden = <span class="keyword">false</span>)</a></li>
     
@@ -214,6 +226,9 @@
   <li><a href="spreadsheet.html#setRowHidden"><span class="keyword">bool</span> <span class="fname">setRowHidden</span>(<span class="keyword">int</span> row, <span class="keyword">bool</span> hidden)</a></li>
   <li><a href="spreadsheet.html#colHidden"><span class="keyword">bool</span> <span class="fname">colHidden</span>(<span class="keyword">int</span> col) <span class="keyword">const</span></a></li>
   <li><a href="spreadsheet.html#setColHidden"><span class="keyword">bool</span> <span class="fname">setColHidden</span>(<span class="keyword">int</span> col, <span class="keyword">bool</span> hidden)</a></li>
+
+  <li style="margin-top:16px;"><a href="spreadsheet.html#defaultRowHeight"><span class="keyword">double</span> <span class="fname">defaultRowHeight</span>() <span class="keyword">const</span></a></li>
+  <li><a href="spreadsheet.html#setDefaultRowHeight"><span class="keyword">void</span> <span class="fname">setDefaultRowHeight</span>(<span class="keyword">double</span> height)</a></li>
 
   <li style="margin-top:16px;"><a href="spreadsheet.html#getMerge"><span class="keyword">bool</span> <span class="fname">getMerge</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col, <span class="keyword">int</span>* rowFirst, <span class="keyword">int</span>* rowLast, <span class="keyword">int</span>* colFirst, <span class="keyword">int</span>* colLast)</a></li>
   <li><a href="spreadsheet.html#setMerge"><span class="keyword">bool</span> <span class="fname">setMerge</span>(<span class="keyword">int</span> rowFirst, <span class="keyword">int</span> rowLast, <span class="keyword">int</span> colFirst, <span class="keyword">int</span> colLast)</a></li>
@@ -389,13 +404,21 @@
   <li style="margin-top:16px;"><a href="spreadsheet.html#tableSize"><span class="keyword">int</span> <span class="fname">tableSize</span>() <span class="keyword">const</span></a></li>
   <li><a href="spreadsheet.html#table"><span class="keyword">const wchar_t</span>* <span class="fname">table</span>(<span class="keyword">int</span> index, <span class="keyword">int</span>* rowFirst, <span class="keyword">int</span>* rowLast, <span class="keyword">int</span>* colFirst, <span class="keyword">int</span>* colLast, <span class="keyword">int</span>* headerRowCount, <span class="keyword">int</span>* totalsRowCount)</a></li>
 
+  <li style="margin-top:16px;"><a href="spreadsheet.html#addTable">Table* <span class="fname">addTable</span>(<span class="keyword">const wchar_t</span>* name, <span class="keyword">int</span> rowFirst, <span class="keyword">int</span> rowLast, <span class="keyword">int</span> colFirst, <span class="keyword">int</span> colLast, <span class="keyword">bool</span> hasHeaders = <span class="keyword">false</span>, TableStyle tableStyle = TABLESTYLE_MEDIUM2)</a></li>
+  <li><a href="spreadsheet.html#getTableByName">Table* <span class="fname">getTableByName</span>(<span class="keyword">const wchar_t</span>* name)</a></li>
+  <li><a href="spreadsheet.html#getTableByIndex">Table* <span class="fname">getTableByIndex</span>(<span class="keyword">int</span> index)</a></li>
+
   <li style="margin-top:16px;"><a href="spreadsheet.html#hyperlinkSize"><span class="keyword">int</span> <span class="fname">hyperlinkSize</span>() <span class="keyword">const</span></a></li>
   <li><a href="spreadsheet.html#hyperlink"><span class="keyword">const wchar_t</span>* <span class="fname">hyperlink</span>(<span class="keyword">int</span> index, <span class="keyword">int</span>* rowFirst, <span class="keyword">int</span>* rowLast, <span class="keyword">int</span>* colFirst, <span class="keyword">int</span>* colLast)</a></li>
   <li><a href="spreadsheet.html#delHyperlink"><span class="keyword">bool</span> <span class="fname">delHyperlink</span>(<span class="keyword">int</span> index)</a></li>
   <li><a href="spreadsheet.html#addHyperlink"><span class="keyword">void</span> <span class="fname">addHyperlink</span>(<span class="keyword">const wchar_t*</span> hyperlink, <span class="keyword">int</span> rowFirst, <span class="keyword">int</span> rowLast, <span class="keyword">int</span> colFirst, <span class="keyword">int</span> colLast)</a></li>
+  <li><a href="spreadsheet.html#hyperlinkIndex"><span class="keyword">int</span> <span class="fname">hyperlinkIndex</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col) <span class="keyword">const</span></a></li>
 
-  <li style="margin-top:16px;"><a href="spreadsheet.html#autoFilter">AutoFilter <span class="fname">autoFilter</span>()</a></li>
+
+  <li style="margin-top:16px;"><a href="spreadsheet.html#isAutoFilter"><span class="keyword">bool</span> <span class="fname">isAutoFilter</span>() <span class="keyword">const</span></a></li>
+  <li><a href="spreadsheet.html#autoFilter">AutoFilter <span class="fname">autoFilter</span>()</a></li>
   <li><a href="spreadsheet.html#applyFilter"><span class="keyword">void</span> <span class="fname">applyFilter</span>()</a></li>
+  <li><a href="spreadsheet.html#applyFilter2"><span class="keyword">void</span> <span class="fname">applyFilter2</span>(AutoFilter* autoFilter)</a></li>
   <li><a href="spreadsheet.html#removeFilter"><span class="keyword">void</span> <span class="fname">removeFilter</span>()</a></li>
 
 
@@ -428,8 +451,13 @@
   <li><a href="spreadsheet.html#rowColToAddr"><span class="keyword">const wchar_t</span>* <span class="fname">rowColToAddr</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col, <span class="keyword">bool</span> rowRelative = <span class="keyword">true</span>, <span class="keyword">bool</span> colRelative = <span class="keyword">true</span>)</a></li>
      
 
-  <li style="margin-top:16px;"><a href="spreadsheet.html#setTabColor"><span class="keyword">void</span> <span class="fname">setTabColor</span>(Color color)</a></li>
+  <li style="margin-top:16px;"><a href="spreadsheet.html#tabColor">Color <span class="fname">tabColor</span>() <span class="keyword">const</span></a></li> 
+  <li><a href="spreadsheet.html#setTabColor"><span class="keyword">void</span> <span class="fname">setTabColor</span>(Color color)</a></li>
+
+  <li style="margin-top:16px;"><a href="spreadsheet.html#getTabColor"><span class="keyword">bool</span> <span class="fname">getTabColor</span>(<span class="keyword">int</span>* red, <span class="keyword">int</span>* green, <span class="keyword">int</span>* blue) <span class="keyword">const</span></a></li>
   <li><a href="spreadsheet.html#setTabColor2"><span class="keyword">void</span> <span class="fname">setTabColor</span>(<span class="keyword">int</span> red, <span class="keyword">int</span> green, <span class="keyword">int</span> blue)</a></li>
+
+  <li style="margin-top:16px;"><a href="spreadsheet.html#setBorder"><span class="keyword">bool</span> <span class="fname">setBorder</span>(<span class="keyword">int</span> rowFirst, <span class="keyword">int</span> rowLast, <span class="keyword">int</span> colFirst, <span class="keyword">int</span> colLast, BorderStyle borderStyle, Color borderColor)</a></li>
 
   <li style="margin-top:16px;"><a href="spreadsheet.html#addIgnoredError"><span class="keyword">bool</span> <span class="fname">addIgnoredError</span>(<span class="keyword">int</span> rowFirst, <span class="keyword">int</span> colFirst, <span class="keyword">int</span> rowLast, <span class="keyword">int</span> colLast, IgnoredError iError)</a></li>
 
@@ -442,6 +470,18 @@
      
 
   <li style="margin-top:16px;"><a href="spreadsheet.html#removeDataValidations"><span class="keyword">void</span> <span class="fname">removeDataValidations</span>()</a></li>
+
+  <li style="margin-top:16px;"><a href="spreadsheet.html#formControlSize"><span class="keyword">int</span> <span class="fname">formControlSize</span>() <span class="keyword">const</span></a></li>
+  <li><a href="spreadsheet.html#formControl">FormControl* <span class="fname">formControl</span>(<span class="keyword">int</span> index)</a></li>
+
+  <li style="margin-top:16px;"><a href="spreadsheet.html#addConditionalFormatting">ConditionalFormatting* <span class="fname">addConditionalFormatting</span>()</a></li>
+
+  <li style="margin-top:16px;"><a href="spreadsheet.html#getActiveCell"><span class="keyword">bool</span> <span class="fname">getActiveCell</span>(<span class="keyword">int</span>* row, <span class="keyword">int</span>* col) <span class="keyword">const</span></a></li>
+  <li><a href="spreadsheet.html#setActiveCell"><span class="keyword">void</span> <span class="fname">setActiveCell</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col)</a></li>
+
+  <li style="margin-top:16px;"><a href="spreadsheet.html#selectionRange"><span class="keyword">const wchar_t</span>* <span class="fname">selectionRange</span>() <span class="keyword">const</span></a></li>
+  <li><a href="spreadsheet.html#addSelectionRange"><span class="keyword">void</span> <span class="fname">addSelectionRange</span>(<span class="keyword">const wchar_t</span>* sqref)</a></li>
+  <li><a href="spreadsheet.html#removeSelection"><span class="keyword">void</span> <span class="fname">removeSelection</span>()</a></li>
 
  </ul>
 
@@ -619,6 +659,7 @@
   <li style="margin-top:16px;"><a href="autoFilter.html#getSortRange"><span class="keyword">bool</span> <span class="fname">getSortRange</span>(<span class="keyword">int</span>* rowFirst, <span class="keyword">int</span>* rowLast, <span class="keyword">int</span>* colFirst, <span class="keyword">int</span>* colLast)</a></li>
   <li style="margin-top:16px;"><a href="autoFilter.html#getSort"><span class="keyword">bool</span> <span class="fname">getSort</span>(<span class="keyword">int</span>* columnIndex, <span class="keyword">bool</span>* descending)</a></li>
   <li><a href="autoFilter.html#setSort"><span class="keyword">bool</span> <span class="fname">setSort</span>(<span class="keyword">int</span> columnIndex, <span class="keyword">bool</span> descending = <span class="keyword">false</span>)</a></li>
+  <li><a href="autoFilter.html#addSort"><span class="keyword">bool</span> <span class="fname">addSort</span>(<span class="keyword">int</span> columnIndex, <span class="keyword">bool</span> descending = <span class="keyword">false</span>)</a></li>
  </ul>
 
  <h3><a href="filterColumn.html">FilterColumn class</a></h3>
@@ -645,13 +686,207 @@
   <li><a href="richString.html#getText"><span class="keyword">const wchar_t</span>* <span class="fname">getText</span>(<span class="keyword">int</span> index, Font** font = 0)</a></li>
   <li><a href="richString.html#textSize"><span class="keyword">int</span> <span class="fname">textSize</span>() <span class="keyword">const</span></a></li>
  </ul>
+<h3><a href="formControl.html">FormControl class</a></h3>
+
+ <ul class="doc">
+  <li><a href="formControl.html#objectType">ObjectType <span class="fname">objectType</span>() <span class="keyword">const</span></a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#checked">CheckedType <span class="fname">checked</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#setChecked"><span class="keyword">void</span> <span class="fname">setChecked</span>(CheckedType checked)</a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#fmlaGroup"><span class="keyword">const wchar_t</span>* <span class="fname">fmlaGroup</span>()</a></li>
+  <li><a href="formControl.html#setFmlaGroup"><span class="keyword">void</span> <span class="fname">setFmlaGroup</span>(<span class="keyword">const wchar_t</span>* group)</a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#fmlaLink"><span class="keyword">const wchar_t</span>* <span class="fname">fmlaLink</span>()</a></li>
+  <li><a href="formControl.html#setFmlaLink"><span class="keyword">void</span> <span class="fname">setFmlaLink</span>(<span class="keyword">const wchar_t</span>* link)</a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#fmlaRange"><span class="keyword">const wchar_t</span>* <span class="fname">fmlaRange</span>()</a></li>
+  <li><a href="formControl.html#setFmlaRange"><span class="keyword">void</span> <span class="fname">setFmlaRange</span>(<span class="keyword">const wchar_t</span>* range)</a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#fmlaTxbx"><span class="keyword">const wchar_t</span>* <span class="fname">fmlaTxbx</span>()</a></li>
+  <li><a href="formControl.html#setFmlaTxbx"><span class="keyword">void</span> <span class="fname">setFmlaTxbx</span>(<span class="keyword">const wchar_t</span>* txbx)</a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#name"><span class="keyword">const wchar_t</span>* <span class="fname">name</span>()</a></li>
+  <li><a href="formControl.html#linkedCell"><span class="keyword">const wchar_t</span>* <span class="fname">linkedCell</span>()</a></li>
+  <li><a href="formControl.html#listFillRange"><span class="keyword">const wchar_t</span>* <span class="fname">listFillRange</span>()</a></li>
+  <li><a href="formControl.html#macro"><span class="keyword">const wchar_t</span>* <span class="fname">macro</span>()</a></li>
+  <li><a href="formControl.html#altText"><span class="keyword">const wchar_t</span>* <span class="fname">altText</span>()</a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#locked"><span class="keyword">bool</span> <span class="fname">locked</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#defaultSize"><span class="keyword">bool</span> <span class="fname">defaultSize</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#print"><span class="keyword">bool</span> <span class="fname">print</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#disabled"><span class="keyword">bool</span> <span class="fname">disabled</span>() <span class="keyword">const</span></a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#item"><span class="keyword">const wchar_t</span>* <span class="fname">item</span>(<span class="keyword">int</span> index)</a></li>
+  <li><a href="formControl.html#itemSize"><span class="keyword">int</span> <span class="fname">itemSize</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#addItem"><span class="keyword">void</span> <span class="fname">addItem</span>(<span class="keyword">const wchar_t</span>* value)</a></li>
+  <li><a href="formControl.html#insertItem"><span class="keyword">void</span> <span class="fname">insertItem</span>(<span class="keyword">int</span> index, <span class="keyword">const wchar_t</span>* value)</a></li>
+  <li><a href="formControl.html#clearItems"><span class="keyword">void</span> <span class="fname">clearItems</span>()</a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#dropLines"><span class="keyword">int</span> <span class="fname">dropLines</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#setDropLines"><span class="keyword">void</span> <span class="fname">setDropLines</span>(<span class="keyword">int</span> lines)</a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#dx"><span class="keyword">int</span> <span class="fname">dx</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#setDx"><span class="keyword">void</span> <span class="fname">setDx</span>(<span class="keyword">int</span> dx)</a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#firstButton"><span class="keyword">bool</span> <span class="fname">firstButton</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#setFirstButton"><span class="keyword">void</span> <span class="fname">setFirstButton</span>(<span class="keyword">bool</span> firstButton) </a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#horiz"><span class="keyword">bool</span> <span class="fname">horiz</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#setHoriz"><span class="keyword">void</span> <span class="fname">setHoriz</span>(<span class="keyword">bool</span> horiz) </a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#inc"><span class="keyword">int</span> <span class="fname">inc</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#setInc"><span class="keyword">void</span> <span class="fname">setInc</span>(<span class="keyword">int</span> inc) </a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#getMax"><span class="keyword">int</span> <span class="fname">getMax</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#setMax"><span class="keyword">void</span> <span class="fname">setMax</span>(<span class="keyword">int</span> max) </a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#getMin"><span class="keyword">int</span> <span class="fname">getMin</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#setMin"><span class="keyword">void</span> <span class="fname">setMin</span>(<span class="keyword">int</span> min) </a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#multiSel"><span class="keyword">const wchar_t</span>* <span class="fname">multiSel</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#setMultiSel"><span class="keyword">void</span> <span class="fname">setMultiSel</span>(<span class="keyword">const wchar_t</span>* value) </a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#sel"><span class="keyword">int</span> <span class="fname">sel</span>() <span class="keyword">const</span></a></li>
+  <li><a href="formControl.html#setSel"><span class="keyword">void</span> <span class="fname">setSel</span>(<span class="keyword">int</span> sel) </a></li>
+  <li style="margin-top:16px;"><a href="formControl.html#fromAnchor"><span class="keyword">bool</span> <span class="fname">fromAnchor</span>(<span class="keyword">int</span>* col, <span class="keyword">int</span>* colOff, <span class="keyword">int</span>* row, <span class="keyword">int</span>* rowOff)</a></li>
+  <li><a href="formControl.html#toAnchor"><span class="keyword">bool</span> <span class="fname">toAnchor</span>(<span class="keyword">int</span>* col, <span class="keyword">int</span>* colOff, <span class="keyword">int</span>* row, <span class="keyword">int</span>* rowOff)</a></li>
+ </ul>
+
+<h3><a href="conditionalFormatting.html">ConditionalFormatting class</a></h3>
+
+ <ul class="doc">
+  <li><a href="conditionalFormatting.html#addRange"><span class="keyword">void</span> <span class="fname">addRange</span>(<span class="keyword">int</span> rowFirst, <span class="keyword">int</span> rowLast, <span class="keyword">int</span> colFirst, <span class="keyword">int</span> colLast)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormatting.html#addRule"><span class="keyword">void</span> <span class="fname">addRule</span>(CFormatType type, ConditionalFormat* cFormat, <span class="keyword">const wchar_t</span>* value = 0, <span class="keyword">bool</span> stopIfTrue = 0)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormatting.html#addTopRule"><span class="keyword">void</span> <span class="fname">addTopRule</span>(ConditionalFormat* cFormat, <span class="keyword">const wchar_t</span>* value = 0, <span class="keyword">int</span> value, <span class="keyword">bool</span> bottom = <span class="keyword">false</span>, <span class="keyword">bool</span> percent = <span class="keyword">false</span>, <span class="keyword">bool</span> stopIfTrue = 0)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormatting.html#addOpNumRule"><span class="keyword">void</span> <span class="fname">addOpNumRule</span>(CFormatOperator op, ConditionalFormat* cFormat, <span class="keyword">double</span> value1, <span class="keyword">double</span> value2 = 0, <span class="keyword">bool</span> stopIfTrue = 0)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormatting.html#addOpStrRule"><span class="keyword">void</span> <span class="fname">addOpStrRule</span>(CFormatOperator op, ConditionalFormat* cFormat, <span class="keyword">const wchar_t</span>* value1, <span class="keyword">const wchar_t</span>* value2 = 0, <span class="keyword">bool</span> stopIfTrue = 0)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormatting.html#addAboveAverageRule"><span class="keyword">void</span> <span class="fname">addAboveAverageRule</span>(ConditionalFormat* cFormat, <span class="keyword">bool</span> aboveAverage = <span class="keyword">true</span>, <span class="keyword">bool</span> equalAverage = <span class="keyword">false</span>, <span class="keyword">int</span> stdDev = 0, <span class="keyword">bool</span> stopIfTrue = 0)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormatting.html#addTimePeriodRule"><span class="keyword">void</span> <span class="fname">addTimePeriodRule</span>(ConditionalFormat* cFormat, CFormatTimePeriod timePeriod, <span class="keyword">bool</span> stopIfTrue = 0)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormatting.html#add2ColorScaleRule"><span class="keyword">void</span> <span class="fname">add2ColorScaleRule</span>(Color minColor, Color maxColor, CFVOType minType = CFVO_MIN, <span class="keyword">double</span> minValue = 0, CFVOType maxType = CFVO_MAX, <span class="keyword">double</span> maxValue = 0, <span class="keyword">bool</span> stopIfTrue = 0)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormatting.html#add2ColorScaleFormulaRule"><span class="keyword">void</span> <span class="fname">add2ColorScaleFormulaRule</span>(Color minColor, Color maxColor, CFVOType minType = CFVO_FORMULA, <span class="keyword">const char</span>* minValue = 0, CFVOType maxType = CFVO_FORMULA, <span class="keyword">const wchar_t</span>* maxValue = 0, <span class="keyword">bool</span> stopIfTrue = 0)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormatting.html#add3ColorScaleRule"><span class="keyword">void</span> <span class="fname">add3ColorScaleRule</span>(Color minColor, Color midColor, Color maxColor, CFVOType minType = CFVO_MIN, <span class="keyword">double</span> minValue = 0, CFVOType midType = CFVO_PERCENTILE, <span class="keyword">double</span> midValue = 50, CFVOType maxType = CFVO_MAX, <span class="keyword">double</span> maxValue = 0, <span class="keyword">bool</span> stopIfTrue = 0)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormatting.html#add3ColorScaleFormulaRule"><span class="keyword">void</span> <span class="fname">add3ColorScaleFormulaRule</span>(Color minColor, Color midColor, Color maxColor, CFVOType minType = CFVO_FORMULA, <span class="keyword">const wchar_t</span>* minValue = 0, CFVOType midType = CFVO_FORMULA, <span class="keyword">double</span> midValue = 50, CFVOType maxType = CFVO_FORMULA, <span class="keyword">const wchar_t</span>* maxValue = 0, <span class="keyword">bool</span> stopIfTrue = 0)
+</a></li>
+ </ul> 
+
+ <h3><a href="conditionalFormat.html">ConditionalFormat class</a></h3>
+
+ <ul class="doc">
+  <li><a href="conditionalFormat.html#font">Font* <span class="fname">font</span>()</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#numFormat"><span class="keyword">int</span> <span class="fname">numFormat</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setNumFormat"><span class="keyword">void</span> <span class="fname">setNumFormat</span>(<span class="keyword">int</span> numFormat)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#customNumFormat"><span class="keyword">const wchar_t</span>* <span class="fname">customNumFormat</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setCustomNumFormat"><span class="keyword">void</span> <span class="fname">setCustomNumFormat</span>(<span class="keyword">const wchar_t</span>* customNumFormat)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#setBorder"><span class="keyword">void</span> <span class="fname">setBorder</span>(BorderStyle style = BORDERSTYLE_THIN)</a></li>
+  <li><a href="conditionalFormat.html#setBorderColor"><span class="keyword">void</span> <span class="fname">setBorderColor</span>(Color color)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#borderLeft">BorderStyle <span class="fname">borderLeft</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setBorderLeft"><span class="keyword">void</span> <span class="fname">setBorderLeft</span>(BorderStyle style = BORDERSTYLE_THIN)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#borderRight">BorderStyle <span class="fname">borderRight</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setBorderRight"><span class="keyword">void</span> <span class="fname">setBorderRight</span>(BorderStyle style = BORDERSTYLE_THIN)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#borderTop">BorderStyle <span class="fname">borderTop</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setBorderTop"><span class="keyword">void</span> <span class="fname">setBorderTop</span>(BorderStyle style = BORDERSTYLE_THIN)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#borderBottom">BorderStyle <span class="fname">borderBottom</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setBorderBottom"><span class="keyword">void</span> <span class="fname">setBorderBottom</span>(BorderStyle style = BORDERSTYLE_THIN)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#borderLeftColor">Color <span class="fname">borderLeftColor</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setBorderLeftColor"><span class="keyword">void</span> <span class="fname">setBorderLeftColor</span>(Color color)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#borderRightColor">Color <span class="fname">borderRightColor</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setBorderRightColor"><span class="keyword">void</span> <span class="fname">setBorderRightColor</span>(Color color)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#borderTopColor">Color <span class="fname">borderTopColor</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setBorderTopColor"><span class="keyword">void</span> <span class="fname">setBorderTopColor</span>(Color color)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#borderBottomColor">Color <span class="fname">borderBottomColor</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setBorderBottomColor"><span class="keyword">void</span> <span class="fname">setBorderBottomColor</span>(Color color)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#fillPattern">FillPattern <span class="fname">fillPattern</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setFillPattern"><span class="keyword">void</span> <span class="fname">setFillPattern</span>(FillPattern pattern)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#patternForegroundColor">Color <span class="fname">patternForegroundColor</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setPatternForegroundColor"><span class="keyword">void</span> <span class="fname">setPatternForegroundColor</span>(Color color)</a></li>
+  <li style="margin-top:16px;"><a href="conditionalFormat.html#patternBackgroundColor">Color <span class="fname">patternBackgroundColor</span>() <span class="keyword">const</span></a></li>
+  <li><a href="conditionalFormat.html#setPatternBackgroundColor"><span class="keyword">void</span> <span class="fname">setPatternBackgroundColor</span>(Color color)</a></li>
+ </ul> 
+
+<h3><a href="coreProperties.html">CoreProperties class</a></h3>
+
+ <ul class="doc">
+
+  <li><a href="coreProperties.html#title"><span class="keyword">const wchar_t</span>* <span class="fname">title</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setTitle"><span class="keyword">void</span> <span class="fname">setTitle</span>(<span class="keyword">const wchar_t</span>* title)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#subject"><span class="keyword">const wchar_t</span>* <span class="fname">subject</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setSubject"><span class="keyword">void</span> <span class="fname">setSubject</span>(<span class="keyword">const wchar_t</span>* subject)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#creator"><span class="keyword">const wchar_t</span>* <span class="fname">creator</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setCreator"><span class="keyword">void</span> <span class="fname">setCreator</span>(<span class="keyword">const wchar_t</span>* creator)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#lastModifiedBy"><span class="keyword">const wchar_t</span>* <span class="fname">lastModifiedBy</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setLastModifiedBy"><span class="keyword">void</span> <span class="fname">setLastModifiedBy</span>(<span class="keyword">const wchar_t</span>* lastModifiedBy)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#created"><span class="keyword">const wchar_t</span>* <span class="fname">created</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setCreated"><span class="keyword">void</span> <span class="fname">setCreated</span>(<span class="keyword">const wchar_t</span>* created)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#createdAsDouble"><span class="keyword">double</span> <span class="fname">createdAsDouble</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setCreatedAsDouble"><span class="keyword">void</span> <span class="fname">setCreatedAsDouble</span>(<span class="keyword">double</span> created)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#modified"><span class="keyword">const wchar_t</span>* <span class="fname">modified</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setModified"><span class="keyword">void</span> <span class="fname">setModified</span>(<span class="keyword">const wchar_t</span>* modified)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#modifiedAsDouble"><span class="keyword">double</span> <span class="fname">modifiedAsDouble</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setModifiedAsDouble"><span class="keyword">void</span> <span class="fname">setModifiedAsDouble</span>(<span class="keyword">double</span> modified)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#tags"><span class="keyword">const wchar_t</span>* <span class="fname">tags</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setTags"><span class="keyword">void</span> <span class="fname">setTags</span>(<span class="keyword">const wchar_t</span>* tags)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#categories"><span class="keyword">const wchar_t</span>* <span class="fname">categories</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setCategories"><span class="keyword">void</span> <span class="fname">setCategories</span>(<span class="keyword">const wchar_t</span>* categories)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#comments"><span class="keyword">const wchar_t</span>* <span class="fname">comments</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="coreProperties.html#setComments"><span class="keyword">void</span> <span class="fname">setComments</span>(<span class="keyword">const wchar_t</span>* comments)</a></li>
+  
+  <li style="margin-top:16px;"><a href="coreProperties.html#removeAll"><span class="keyword">void</span> <span class="fname">removeAll</span>()</a></li>
+
+ </ul>
+
+<h3><a href="table.html">Table class</a></h3>
+
+ <ul class="doc">
+
+  <li><a href="table.html#name"><span class="keyword">const wchar_t</span>* <span class="fname">name</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="table.html#setName"><span class="keyword">void</span> <span class="fname">setName</span>(<span class="keyword">const wchar_t</span>* name)</a></li>
+  
+  <li style="margin-top:16px;"><a href="table.html#ref"><span class="keyword">const wchar_t</span>* <span class="fname">ref</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="table.html#setRef"><span class="keyword">void</span> <span class="fname">setRef</span>(<span class="keyword">const wchar_t</span>* ref)</a></li>
+  
+  <li style="margin-top:16px;"><a href="table.html#autoFilter">AutoFilter* <span class="fname">autoFilter</span>()</a></li>
+
+  <li style="margin-top:16px;"><a href="table.html#style">TableStyle <span class="fname">style</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="table.html#setStyle"><span class="keyword">void</span> <span class="fname">setStyle</span>(TableStyle tableStyle)</a></li>
+  
+  <li style="margin-top:16px;"><a href="table.html#showRowStripes"><span class="keyword">bool</span> <span class="fname">showRowStripes</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="table.html#setShowRowStripes"><span class="keyword">void</span> <span class="fname">setShowRowStripes</span>(<span class="keyword">bool</span> showRowStripes = <span class="keyword">true</span>)</a></li>
+  
+  <li style="margin-top:16px;"><a href="table.html#showColumnStripes"><span class="keyword">bool</span> <span class="fname">showColumnStripes</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="table.html#setShowColumnStripes"><span class="keyword">void</span> <span class="fname">setShowColumnStripes</span>(<span class="keyword">bool</span> showColumnStripes = <span class="keyword">true</span>)</a></li>
+  
+  <li style="margin-top:16px;"><a href="table.html#showFirstColumn"><span class="keyword">bool</span> <span class="fname">showFirstColumn</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="table.html#setShowFirstColumn"><span class="keyword">void</span> <span class="fname">setShowFirstColumn</span>(<span class="keyword">bool</span> showFirstColumn = <span class="keyword">true</span>)</a></li>
+  
+  <li style="margin-top:16px;"><a href="table.html#showLastColumn"><span class="keyword">bool</span> <span class="fname">showLastColumn</span>() <span class="keyword">const</span></a></li>
+    
+  <li><a href="table.html#setShowLastColumn"><span class="keyword">void</span> <span class="fname">setShowLastColumn</span>(<span class="keyword">bool</span> showLastColumn = <span class="keyword">true</span>)</a></li>
+  
+  <li style="margin-top:16px;"><a href="table.html#columnSize"><span class="keyword">int</span> <span class="fname">columnSize</span>() <span class="keyword">const</span></a></li>
+  <li><a href="table.html#columnName"><span class="keyword">const wchar_t</span>* <span class="fname">columnName</span>(<span class="keyword">int</span> columnIndex) <span class="keyword">const</span></a></li>
+  <li><a href="table.html#setColumnName"><span class="keyword">bool</span> <span class="fname">setColumnName</span>(<span class="keyword">int</span> columnIndex, <span class="keyword">const wchar_t</span>* name)</a></li>
+
+ </ul>
+
  <br/>
-        <div class="blinks"><b>Index</b>&nbsp;<a href="workbook.html">Book</a>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a></div>  
+        <div class="blinks"><b>Index</b>&nbsp;<a href="workbook.html">Book</a>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a>&nbsp;<a href="formControl.html">FormControl</a>&nbsp;<a href="conditionalFormatting.html">ConditionalFormatting</a>&nbsp;<a href="conditionalFormat.html">ConditionalFormat</a><br/>
+          <a href="coreProperties.html">CoreProperties</a>&nbsp;<a href="table.html">Table</a>
         </div>
     </td>
   </tr>
   <tr>
-    <td id="footer">© 2008 - 2020 XLware. All rights reserved.</td>
+    <td id="footer">© 2008 - 2025 XLware. All rights reserved.</td>
   </tr>
   </tbody>
   </table>

@@ -209,6 +209,7 @@ class ExcelFormat
 	{
 	} // borderColor
 
+
 	/**
 	* Get, or set the color of the diagonal of a cell
 	*
@@ -218,6 +219,17 @@ class ExcelFormat
 	public function borderDiagonalColor($color = null)
 	{
 	} // borderDiagonalColor
+
+	/**
+	* Get, or set the border for the diagonal of a cell
+	*
+	* @param int $style (optional, default=null) One of ExcelFormat::BORDERDIAGONAL_* constants
+	* @return int
+	*/
+	public function borderDiagonal($style = null)
+	{
+	} // borderDiagonalStyle
+
 
 	/**
 	* Get, or set the border for the diagonal of a cell

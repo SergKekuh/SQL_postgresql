@@ -1,3 +1,5 @@
+#define PY_SSIZE_T_CLEAN
+
 #include <Python.h>
 #include <libxl.h>
 
@@ -12,7 +14,7 @@ extern PyTypeObject XLPyFontType;
 
 static int
 init(XLPyBook *self)
-{    
+{
 	self->handler = xlCreateBook();
     return 0;
 }
@@ -21,7 +23,13 @@ static void
 dealloc(XLPyBook *self)
 {
 	xlBookRelease(self->handler);
+	#if PY_MAJOR_VERSION >= 3
+    PyTypeObject *tp = Py_TYPE(self);
+    tp->tp_free(self);
+    Py_DECREF(tp);
+	#else
 	self->ob_type->tp_free((PyObject*)self);
+	#endif
 }
 
 static PyObject *
@@ -77,18 +85,15 @@ add_sheet(XLPyBook *self, PyObject *args)
 {
 	const char *name;
 	PyObject *initSheet = NULL;
-    SheetHandle sheet;
-    XLPySheet *obj;
-
 	if(!PyArg_ParseTuple(args, "s|O!", &name, &XLPySheetType, &initSheet))
-		return NULL;   
+		return NULL;
 	
-   sheet = xlBookAddSheet(self->handler, name,
+	SheetHandle sheet = xlBookAddSheet(self->handler, name,
 			(NULL == initSheet) ? NULL : ((XLPySheet *)initSheet)->handler);
 
 	if (!sheet) Py_RETURN_NONE;
 
-	obj = PyObject_New(XLPySheet, &XLPySheetType);
+	XLPySheet *obj = PyObject_New(XLPySheet, &XLPySheetType);
 	obj->handler = sheet;
 	return (PyObject *)obj;
 }
@@ -97,17 +102,14 @@ static PyObject *
 get_sheet(XLPyBook *self, PyObject *args)
 {
 	int num;
-    SheetHandle sheet;
-    XLPySheet *obj;
-
 	if(!PyArg_ParseTuple(args, "i", &num))
 		return NULL;
 
-	sheet = xlBookGetSheet(self->handler, num);
+	SheetHandle sheet = xlBookGetSheet(self->handler, num);
 	if (!sheet)
 		Py_RETURN_NONE;
 
-	obj = PyObject_New(XLPySheet, &XLPySheetType);
+	XLPySheet *obj = PyObject_New(XLPySheet, &XLPySheetType);
 	obj->handler = sheet;
 	return (PyObject *)obj;
 }
@@ -142,16 +144,13 @@ static PyObject *
 add_format(XLPyBook *self, PyObject *args)
 {
 	PyObject *initFormat = NULL;
-    FormatHandle format;
-    XLPyFormat *obj;
-
 	if(!PyArg_ParseTuple(args, "|O!", &XLPyFormatType, &initFormat)) return NULL;
-	format = xlBookAddFormat(self->handler,
+	FormatHandle format = xlBookAddFormat(self->handler,
 			(NULL == initFormat) ? NULL : ((XLPyFormat *)initFormat)->handler);
 
 	if (!format) Py_RETURN_NONE;
 	
-	obj = PyObject_New(XLPyFormat, &XLPyFormatType);
+	XLPyFormat *obj = PyObject_New(XLPyFormat, &XLPyFormatType);
 	obj->handler = format;
 	return (PyObject *)obj;
 }
@@ -160,16 +159,13 @@ static PyObject *
 add_font(XLPyBook *self, PyObject *args)
 {
 	PyObject *initFont = NULL;
-    FontHandle font;
-    XLPyFont *obj;
-
 	if(!PyArg_ParseTuple(args, "|O!", &XLPyFontType, &initFont)) return NULL;
-	font = xlBookAddFont(self->handler,
+	FontHandle font = xlBookAddFont(self->handler,
 			(NULL == initFont) ? NULL : ((XLPyFont *)initFont)->handler);
 
 	if (!font) Py_RETURN_NONE;
 	
-	obj = PyObject_New(XLPyFont, &XLPyFontType);
+	XLPyFont *obj = PyObject_New(XLPyFont, &XLPyFontType);
 	obj->handler = font;
 	return (PyObject *)obj;
 }
@@ -200,13 +196,11 @@ static PyObject *
 get_picture(XLPyBook *self, PyObject *args)
 {
 	int index;
-	const char *data;
-	unsigned size;
-    int type;
-
 	if(!PyArg_ParseTuple(args, "i", &index)) return NULL;
 
-	type = xlBookGetPicture(self->handler, index, &data, &size);
+	const char *data;
+	unsigned size;
+	int type = xlBookGetPicture(self->handler, index, &data, &size);
 	if (-1 == type) Py_RETURN_NONE;
 
 	return Py_BuildValue("[is#]", type, data, size);
@@ -256,10 +250,9 @@ static PyObject *
 add_custom_num_format(XLPyBook *self, PyObject *args)
 {
 	const char *fmt;
-    int index;
 	if(!PyArg_ParseTuple(args, "s", &fmt)) return NULL;
 
-	index = xlBookAddCustomNumFormat(self->handler, fmt);
+	int index = xlBookAddCustomNumFormat(self->handler, fmt);
 	if(!index) Py_RETURN_NONE;
 	return Py_BuildValue("i", index);
 }
@@ -278,14 +271,11 @@ static PyObject *
 format(XLPyBook *self, PyObject *args)
 {
 	int num;
-    FormatHandle format;
-    XLPyFormat *obj;
-
 	if(!PyArg_ParseTuple(args, "i", &num)) return NULL;
-	format = xlBookFormat(self->handler, num);
+	FormatHandle format = xlBookFormat(self->handler, num);
 	if(!format) Py_RETURN_NONE;
 
-	obj = PyObject_New(XLPyFormat, &XLPyFormatType);
+	XLPyFormat *obj = PyObject_New(XLPyFormat, &XLPyFormatType);
 	obj->handler = format;
 	return (PyObject *)obj;
 }
@@ -301,15 +291,12 @@ static PyObject *
 font(XLPyBook *self, PyObject *args)
 {
 	const int index;
-    FontHandle font;
-    XLPyFont *obj;
-
 	if(!PyArg_ParseTuple(args, "i", &index)) return NULL;
 
-	font = xlBookFont(self->handler, index);
+	FontHandle font = xlBookFont(self->handler, index);
 	if(!font) Py_RETURN_NONE;
 
-	obj = PyObject_New(XLPyFont, &XLPyFontType);
+	XLPyFont *obj = PyObject_New(XLPyFont, &XLPyFontType);
 	obj->handler = font;
 	return (PyObject *)obj;
 }
@@ -324,14 +311,12 @@ static PyObject *
 date_pack(XLPyBook *self, PyObject *args)
 {
     int year, month, day, hour, min, sec, msec;
-    double pack;
-
     if(!PyArg_ParseTuple(args, "iiiiiii",
                 &year, &month, &day, &hour, &min, &sec, &msec)) {
         return NULL;
     }
 
-    pack = xlBookDatePack(self->handler,
+    double pack = xlBookDatePack(self->handler,
             year, month, day, hour, min, sec, msec);
     return Py_BuildValue("d", pack);
 }
@@ -340,10 +325,9 @@ static PyObject *
 date_unpack(XLPyBook *self, PyObject *args)
 {
     double pack;
-    int year, month, day, hour, min, sec, msec;
-
     if(!PyArg_ParseTuple(args, "d", &pack)) return NULL;
-    
+
+    int year, month, day, hour, min, sec, msec;
     if(0 == xlBookDateUnpack(self->handler, pack,
             &year, &month, &day, &hour, &min, &sec, &msec)) {
         Py_RETURN_NONE;
@@ -365,10 +349,9 @@ static PyObject *
 color_unpack(XLPyBook *self, PyObject *args)
 {
     int color;
-    int r, g, b;
-
     if(!PyArg_ParseTuple(args, "i", &color)) return NULL;
-    
+
+    int r, g, b;
     xlBookColorUnpack(self->handler, color, &r, &g, &b);
     return Py_BuildValue("(iii)", r, g, b);
 }
@@ -573,6 +556,52 @@ static PyMethodDef methods[] = {
 	{NULL}
 };
 
+#if PY_MAJOR_VERSION >= 3
+
+PyTypeObject
+XLPyBookType = {
+	PyVarObject_HEAD_INIT(NULL, 0)
+   "XLPyBook",                /* tp_name */
+   sizeof(XLPyBook),          /* tp_basicsize */
+   0,                         /* tp_itemsize */
+   (destructor)dealloc,/* tp_dealloc */
+   0,                         /* tp_print */
+   0,                         /* tp_getattr */
+   0,                         /* tp_setattr */
+   0,                         /* tp_compare */
+   0,                         /* tp_repr */
+   0,                         /* tp_as_number */
+   0,                         /* tp_as_sequence */
+   0,                         /* tp_as_mapping */
+   0,                         /* tp_hash */
+   0,                         /* tp_call */
+   0,                         /* tp_str */
+   0,                         /* tp_getattro */
+   0,                         /* tp_setattro */
+   0,                         /* tp_as_buffer */
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, /* tp_flags*/
+   "XLPy Book",                 /* tp_doc */
+   0,                         /* tp_traverse */
+   0,                         /* tp_clear */
+   0,                         /* tp_richcompare */
+   0,                         /* tp_weaklistoffset */
+   0,                         /* tp_iter */
+   0,                         /* tp_iternext */
+   methods,            /* tp_methods */
+   0,                         /* tp_members */
+   0,                         /* tp_getset */
+   0,                         /* tp_base */
+   0,                         /* tp_dict */
+   0,                         /* tp_descr_get */
+   0,                         /* tp_descr_set */
+   0,                         /* tp_dictoffset */
+   (initproc)init,     /* tp_init */
+   0,                         /* tp_alloc */
+   0,                         /* tp_new */
+};
+
+#else
+
 PyTypeObject
 XLPyBookType = {
    PyObject_HEAD_INIT(NULL)
@@ -615,3 +644,4 @@ XLPyBookType = {
    0,                         /* tp_alloc */
    0,                         /* tp_new */
 };
+#endif

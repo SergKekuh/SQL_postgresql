@@ -16,14 +16,16 @@
       </a>
       <div style="margin-left: 13em; margin-top: 2em;">
         <span id="title">LibXL</span><br/> 
-        <div id="subtitle">API reference version 3.9.1</div>
+        <div id="subtitle">C++ API reference version 4.6.0</div>
       </div>
     </td>
   </tr>
   <tr>
     <td valign="top" width="100%">
       <div id="content">
-        <div><a href="index.html">Index</a>&nbsp;<a href="workbook.html">Book</a>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<b>AutoFilter</b>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a></div>
+      <div><a href="index.html">Index</a>&nbsp;<a href="workbook.html">Book</a>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<b>AutoFilter</b>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a>&nbsp;<a href="formControl.html">FormControl</a>&nbsp;<a href="conditionalFormatting.html">ConditionalFormatting</a>&nbsp;<a href="conditionalFormat.html">ConditionalFormat</a><br/>
+           <a href="coreProperties.html">CoreProperties</a>&nbsp;<a href="table.html">Table</a></div>  
+
 <h3>AutoFilter class reference</h3>
 <ul class="doc"> 
  <li>
@@ -52,13 +54,17 @@
  <li>
   <a name="setSort"></a><span class="keyword">bool</span> <span class="fname">setSort</span>(<span class="keyword">int</span> columnIndex, <span class="keyword">bool</span> descending = <span class="keyword">false</span>)  <div>Sets the sorted column in AutoFilter by zero-based index and its sort order. Returns false if error. Get error info with <a href="workbook.html#errorMessage">Book::errorMessage()</a>.</div>
  </li> 
+<li>
+  <a name="addSort"></a><span class="keyword">bool</span> <span class="fname">addSort</span>(<span class="keyword">int</span> columnIndex, <span class="keyword">bool</span> descending = <span class="keyword">false</span>)  <div>Adds the sorted column in AutoFilter by zero-based index and its sort order. Used for multiple level sorting. Returns false if error. Get an error info with the <a href="workbook.html#errorMessage">Book::errorMessage()</a>.</div>
+ </li> 
 </ul>
-        <div class="blinks"><a href="index.html">Index</a>&nbsp;<a href="workbook.html">Book</a>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<b>AutoFilter</b>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a></div>
+        <div class="blinks"><a href="index.html">Index</a>&nbsp;<a href="workbook.html">Book</a>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<b>AutoFilter</b>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a>&nbsp;<a href="formControl.html">FormControl</a>&nbsp;<a href="conditionalFormatting.html">ConditionalFormatting</a>&nbsp;<a href="conditionalFormat.html">ConditionalFormat</a><br/>
+                            <a href="coreProperties.html">CoreProperties</a>&nbsp;<a href="table.html">Table</a></div>
       </div>
     </td>
   </tr>
   <tr>
-    <td id="footer">© 2008 - 2020 XLware. All rights reserved.</td>
+    <td id="footer">© 2008 - 2025 XLware. All rights reserved.</td>
   </tr>
   </tbody>
   </table>

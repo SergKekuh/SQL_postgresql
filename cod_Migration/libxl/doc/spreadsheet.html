@@ -16,14 +16,16 @@
       </a>
       <div style="margin-left: 13em; margin-top: 2em;">
         <span id="title">LibXL</span><br/> 
-        <div id="subtitle">API reference version 3.9.1</div>
+        <div id="subtitle">C++ API reference version 4.6.0</div>
       </div>
     </td>
   </tr>
   <tr>
     <td valign="top" width="100%">
       <div id="content">
-        <div><a href="index.html">Index</a>&nbsp;<a href="workbook.html">Book</a>&nbsp;<b>Sheet</b>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a></div>  
+      <div><a href="index.html">Index</a>&nbsp;<a href="workbook.html">Book</a>&nbsp;<b>Sheet</b>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a>&nbsp;<a href="formControl.html">FormControl</a>&nbsp;<a href="conditionalFormatting.html">ConditionalFormatting</a>&nbsp;<a href="conditionalFormat.html">ConditionalFormat</a><br/>
+           <a href="coreProperties.html">CoreProperties</a>&nbsp;<a href="table.html">Table</a></div>  
+
 <h3>Sheet class reference</h3>
 
 <ul class="doc"> 
@@ -57,7 +59,7 @@
   <a name="writeStr"></a><span class="keyword">bool</span> <span class="fname">writeStr</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col, <span class="keyword">const wchar_t</span>* value, <a href="format.html">Format</a>* format = 0, CellType type = CELLTYPE_STRING)  <div>Writes a string into the cell with the specified format. If <i>format</i> equals 0 then format is ignored. The string will be copied internally and can be destroyed. Returns false if an error occurs. Get an error info with the <a href="workbook.html#errorMessage">Book::errorMessage()</a>.</div>
  </li> 
   <li>
-  <a name="readRichStr"></a><a href="richString.html">RichString</a>* <span class="fname">readRichStr</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col, <a href="format.html">Format</a>** format = 0)  <div>Reads a <a href="richString.html">rich string</a> with multiple fonts and its format from the cell. It's possible to check if the specified cell contains a rich string with the <a href="spreadsheet.html#isRichString">Sheet::isRichString</a>() method. Don't release a return pointer manually. Returns NULL if the specified cell doesn't contain a string or error occurs. Get an error info with the <a href="workbook.html#errorMessage">Book::errorMessage()</a>.</div>
+  <a name="readRichStr"></a><a href="richString.html">RichString</a>* <span class="fname">readRichStr</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col, <a href="format.html">Format</a>** format = 0)  <div>Reads a <a href="richString.html">rich string</a> with multiple fonts and its format from the cell. It's possible to check if the specified cell contains a rich string with the <a href="spreadsheet.html#isRichStr">Sheet::isRichStr</a>() method. Don't release a return pointer manually. Returns NULL if the specified cell doesn't contain a string or error occurs. Get an error info with the <a href="workbook.html#errorMessage">Book::errorMessage()</a>.</div>
  </li> 
   <li>
   <a name="writeRichStr"></a><span class="keyword">bool</span> <span class="fname">writeRichStr</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col, <a href="richString.html">RichString</a>* richString, <a href="format.html">Format</a>* format = 0)  <div>Writes a <a href="richString.html">rich string</a> with multiple fonts into the cell with the specified format. Add a new <a href="richString.html">rich string</a> with the <a href="workbook.html#addRichString">Book::addRichString()</a> method. If <i>format</i> equals 0 then format is ignored. Returns false if an error occurs. Get an error info with the <a href="workbook.html#errorMessage">Book::errorMessage()</a>.</div>
@@ -118,7 +120,7 @@ Parameters:<br/>
   <a name="isDate"></a><span class="keyword">bool</span> <span class="fname">isDate</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col) <span class="keyword">const</span>  <div>Checks that the cell contains a date or time value. If return value is true read it with the <a href="spreadsheet.html#readNum">Sheet::readNum()</a> method and unpack it with the <a href="workbook.html#dateUnpack">Book::dateUnpack()</a> method.</div>
  </li>
  <li>
-  <a name="isRichString"></a><span class="keyword">bool</span> <span class="fname">isRichString</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col) <span class="keyword">const</span>  <div>Checks that the cell contains a <a  href="richString.html">rich string</a> with multiple fonts. If return value is true read it with the <a href="spreadsheet.html#readRichStr">Sheet::readRichStr()</a> method.</div>
+  <a name="isRichStr"></a><span class="keyword">bool</span> <span class="fname">isRichStr</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col) <span class="keyword">const</span>  <div>Checks that the cell contains a <a  href="richString.html">rich string</a> with multiple fonts. If return value is true read it with the <a href="spreadsheet.html#readRichStr">Sheet::readRichStr()</a> method.</div>
  </li>
  <li>
   <a name="readError"></a>ErrorType <span class="fname">readError</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col) <span class="keyword">const</span>  <div>Reads error from cell.
@@ -152,6 +154,12 @@ Parameters:<br/>
  <li>
   <a name="rowHeightPx"></a><span class="keyword">int</span> <span class="fname">rowHeightPx</span>(<span class="keyword">int</span> row) <span class="keyword">const</span>  <div>Returns row height in pixels.</div>
  </li> 
+<li>
+  <a name="colFormat"></a><a href="format.html">Format</a>* <span class="fname">colFormat</span>(<span class="keyword">int</span> col) <span class="keyword">const</span>  <div>Returns column's format.</div>
+ </li> 
+ <li>
+  <a name="rowFormat"></a><a href="format.html">Format</a>* <span class="fname">rowFormat</span>(<span class="keyword">int</span> row) <span class="keyword">const</span>  <div>Returns row's format.</div>
+ </li> 
  <li>
   <a name="setCol"></a><span class="keyword">bool</span> <span class="fname">setCol</span>(<span class="keyword">int</span> colFirst, <span class="keyword">int</span> colLast, <span class="keyword">double</span> width, <a href="format.html">Format</a>* format = 0, <span class="keyword">bool</span> hidden = <span class="keyword">false</span>)  <div>Sets column width and format for all columns from <i>colFirst</i> to <i>colLast</i>. Column width measured as the number of characters of the maximum digit width of the
 numbers 0, 1, 2, ..., 9 as rendered in the normal style's font. Value -1 is used for autofit column widths. If <i>format</i> equals 0 then format is ignored. Columns may be hidden. Returns false if error occurs. Get an error info with the <a href="workbook.html#errorMessage">Book::errorMessage()</a>.</div>
@@ -170,6 +178,12 @@ numbers 0, 1, 2, ..., 9 as rendered in the normal style's font. Value -1 is used
  </li> 
  <li>
   <a name="setColHidden"></a><span class="keyword">bool</span> <span class="fname">setColHidden</span>(<span class="keyword">int</span> col, <span class="keyword">bool</span> hidden)  <div>Hides column.</div>
+ </li> 
+<li>
+  <a name="defaultRowHeight"></a><span class="keyword">double</span> <span class="fname">defaultRowHeight</span>() <span class="keyword">const</span>  <div>Returns the default row height measured in point size.</div>
+ </li> 
+ <li>
+  <a name="setDefaultRowHeight"></a><span class="keyword">void</span> <span class="fname">setDefaultRowHeight</span>(<span class="keyword">double</span> height)  <div>Sets the default row height measured in point size.</div>
  </li> 
  <li>
   <a name="getMerge"></a><span class="keyword">bool</span> <span class="fname">getMerge</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col, <span class="keyword">int</span>* rowFirst, <span class="keyword">int</span>* rowLast, <span class="keyword">int</span>* colFirst, <span class="keyword">int</span>* colLast)  <div>Gets merged cells for cell at <i>row</i>, <i>col</i>. Result is written in <i>rowFirst</i>, <i>rowLast</i>, <i>colFirst</i>, <i>colLast</i>. Returns true if specified cell is in a merged area else returns false. Get an error info with the <a href="workbook.html#errorMessage">Book::errorMessage()</a>.</div>
@@ -626,6 +640,27 @@ Returns false if error occurs. Get an error info with the <a href="workbook.html
 Returns a string representing the name of the table.
 </div>
  </li> 
+<li>
+<a name="addTable"></a><a href="table.html">Table</a>* <span class="fname">addTable</span>(<span class="keyword">const wchar_t</span>* name, <span class="keyword">int</span> rowFirst, <span class="keyword">int</span> rowLast, <span class="keyword">int</span> colFirst, <span class="keyword">int</span> colLast, <span class="keyword">bool</span> hasHeaders = <span class="keyword">false</span>, <a href="table.html#setStyle">TableStyle</a> tableStyle = TABLESTYLE_MEDIUM2)  <div>Adds a <a href="table.html">table</a> to the sheet with the specified name, range and style (only for xlsx files).<br/>
+<i>name</i> -  the name of the table;<br/>
+<i>rowFirst</i> - the first row of the table;<br/>
+<i>rowLast</i> - the last row of the table;<br/>
+<i>rowLast</i> - the last row of the table;<br/>
+<i>colFirst</i> - the first column of the table;<br/>
+<i>colLast</i> - the last column of the table;<br/>
+<i>hasHeaders</i> - does the specified range include headers or not;<br/>
+<i>tableStyle</i> - the table <a href="table.html#setStyle">style</a>.<br/>
+Returns the <a href="table.html">table</a> if successed, 0 if failed.
+</div>
+ </li> 
+ <li>
+  <a name="getTableByName"></a><a href="table.html">Table</a>* <span class="fname">getTableByName</span>(<span class="keyword">const wchar_t</span>* name)  <div>Gets a <a href="table.html">table</a> by the specified name (only for xlsx files). Returns the <a href="table.html">table</a> if successed, 0 if failed.
+</div>
+ </li> 
+ <li>
+  <a name="getTableByIndex"></a><a href="table.html">Table</a>* <span class="fname">getTableByIndex</span>(<span class="keyword">int</span> index)  <div>Gets a <a href="table.html">table</a> by the specified index (only for xlsx files). Returns the <a href="table.html">table</a> if successed, 0 if failed.
+</div>
+ </li> 
  <li>
   <a name="hyperlinkSize"></a><span class="keyword">int</span> <span class="fname">hyperlinkSize</span>() <span class="keyword">const</span>  <div>Returns the number of hyperlinks in the sheet.</div>
  </li>
@@ -641,16 +676,27 @@ Returns a string representing the name of the table.
   <a name="addHyperlink"></a><span class="keyword">void</span> <span class="fname">addHyperlink</span>(<span class="keyword">const wchar_t*</span> hyperlink, <span class="keyword">int</span> rowFirst, <span class="keyword">int</span> rowLast, <span class="keyword">int</span> colFirst, <span class="keyword">int</span> colLast)  <div>Adds the new hyperlink.
 </div>
  </li>
- <li>
-  <a name="autoFilter"></a><a href="autoFilter.html">AutoFilter</a> <span class="fname">autoFilter</span>()  <div>Returns the AutoFilter. Creates it if it doesn't exist.
+<li>
+  <a name="hyperlinkIndex"></a><span class="keyword">int</span> <span class="fname">hyperlinkIndex</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col) <span class="keyword">const</span>  <div>Checks if the cell contains a hyperlink. Returns an index of hyperlink if exists, -1 if there is no hyperlink in this cell.
 </div>
  </li>
  <li>
-  <a name="applyFilter"></a><span class="keyword">void</span> <span class="fname">applyFilter</span>()  <div>Applies the AutoFilter to the sheet.
+  <a name="isAutoFilter"></a><span class="keyword">bool</span> <span class="fname">isAutoFilter</span>() <span class="keyword">const</span>  <div>Returns true if the AutoFilter already exists (only for xlsx files).</div>
+ </li>
+ <li>
+  <a name="autoFilter"></a><a href="autoFilter.html">AutoFilter</a> <span class="fname">autoFilter</span>()  <div>Returns the AutoFilter. Creates it if it doesn't exist (only for xlsx files).
 </div>
  </li>
  <li>
-  <a name="removeFilter"></a><span class="keyword">void</span> <span class="fname">removeFilter</span>()  <div>Removes the AutoFilter from the sheet.
+  <a name="applyFilter"></a><span class="keyword">void</span> <span class="fname">applyFilter</span>()  <div>Applies the AutoFilter to the sheet (only for xlsx files).
+</div>
+ </li>
+ <li>
+  <a name="applyFilter2"></a><span class="keyword">void</span> <span class="fname">applyFilter2</span>(AutoFilter* autoFilter)  <div>Applies only the specified AutoFilter to the sheet (only for xlsx files).
+  </div>
+ </li>
+ <li>
+  <a name="removeFilter"></a><span class="keyword">void</span> <span class="fname">removeFilter</span>()  <div>Removes the AutoFilter from the sheet (only for xlsx files).
 </div>
  </li>
  <li>
@@ -737,16 +783,42 @@ false - the text is displayed in left-to-right mode.
   <a name="setAutoFitArea"></a><span class="keyword">void</span> <span class="fname">setAutoFitArea</span>(<span class="keyword">int</span> rowFirst = 0, <span class="keyword">int</span> colFirst = 0, <span class="keyword">int</span> rowLast = -1, <span class="keyword">int</span> colLast = -1)  <div>Sets the borders for autofit column widths feature. The method <a href="#setCol">Sheet::setCol()</a> with -1 width value will affect only to the specified limited area.</div>
  </li>
  <li>
-  <a name="addrToRowCol"></a><span class="keyword">void</span> <span class="fname">addrToRowCol</span>(<span class="keyword">const wchar_t</span>* addr, <span class="keyword">int</span>* row, <span class="keyword">int</span>* col, <span class="keyword">bool</span>* rowRelative = 0, <span class="keyword">bool</span>* colRelative = 0)  <div>Converts a cell reference to row and column.</div>
+  <a name="addrToRowCol"></a><span class="keyword">void</span> <span class="fname">addrToRowCol</span>(<span class="keyword">const wchar_t</span>* addr, <span class="keyword">int</span>* row, <span class="keyword">int</span>* col, <span class="keyword">bool</span>* rowRelative = 0, <span class="keyword">bool</span>* colRelative = 0)  <div>Converts a cell reference to row and column:<br/>
+<i>addr</i> - the cell reference, can be relative and absolute, for example C5 or $C$5;<br/>
+<i>row</i> - the extracted row from the cell reference;<br/>
+<i>col</i> - the extracted column from the cell reference;<br/>
+<i>rowRelative</i> - true if row is relative, false if row is absolute;<br/>
+<i>colRelative</i> - true if column is relative, false if column is absolute.</div>
  </li>
   <li>
-  <a name="rowColToAddr"></a><span class="keyword">const wchar_t</span>* <span class="fname">rowColToAddr</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col, <span class="keyword">bool</span> rowRelative = <span class="keyword">true</span>, <span class="keyword">bool</span> colRelative = <span class="keyword">true</span>)  <div>Converts row and column to a cell reference.</div>
+  <a name="rowColToAddr"></a><span class="keyword">const wchar_t</span>* <span class="fname">rowColToAddr</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col, <span class="keyword">bool</span> rowRelative = <span class="keyword">true</span>, <span class="keyword">bool</span> colRelative = <span class="keyword">true</span>)  <div>Converts row and column to a cell reference:<br/>
+<i>row</i> - the row for the cell reference;<br/>
+<i>col</i> - the column for the cell reference;<br/>
+<i>rowRelative</i> - true if row should be relative, false if row should be absolute;<br/>
+<i>colRelative</i> - true if column should be relative, false if column should be absolute;<br/>
+Returns the cell reference, can be relative and absolute, for example C5 or $C$5.</div>
  </li>
   <li>
+  <a name="tabColor"></a><a href="colors.html">Color</a> <span class="fname">tabColor</span>() <span class="keyword">const</span>  <div>Returns the sheet's tab color.</div>
+ </li>
+ <li>
   <a name="setTabColor"></a><span class="keyword">void</span> <span class="fname">setTabColor</span>(<a href="colors.html">Color</a> color)  <div>Sets the color for the sheet's tab.</div>
  </li>
  <li>
+  <a name="getTabColor"></a><span class="keyword">bool</span> <span class="fname">getTabColor</span>(<span class="keyword">int</span>* red, <span class="keyword">int</span>* green, <span class="keyword">int</span>* blue) <span class="keyword">const</span>  <div>Returns the sheet's tab RGB color.</div>
+ </li>
+ <li>
   <a name="setTabColor2"></a><span class="keyword">void</span> <span class="fname">setTabColor</span>(<span class="keyword">int</span> red, <span class="keyword">int</span> green, <span class="keyword">int</span> blue)  <div>Sets the RGB color for the sheet's tab.</div>
+ </li>
+<li>
+  <a name="setBorder"></a><span class="keyword">bool</span> <span class="fname">setBorder</span>(<span class="keyword">int</span> rowFirst, <span class="keyword">int</span> rowLast, <span class="keyword">int</span> colFirst, <span class="keyword">int</span> colLast, <a href="format.html#borderStyleTable">BorderStyle</a> borderStyle, <a href="colors.html">Color</a> borderColor)  <div>Sets the border in the specified range of cells.<br/>
+<i>rowFirst</i> - the first row of range;<br/>
+<i>rowLast</i> - the last row of range;<br/>
+<i>colFirst</i> - the first column of range;<br/>
+<i>colLast</i> - the last column of range;<br/>
+<i>borderStyle</i> - the border style;<br/>
+<i>borderColor</i> - the border color.
+</div>
  </li>
  <li>
   <a name="addIgnoredError"></a><span class="keyword">bool</span> <span class="fname">addIgnoredError</span>(<span class="keyword">int</span> rowFirst, <span class="keyword">int</span> colFirst, <span class="keyword">int</span> rowLast, <span class="keyword">int</span> colLast, IgnoredError iError)  <div>Adds the ignored error for specified range. It allows to hide green triangles on left sides of cells. 
@@ -858,13 +930,43 @@ value has been entered, according to the criteria specified;<br/>
 
 </div>
  </li>
+
+<li>
+  <a name="formControlSize"></a><span class="keyword">int</span> <span class="fname">formControlSize</span>() <span class="keyword">const</span>  <div>Returns a number of form controls in this worksheet (only for xlsx files).
+</div>
+ </li>
+ <li>
+  <a name="formControl"></a><a href="formControl.html">FormControl</a>* <span class="fname">formControl</span>(<span class="keyword">int</span> index)  <div>Returns a form control with the specified index (only for xlsx files). The index must be less than the return value of the <a href="#formControlSize">formControlSize()</a> method.
+</div>
+ </li>
+<li>
+  <a name="addConditionalFormatting"></a><a href="conditionalFormatting.html">ConditionalFormatting</a>* <span class="fname">addConditionalFormatting</span>()  <div>Adds a <a href="conditionalFormatting.html">conditional formatting rules</a> to the sheet (only for xlsx files).</div>
+ </li>
+ <li>
+  <a name="getActiveCell"></a><span class="keyword">bool</span> <span class="fname">getActiveCell</span>(<span class="keyword">int</span>* row, <span class="keyword">int</span>* col) <span class="keyword">const</span>  <div>Gets an active cell of the sheet.</div>
+ </li>
+ <li>
+  <a name="setActiveCell"></a><span class="keyword">void</span> <span class="fname">setActiveCell</span>(<span class="keyword">int</span> row, <span class="keyword">int</span> col)  <div>Sets an active cell of the sheet.</div>
+ </li>
+ <li>
+  <a name="selectionRange"></a><span class="keyword">const wchar_t</span>* <span class="fname">selectionRange</span>() <span class="keyword">const</span>  <div>Returns a range of the selection.</div>
+ </li>
+ <li>
+  <a name="addSelectionRange"></a><span class="keyword">void</span> <span class="fname">addSelectionRange</span>(<span class="keyword">const wchar_t</span>* sqref)  <div>Adds a range to the selection.</div>
+ </li>
+ <li>
+  <a name="removeSelection"></a><span class="keyword">void</span> <span class="fname">removeSelection</span>()  <div>Removes all selection.</div>
+ </li>
+
+
 </ul>
-        <div class="blinks"><a href="index.html">Index</a>&nbsp;<a href="workbook.html">Book</a>&nbsp;<b>Sheet</b>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a></div>
+        <div class="blinks"><a href="index.html">Index</a>&nbsp;<a href="workbook.html">Book</a>&nbsp;<b>Sheet</b>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a>&nbsp;<a href="formControl.html">FormControl</a>&nbsp;<a href="conditionalFormatting.html">ConditionalFormatting</a>&nbsp;<a href="conditionalFormat.html">ConditionalFormat</a><br/>
+                            <a href="coreProperties.html">CoreProperties</a>&nbsp;<a href="table.html">Table</a></div>
       </div>
     </td>
   </tr>
   <tr>
-    <td id="footer">© 2008 - 2020 XLware. All rights reserved.</td>
+    <td id="footer">© 2008 - 2025 XLware. All rights reserved.</td>
   </tr>
   </tbody>
   </table>

@@ -1,13 +1,9 @@
 # LibXLPy:
-A libxl python wrapper
+A libxl python wrapper, support both python2 and python3.
 
-# Installation on a 32-bit system:
+# Installation:
 
-python setup32.py install
-
-# Installation on a 64-bit system:
-
-python setup64.py install
+python setup.py install
 
 # Issues
 

@@ -78,6 +78,12 @@ pre a:hover { text-decoration: underline; }
 .helptable td { border: 1px solid #ddd; padding: 5px; }
 .helptable thead td { background-color:#999;border:1px solid #2F4A6C;color:#fff;padding:4px; text-align:center; padding: 1px; font-weight: bold;}
 
+.helptable2 { border-collapse:collapse; margin-top: 8px; }
+.helptable2 td { border: 1px solid #ddd; padding: 5px; }
+.helptable2 thead td { background-color:#999;border:1px solid #2F4A6C;color:#fff;padding:4px; text-align:center; padding: 1px; font-weight: bold;}
+.helptable2 img { width: 80%; height: auto; }
+
+
 .colortable { border-collapse:collapse; margin-top: 8px; }
 .colortable td { border: 1px solid black; padding: 2px 5px; }
 .colortable thead td { background-color:#999; border:1px solid #2F4A6C; color:#fff; padding:4px; text-align:center; padding: 1px; font-weight: bold;}

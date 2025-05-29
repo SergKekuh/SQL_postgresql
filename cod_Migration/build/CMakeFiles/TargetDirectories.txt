@@ -1,0 +1,3 @@
+/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles/main.dir
+/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles/edit_cache.dir
+/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles/rebuild_cache.dir

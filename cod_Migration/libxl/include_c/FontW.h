@@ -1,11 +1,14 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
-//                     LibXL C headers version 3.9.0                         //
+//                     LibXL C headers version 4.6.0                         //
+//                  for unicode character set (wchar_t)                      //
 //                                                                           //
-//       Copyright (c) 2008 - 2020 Dmytro Skrypnyk and XLware s.r.o.         //
+//                 Copyright (c) 2008 - 2025 XLware s.r.o.                   //
 //                                                                           //
 //   THIS FILE AND THE SOFTWARE CONTAINED HEREIN IS PROVIDED 'AS IS' AND     //
 //                COMES WITH NO WARRANTIES OF ANY KIND.                      //
+//                                                                           //
+//          Please define LIBXL_STATIC variable for static linking.          //
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 

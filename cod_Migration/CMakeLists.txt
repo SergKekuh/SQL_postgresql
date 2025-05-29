@@ -1,21 +1,49 @@
-# Версия CMake
-cmake_minimum_required(VERSION 3.14)
+# Минимальная версия CMake (поддерживает диапазон)
+cmake_minimum_required(VERSION 3.14...3.31)
 
 # Название проекта
 project(PostgreSQLMigrationProject)
 
-# Устанавливаем стандарт C++17
+# Язык C++17
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)  # Отключаем нестандартные расширения
 
-# Ищем библиотеку PostgreSQL (libpq)
-find_package(PQ REQUIRED)
+# Поиск PostgreSQL
+find_package(PostgreSQL REQUIRED)
 
-# Добавляем заголовочные пути libpq
-include_directories(${PQ_INCLUDE_DIRS})
+# Добавляем пути к заголовкам
+include_directories(
+    ${PROJECT_SOURCE_DIR}/include
+    ${PostgreSQL_INCLUDE_DIRS}
+    ${PROJECT_SOURCE_DIR}/libxl/include_cpp
+)
 
-# Добавляем исполняемый файл
-add_executable(main main.cpp)
+# Указываем путь к libxl
+set(LIBXL_PATH ${PROJECT_SOURCE_DIR}/libxl/lib64)
 
-# Линкуем с библиотекой PostgreSQL
-target_link_libraries(main ${PQ_LIBRARIES})
+# Добавляем исходники из src/
+file(GLOB SOURCES "src/*.cpp")
+
+# Создаём исполняемый файл
+add_executable(main main.cpp ${SOURCES})
+
+# Линковка библиотек
+target_link_libraries(main
+    PRIVATE
+    ${PostgreSQL_LIBRARIES}
+    ${LIBXL_PATH}/libxl.so
+)
+
+# (Опционально) Можно указать RPATH для libxl.so
+set_target_properties(main PROPERTIES
+    INSTALL_RPATH "${LIBXL_PATH}"
+    BUILD_WITH_INSTALL_RPATH TRUE
+)
+
+# Цель: копировать main в корень проекта
+add_custom_command(
+    TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:main> ${PROJECT_SOURCE_DIR}/main
+    COMMENT "Копируем main в корень проекта"
+)

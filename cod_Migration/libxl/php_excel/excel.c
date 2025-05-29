@@ -1982,11 +1982,19 @@ EXCEL_METHOD(Format, borderBottomColor)
 }
 /* }}} */
 
+/* {{{ proto int ExcelFormat::borderDiagonal([int style])
+	Get or set the cell diagonal border */
+EXCEL_METHOD(Format, borderDiagonal)
+{
+	PHP_EXCEL_LONG_FORMAT_OPTION(BorderDiagonal, 0);
+}
+/* }}} */
+
 /* {{{ proto int ExcelFormat::borderDiagonalStyle([int style])
 	Get or set the cell diagonal border */
 EXCEL_METHOD(Format, borderDiagonalStyle)
 {
-	PHP_EXCEL_LONG_FORMAT_OPTION(BorderDiagonal, 0);
+	PHP_EXCEL_LONG_FORMAT_OPTION(BorderDiagonalStyle, 0);
 }
 /* }}} */
 
@@ -5693,6 +5701,10 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_Format_borderBottomColor, 0, 0, 0)
 	ZEND_ARG_INFO(0, color)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_Format_borderDiagonal, 0, 0, 0)
+	ZEND_ARG_INFO(0, style)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_Format_borderDiagonalStyle, 0, 0, 0)
 	ZEND_ARG_INFO(0, style)
 ZEND_END_ARG_INFO()
@@ -6675,6 +6687,7 @@ zend_function_entry excel_funcs_format[] = {
 	EXCEL_ME(Format, borderTopColor, arginfo_Format_borderTopColor, 0)
 	EXCEL_ME(Format, borderBottomStyle, arginfo_Format_borderBottomStyle, 0)
 	EXCEL_ME(Format, borderBottomColor, arginfo_Format_borderBottomColor, 0)
+	EXCEL_ME(Format, borderDiagonal, arginfo_Format_borderDiagonal, 0)
 	EXCEL_ME(Format, borderDiagonalStyle, arginfo_Format_borderDiagonalStyle, 0)
 	EXCEL_ME(Format, borderDiagonalColor, arginfo_Format_borderDiagonalColor, 0)
 	EXCEL_ME(Format, fillPattern, arginfo_Format_fillPattern, 0)

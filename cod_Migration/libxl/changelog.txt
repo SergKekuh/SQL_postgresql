@@ -1,3 +1,497 @@
+Version 4.6.0 (2025-04-01)
+--------------------------------------------------
+
+     - added the support of tables (xlsx)
+
+     - added the updating conditional formattings in Sheet::insertCol(), Sheet::insertRow(), Sheet::removeCol() and Sheet::removeRow() methods 
+
+     - changed the sorting behavior from case-senstitive to case-insensitive in the same way as in Excel
+
+     - improved the sorting performance
+
+     - fixed the vulnerability CVE-2023-45853 in MiniZip
+
+New methods:
+
+     - Sheet::addTable()
+     - Sheet::getTableByName()
+     - Sheet::getTableByIndex()
+     - Sheet::applyFilter2()
+
+     - Table::name()
+     - Table::setName()
+     - Table::ref()
+     - Table::setRef()
+     - Table::autoFilter()
+     - Table::style()
+     - Table::setStyle()
+     - Table::showRowStripes()
+     - Table::setShowRowStripes()
+     - Table::showColumnStripes()
+     - Table::setShowColumnStripes()
+     - Table::showFirstColumn()
+     - Table::setShowFirstColumn()
+     - Table::showLastColumn()
+     - Table::setShowLastColumn()
+     - Table::columnSize()
+     - Table::columnName()
+     - Table::setColumnName()
+
+
+Version 4.5.1 (2025-01-07)
+--------------------------------------------------
+
+     - added the Sheet::setBorder() method for drawing borders in the area of cells
+
+     - fixed reading emojis and unicode surrogate pairs in the Sheet::readStr() on Linux/Mac
+
+     - fixed a bug with skipping some rows on reading from some xlsx files from 3rd-party vendors (xlsx)
+
+     - updated Fortran interface
+
+
+Version 4.5.0 (2024-11-22)
+--------------------------------------------------
+
+     - added support of workbook properties (xlsx)
+
+     - added support of XLOOKUP, LET and XMATCH functions (xlsx)
+
+     - added access to default column and row formats: Sheet::colFormat() and Sheet::rowFormat() methods
+
+     - added the updating/moving existing pictures after inserting or removing rows and columns 
+       with Sheet::insertRow(), removeRow(), insertCol() and removeCol() methods (xlsx)
+
+     - added the Book::removeAllPhonetics() method: removes all phonetics data (furigana) from a workbook (xlsx)
+
+     - added some specific language locales for detecting dates in the Sheet::isDate() (xlsx)
+
+     - fixed a precision error with calculating RGB values from theme colors (xlsx)
+
+     - fixed a bug with writing a corrupted file after using Sheet::removeCol(), Sheet::insertCol(), Sheet::insertRow() methods 
+       with shared formulas in a sheet (xlsx)
+
+     - fixed a bug with using a sheet name with a quote together with the Sheet::setPrintRepeatRows() and Sheet::setPrintRepeatCols() methods (xlsx)
+
+     - fixed a bug with loading some xlsx files
+
+New methods:
+
+     - Book::coreProperties()
+     - Book::removeAllPhonetics()
+
+     - CoreProperties::title()
+     - CoreProperties::setTitle()
+     - CoreProperties::subject()
+     - CoreProperties::setSubject()
+     - CoreProperties::creator()
+     - CoreProperties::setCreator()
+     - CoreProperties::lastModifiedBy()
+     - CoreProperties::setLastModifiedBy()
+     - CoreProperties::created()
+     - CoreProperties::setCreated()
+     - CoreProperties::createdAsDouble()
+     - CoreProperties::setCreatedAsDouble()
+     - CoreProperties::modified()
+     - CoreProperties::setModified()
+     - CoreProperties::modifiedAsDouble()
+     - CoreProperties::setModifiedAsDouble()
+     - CoreProperties::tags()
+     - CoreProperties::setTags()
+     - CoreProperties::categories()
+     - CoreProperties::setCategories()
+     - CoreProperties::comments()
+     - CoreProperties::setComments()
+     - CoreProperties::removeAll()
+
+     - Sheet::colFormat()
+     - Sheet::rowFormat()
+
+
+Version 4.4.1 (2024-09-09)
+--------------------------------------------------
+
+     - fixed a bug with sorting in the Sheet::applyFilter() (xlsx)
+
+
+Version 4.4.0 (2024-08-30)
+--------------------------------------------------
+
+    - fixed the vulnerability CVE-2023-45853, updated zlib to the version 1.3.1
+
+    - added the sorting of single-cell hyperlinks for the AutoFilter (xlsx)
+
+    - added the Book::setDpiAwareness() method (xlsx)
+
+    - fixed a bug with inserting/removing columns to/from tables in Sheet::insertCol() and Sheet::removeCol() methods (xlsx)
+
+    - fixed a bug with reading values from form controls (xlsx)
+
+    - fixed a bug with reading formatted inline strings (xlsx)
+
+    - fixed a bug with writing a corrupted workbook with a single quote in a sheet name and named range or print area with using this sheet (xlsx)
+
+    - fixed a memory leak in the Book::loadSheet() for xls files
+
+    - fixed a memory leak in the Book::delSheet() for xls files
+
+
+Version 4.3.0 (2024-04-04)
+--------------------------------------------------
+
+    - added the possibility to remove all VBA code and macros from xlsm and xlsb files
+
+    - added the possibility to remove all printer settings from xlsx, xlsm and xlsb files
+
+    - added the possibility to set an active cell for splitted sheets (xlsx)
+
+    - added keepAllSheets flag for the partial loading methods, if it's true, all sheets are saved back with Book::save() method, 
+      but only one specified sheet is available for processing, thus LibXL can save more memory. It works only for xlsx files,
+      LibXL ignores this flag for xls files 
+
+    - added the multi-level sorting for AutoFilter::addSort() and Sheet::applyFilter() (xlsx)
+
+    - added the updating/moving existing tables with Sheet::insertRow() and Sheet::removeRow() methods (xlsx)
+
+    - improved SVG support
+
+    - fixed a bug with adding a hyperlink after setting a picture, the output xlsx file was unreadable by Excel
+
+    - fixed a bug with incorrect return values in Sheet::rowHeight() and Sheet::rowHeightPx() for non-standard DPI settings for some xlsx files
+
+    - fixed Sheet::setPrintAread(), Sheet::setPrintRepeatRows(), Sheet::setPrintRepeatCols() for working with Japanese/Chinese sheet names
+
+    - fixed a bug with reading some values in double quotes in the Sheet::readFormula() (xlsx)
+
+    - fixed a bug with a workbook overwriting dialog message in Excel when an existing sheet is copied in xlsx file
+
+    - fixed a bug with reading some cells after using functions which changes sheet's size (xlsx)
+
+    - fixed a bug with reading tables in some xlsx files
+
+    - fixed some bugs with partial loading/saving some workbooks in the Book::loadSheet() and Book::save() methods (xlsx)
+
+    - fixed a bug with using non UTF-8 character encodings on Linux and Mac
+
+    - fixed a bug with reading some data from a partially loaded workbook (xlsx)
+
+New methods:
+
+    - Book::removeVBA()
+    - Book::removePrinterSettings()
+
+
+Version 4.2.0 (2023-06-30)
+--------------------------------------------------
+
+     - improved the writing performance for numbers in xlsx files
+
+     - added built-in styles support for xlsx files
+
+     - added SVG support for the Book::addPicture() for xlsx files
+
+     - added the possibility to write hyperlinks with changing the color to purple after clicking on the link 
+
+     - added the possibility to read arrays from formula expressions (xls)
+
+     - added the possibility to define column width and row height in pixels
+
+     - added the Sheet::getTable() helper method for getting a table by name
+
+     - Sheet::firstRow(), Sheet::lastRow(), Sheet::firstCol(), Sheet::lastCol() methods take merged cells into account now (xls)
+
+     - fixed the Sheet::readStr() with reading some numbers with excess precision
+
+New methods:
+
+     - Book::addFormatFromStyle()
+ 
+     - Sheet::setColPx()
+     - Sheet::setRowPx()
+     - Sheet::getTable()
+
+
+Version 4.1.2 (2023-04-12)
+--------------------------------------------------
+
+     - added the Sheet::hyperlinkIndex() for checking if the cell contains a link
+
+     - fixed a bug with loading some xlsx files ("Element not found")
+
+     - fixed a bug with writing some xlsx files with empty XML inside
+ 
+     - fixed a bug with writing empty strings for xls files
+
+     - fixed an output precision for reading numbers by the Sheet::readStr()
+
+
+Version 4.1.1 (2023-03-03)
+--------------------------------------------------
+
+     - fixed a bug with getting correct width and height of picture in the Sheet::getPicture() method 
+       in accordance with current DPI settings (xlsx, only Windows)
+
+     - updated zlib to version 1.2.13
+
+
+Version 4.1.0 (2023-01-30)
+--------------------------------------------------
+
+     - added the conditional formatting support for xlsx files (new ConditionalFormatting and ConditionalFormat classes)
+
+     - added the possibility to get/set an active cell and selection ranges
+
+     - added the possibility to get a color from sheet tabs
+
+     - improved the string overwriting performance for xls files
+
+     - improved the reading performance for xlsx files
+
+     - improved the sorting performance in AutoFilter (xlsx)
+     
+     - added ARM64 support for Windows
+
+     - fixed a bug with cutting sheet names to less than 31 characters in Chinese
+
+     - fixed a bug with loading some xls files ("Label size is incorrect")
+
+     - fixed a bug with union multiple column filters in the Sheet::applyFilter() method (xlsx)
+
+     - fixed an issue with loading some xls files (error message "invalid jpg file")
+
+     - fixed an issue with encoding dates before the 1st of March 1900 in the Book::datePack()
+
+     - fixed an issue with loading some xlsx files with special unicode character BOM (byte order mark)
+       at unexpected position inside XML files
+
+     - fixed issues with copying existing sheet with named ranges in the Book::insertSheet() what led to corrupted output files
+ 
+     - fixed a new-delete-type-mismatch memory issue on Linux and now LibXL works with jemalloc properly
+
+     - fixed an issue with saving UTF-8 encoded filename in the Book::save() method on Windows (xlsx)
+
+     - fixed a hanging issue with loading some xls files 
+
+     - fixed a bug with saving xlsx files with a lot of OLE objects
+
+     - removed the PY_SSIZE_T_CLEAN warning in python interface
+
+New methods:
+
+     - Book::addConditionalFormat()
+
+     - Sheet::addConditionalFormatting()
+     - Sheet::getActiveCell()
+     - Sheet::setActiveCell()
+     - Sheet::selectionRange()
+     - Sheet::addSelectionRange()
+     - Sheet::removeSelection()
+     - Sheet::tabColor()
+     - Sheet::getTabColor()
+
+     - ConditionalFormatting::addRange()
+     - ConditionalFormatting::addRule()
+     - ConditionalFormatting::addTopRule()
+     - ConditionalFormatting::addOpNumRule()
+     - ConditionalFormatting::addOpStrRule()
+     - ConditionalFormatting::addAboveAverageRule()
+     - ConditionalFormatting::addTimePeriodRule()
+     - ConditionalFormatting::add2ColorScaleRule()
+     - ConditionalFormatting::add2ColorScaleFormulaRule()
+     - ConditionalFormatting::add3ColorScaleRule()
+     - ConditionalFormatting::add3ColorScaleFormulaRule()
+
+     - ConditionalFormat::font()
+     - ConditionalFormat::numFormat()
+     - ConditionalFormat::setNumFormat()
+     - ConditionalFormat::customNumFormat()
+     - ConditionalFormat::setCustomNumFormat()
+     - ConditionalFormat::setBorder()
+     - ConditionalFormat::setBorderColor()
+     - ConditionalFormat::borderLeft()
+     - ConditionalFormat::setBorderLeft()
+     - ConditionalFormat::borderRight()
+     - ConditionalFormat::setBorderRight()
+     - ConditionalFormat::borderTop()
+     - ConditionalFormat::setBorderTop()
+     - ConditionalFormat::borderBottom()
+     - ConditionalFormat::setBorderBottom()
+     - ConditionalFormat::borderLeftColor()
+     - ConditionalFormat::setBorderLeftColor()
+     - ConditionalFormat::borderRightColor()
+     - ConditionalFormat::setBorderRightColor()
+     - ConditionalFormat::borderTopColor()
+     - ConditionalFormat::setBorderTopColor()
+     - ConditionalFormat::borderBottomColor()
+     - ConditionalFormat::setBorderBottomColor()
+     - ConditionalFormat::fillPattern()
+     - ConditionalFormat::setFillPattern()
+     - ConditionalFormat::patternForegroundColor()
+     - ConditionalFormat::setPatternForegroundColor()
+     - ConditionalFormat::patternBackgroundColor()
+     - ConditionalFormat::setPatternBackgroundColor()
+     
+
+Version 4.0.4 (2022-06-14)
+--------------------------------------------------
+
+     - fixed a bug with copying formats in the Book::addFormat() method, left and right border colors weren't copied (xlsx)
+
+     - fixed a bug with duplicating some controls elements on saving xlsx files (xlsx)
+
+     - fixed a bug with string concatenations in the Book::addRichString() method (xls)
+
+     - fixed a bug with copying an existing sheet in the Sheet::addSheet() method for the latest versions of xlsx files (xlsx)
+
+
+Version 4.0.3 (2022-01-31)
+--------------------------------------------------
+
+     - fixed a bug with corrupted xlsx files on loading/saving 
+
+     - fixed a bug with saving xlsx files in non-unicode mode on Windows
+
+     - fixed an issue with loading some xlsx files
+
+     - fixed a bug with using a wide string (const wchar_t*) in filename parameter of the Book::save() method
+       and _UNICODE preprocesor definition for saving xls files on non-Windows platforms (xls)
+
+     - fixed a bug with reading formula expressions with functions with numbers in names such as LOG10 in R1C1 reference mode (xls)
+   
+     - added using dyDescent attribute in the Sheet::setDefaultRowHeight() for correct height scaling on different displays,
+       works properly only if a host application has DPI awareness mode (only Windows, xlsx)
+
+
+Version 4.0.2 (2022-01-24)
+--------------------------------------------------
+
+     - restored a compatibility with WPS Office for xlsx files
+
+     - added using dyDescent attribute in the Sheet::setRow() for correct height scaling on different displays,
+       works properly only if a host application has DPI awareness mode (only Windows, xlsx)
+
+     - fixed XML eXternal Entity injection (XXE) security issue by disabling DTD entity expansion (xlsx)
+
+     - fixed a bug in the Book::save() with using non-ascii characters for workbook name (xlsx)
+
+     - fixed an issue with loading some xlsx files
+
+     - fixed a bug in the Sheet::writeFormula() with using named ranges in formula expressions (xls)
+
+
+Version 4.0.1 (2021-12-08)
+--------------------------------------------------
+
+     - fixed an issue with a screen resolution/scaling of UI elements of host application on Windows (removed DPI awareness)
+
+     - fixed a bug with reading strings with incorrect character encoding in the Sheet::readStr() on Linux/MacOSX (xlsx)
+
+     - fixed a bug with writing a corrupted workbook with huge amounts of cells (xlsx)
+
+     - fixed bugs with loading some xls/xlsx files
+
+     - fixed a bug with preserving spaces in strings (xlsx)
+     
+     - fixed the Sheet::readStr() with reading some numbers (rounding) (xlsx)
+
+
+Version 4.0.0 (2021-09-10)
+--------------------------------------------------
+
+     - improved compatibility with the latest versions of Excel (updated XSD schemes) (xlsx)
+
+     - added theme/tint color support (xlsx)
+    
+     - added possibility to read/write from/to controls (checkboxes, compoboxes, listboxes) (xlsx)
+
+     - added High DPI support to adding pictures
+   
+     - added aarch64 platform for Linux
+
+     - added the AutoFilter::addSort() for multiple level sorting
+
+     - added double rounding for reading numbers with the Sheet::readStr() (xlsx)
+   
+     - added an initialization of AutoFilter columns for reading
+
+     - fixed the Sheet::readStr() for reading numbers and booleans from formula expressions (xls)
+
+     - fixed a bug with writing unexpected _xlfn to some formula expressions (xlsx)
+
+     - fixed a bug in the Sheet::applyFilter() with using a custom filter
+
+     - fixed memory leaks in Delphi interface
+
+New methods:
+
+     - Sheet::formControlSize()
+     - Sheet::formControl()
+
+     - FormControl::objectType()
+
+     - FormControl::checked()
+     - FormControl::setChecked()
+
+     - FormControl::fmlaGroup()
+     - FormControl::setFmlaGroup()
+
+     - FormControl::fmlaLink()
+     - FormControl::setFmlaLink()      
+
+     - FormControl::fmlaRange()
+     - FormControl::setFmlaRange()
+
+     - FormControl::fmlaTxbx()
+     - FormControl::setFmlaTxbx()
+
+     - FormControl::name()
+     - FormControl::linkedCell()
+     - FormControl::listFillRange()
+     - FormControl::macro()
+     - FormControl::altText()
+
+     - FormControl::locked()
+     - FormControl::defaultSize()
+     - FormControl::print()
+     - FormControl::disabled()
+
+     - FormControl::item()
+     - FormControl::itemSize()
+     - FormControl::addItem()
+     - FormControl::insertItem()
+     - FormControl::clearItems()
+
+     - FormControl::dropLines()
+     - FormControl::setDropLines()
+
+     - FormControl::dx()
+     - FormControl::setDx()
+
+     - FormControl::firstButton()
+     - FormControl::setFirstButton()
+
+     - FormControl::horiz()
+     - FormControl::setHoriz()
+
+     - FormControl::inc()
+     - FormControl::setInc()
+
+     - FormControl::getMax()
+     - FormControl::setMax()
+
+     - FormControl::getMin()
+     - FormControl::setMin()
+
+     - FormControl::multiSel()
+     - FormControl::setMultiSel()
+
+     - FormControl::sel()
+     - FormControl::setSel()
+
+     - FormControl::fromAnchor()
+     - FormControl::toAnchor()
+
+
 Version 3.9.4 (2021-01-13)
 --------------------------------------------------
 

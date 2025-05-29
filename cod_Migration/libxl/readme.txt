@@ -13,7 +13,7 @@ Package contents:
   lib64            64-bit dynamic library
   lib-armhf        ARMv7 hardware floating dynamic library
   php_excel        source code of plug-in for PHP 
-  changelog.txt    change log
+  changelog.txt    version history
   license.txt      end-user license agreement
   readme.txt       this file
 

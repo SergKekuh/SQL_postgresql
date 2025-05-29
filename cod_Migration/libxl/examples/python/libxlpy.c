@@ -1,22 +1,84 @@
 #include <Python.h>
 #include <libxl.h>
+#include "version.h"
+
+#if PY_MAJOR_VERSION >= 3
+
+#define PyInt_Check             PyLong_Check
+#define PyInt_AS_LONG           PyLong_AsLong
+#define PyInt_FromLong          PyLong_FromLong
+
+#define PyString_Check          PyBytes_Check
+#define PyString_GET_SIZE       PyBytes_GET_SIZE
+#define PyString_AS_STRING      PyBytes_AS_STRING
+
+#define PyString_FromString     PyUnicode_FromString
+
+#endif
 
 extern PyTypeObject XLPyBookType;
 extern PyTypeObject XLPySheetType;
 extern PyTypeObject XLPyFormatType;
 extern PyTypeObject XLPyFontType;
 
+
+static PyMethodDef libxlpyMethods[] = {
+    {NULL, NULL, 0, NULL}       /* Sentinel */
+};
+
+#if PY_MAJOR_VERSION >= 3
+
+static struct PyModuleDef moduledef = {
+  PyModuleDef_HEAD_INIT,
+  "libxlpy",
+  0,              /* m_doc */
+  -1,             /* m_size */
+  libxlpyMethods,   /* m_methods */
+  NULL,           /* m_reload */
+  NULL,           /* m_traverse */
+  NULL,           /* m_clear */
+  NULL            /* m_free */
+};
+
+#define PYMODINITFUNC       PyObject *PyInit_libxlpy(void)
+#define PYMODULE_CREATE()   PyModule_Create(&moduledef)
+#define MODINITERROR        return NULL
+
 #define INIT_TYPE(Type) \
-	Type.tp_new = PyType_GenericNew; \
-	if (PyType_Ready(&Type) < 0) return; \
-	Py_INCREF(&Type)
+    Type.tp_new = PyType_GenericNew; \
+    if (PyType_Ready(&Type) < 0) return NULL; \
+    Py_INCREF(&Type)
+
+#else
+
+#define PYMODINITFUNC       PyMODINIT_FUNC initlibxlpy(void)
+#define PYMODULE_CREATE()   Py_InitModule3("libxlpy", libxlpyMethods, "A libxl python wrapper")
+#define MODINITERROR        return
+
+#define INIT_TYPE(Type) \
+    Type.tp_new = PyType_GenericNew; \
+    if (PyType_Ready(&Type) < 0) return; \
+    Py_INCREF(&Type)
+
+#endif
+
 
 #define ADD_INT_CONSTANT(v) PyModule_AddIntConstant(mod, #v, v)
-void initlibxlpy(void)
+
+PYMODINITFUNC
 {
     PyObject* mod;
-    mod = Py_InitModule3("libxlpy", NULL, "A libxl python wrapper");
-    if (mod == NULL) return;
+
+    mod = PYMODULE_CREATE();
+
+    if (mod == NULL)
+    {
+        MODINITERROR;
+    }
+
+    PyObject *version_string;
+    version_string = PyString_FromString (LIBXLPY_VERSION);
+    PyModule_AddObject (mod, "__version__", version_string);
      
     // Init Classes
 	INIT_TYPE(XLPyBookType);
@@ -246,5 +308,9 @@ void initlibxlpy(void)
     ADD_INT_CONSTANT(FILLPATTERN_THINDIAGCROSSHATCH);
     ADD_INT_CONSTANT(FILLPATTERN_GRAY12P5);
     ADD_INT_CONSTANT(FILLPATTERN_GRAY6P25);
+
+#if PY_MAJOR_VERSION >= 3
+  return mod;
+#endif
 
 }

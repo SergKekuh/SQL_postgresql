@@ -16,24 +16,16 @@
       </a>
       <div style="margin-left: 13em; margin-top: 2em;">
         <span id="title">LibXL</span><br/> 
-        <div id="subtitle">API reference version 3.9.1</div>
+        <div id="subtitle">C++ API reference version 4.6.0</div>
       </div>
     </td>
   </tr>
   <tr>
 <td valign="top" width="100%">
-  <div id="navigation">    
-   <ul style="padding:0px; margin-top:2px;">
- <li><a href="home.html">Home</a></li>
- <li><a href="download.html">Download</a></li>
- <li><a href="documentation.html">Documentation</a></li>
- <li><a href="purchase.html">Purchase</a></li>
- <li><a href="contact.html">Contact</a></li>
-</ul>
-  </div>
   <div id="content">
-   <div>
-    <a href="index.html">Index</a>&nbsp;<b>Book</b>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a></div>
+  <div><a href="index.html">Index</a>&nbsp;<b>Book</b>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a>&nbsp;<a href="formControl.html">FormControl</a>&nbsp;<a href="conditionalFormatting.html">ConditionalFormatting</a>&nbsp;<a href="conditionalFormat.html">ConditionalFormat</a><br/>
+       <a href="coreProperties.html">CoreProperties</a>&nbsp;<a href="table.html">Table</a></div>
+
 <h3>Book class reference</h3>
 
 <ul class="doc"> 
@@ -53,7 +45,11 @@
   <a name="save"></a><span class="keyword">bool</span> <span class="fname">save</span>(<span class="keyword">const wchar_t</span>* filename, <span class="keyword">bool</span> useTempFile = <span class="keyword">false</span>)<br/>
   <div>Saves current workbook into the file. Use a temporary file for reducing memory consumption. Returns false if error occurs. Get an error info with the <a href="workbook.html#errorMessage">Book::errorMessage()</a>.</div>
  </li>          
-    <li>  
+ <li>
+  <a name="load7"></a><span class="keyword">bool</span> <span class="fname">loadWithoutEmptyCells</span>(<span class="keyword">const wchar_t</span>* filename)<br/>
+  <div>Loads a file without empty cells with formatting information for reducing memory consumption.</div>
+ </li> 
+ <li>  
   <a name="loadInfo"></a><span class="keyword">bool</span> <span class="fname">loadInfo</span>(<span class="keyword">const wchar_t</span>* filename)<br/>
   <div>Loads only information about sheets. Afterwards you can call <a href="workbook.html#sheetCount">Book::sheetCount()</a> and <a href="workbook.html#getSheetName">Book::getSheetName()</a> methods. Returns false if error occurs. Get an error info with the <a href="workbook.html#errorMessage">Book::errorMessage()</a>.</div>
  </li>    
@@ -128,6 +124,64 @@ The sheet name must not begin or end with the single quote (') character. Return
   <a name="addFormat"></a><a href="format.html">Format</a>* <span class="fname">addFormat</span>(<a href="format.html">Format</a>* initFormat = 0)<br/>
   <div>Adds a new <a href="format.html">format</a> to the workbook, initial parameters can be copied from other <a href="format.html">format</a>. Returns NULL if error occurs. Please note that after loading a file it will be removed.</div>
  </li> 
+ <li>  
+  <a name="addFormatFromStyle"></a><a href="format.html">Format</a>* <span class="fname">addFormatFromStyle</span>(CellStyle style)<br/>
+  <div>Adds a new <a href="format.html">format</a> to the workbook from the predefined style. Returns NULL if error occurs. Please note that after loading a file it will be removed.    <table class="helptable2"> 
+    <thead>
+    <tr><td>CellStyle value</td><td width=140>View</td></tr>
+    </thead>
+    <tr><td>CELLSTYLE_NORMAL</td><td><img src="images/cellstyle_normal.png" /></td></tr> 
+    <tr><td>CELLSTYLE_BAD</td><td><img src="images/cellstyle_bad.png" /></td></tr> 
+    <tr><td>CELLSTYLE_GOOD</td><td><img src="images/cellstyle_good.png" /></td></tr> 
+    <tr><td>CELLSTYLE_NEUTRAL</td><td><img src="images/cellstyle_neutral.png" /></td></tr> 
+    <tr><td>CELLSTYLE_CALC</td><td><img src="images/cellstyle_calc.png" /></td></tr>
+    <tr><td>CELLSTYLE_CHECKCELL</td><td><img src="images/cellstyle_check.png" /></td></tr> 
+    <tr><td>CELLSTYLE_EXPLANATORY</td><td><img src="images/cellstyle_explanatory.png" /></td></tr> 
+    <tr><td>CELLSTYLE_INPUT</td><td><img src="images/cellstyle_input.png" /></td></tr> 
+    <tr><td>CELLSTYLE_OUTPUT</td><td><img src="images/cellstyle_output.png" /></td></tr> 
+    <tr><td>CELLSTYLE_HYPERLINK</td><td><img src="images/cellstyle_hyperlink.png" /></td></tr> 
+    <tr><td>CELLSTYLE_LINKEDCELL</td><td><img src="images/cellstyle_linkedcell.png" /></td></tr> 
+    <tr><td>CELLSTYLE_NOTE</td><td><img src="images/cellstyle_note.png" /></td></tr> 
+    <tr><td>CELLSTYLE_WARNING</td><td><img src="images/cellstyle_warning.png" /></td></tr> 
+    <tr><td>CELLSTYLE_TITLE</td><td><img src="images/cellstyle_title.png" /></td></tr> 
+    <tr><td>CELLSTYLE_HEADING1</td><td><img src="images/cellstyle_heading1.png" /></td></tr> 
+    <tr><td>CELLSTYLE_HEADING2</td><td><img src="images/cellstyle_heading2.png" /></td></tr> 
+    <tr><td>CELLSTYLE_HEADING3</td><td><img src="images/cellstyle_heading3.png" /></td></tr> 
+    <tr><td>CELLSTYLE_HEADING4</td><td><img src="images/cellstyle_heading4.png" /></td></tr> 
+    <tr><td>CELLSTYLE_TOTAL</td><td><img src="images/cellstyle_total.png" /></td></tr> 
+    <tr><td>CELLSTYLE_20ACCENT1</td><td><img src="images/cellstyle_20accent1.png" /></td></tr> 
+    <tr><td>CELLSTYLE_40ACCENT1</td><td><img src="images/cellstyle_40accent1.png" /></td></tr> 
+    <tr><td>CELLSTYLE_60ACCENT1</td><td><img src="images/cellstyle_60accent1.png" /></td></tr>
+    <tr><td>CELLSTYLE_ACCENT1</td><td><img src="images/cellstyle_accent1.png" /></td></tr>
+    <tr><td>CELLSTYLE_20ACCENT2</td><td><img src="images/cellstyle_20accent2.png" /></td></tr>
+    <tr><td>CELLSTYLE_40ACCENT2</td><td><img src="images/cellstyle_40accent2.png" /></td></tr>
+    <tr><td>CELLSTYLE_60ACCENT2</td><td><img src="images/cellstyle_60accent2.png" /></td></tr>
+    <tr><td>CELLSTYLE_ACCENT2</td><td><img src="images/cellstyle_accent2.png" /></td></tr>
+    <tr><td>CELLSTYLE_20ACCENT3</td><td><img src="images/cellstyle_20accent3.png" /></td></tr>
+    <tr><td>CELLSTYLE_40ACCENT3</td><td><img src="images/cellstyle_40accent3.png" /></td></tr>
+    <tr><td>CELLSTYLE_60ACCENT3</td><td><img src="images/cellstyle_60accent3.png" /></td></tr>
+    <tr><td>CELLSTYLE_ACCENT3</td><td><img src="images/cellstyle_accent3.png" /></td></tr>
+    <tr><td>CELLSTYLE_20ACCENT4</td><td><img src="images/cellstyle_20accent4.png" /></td></tr>
+    <tr><td>CELLSTYLE_40ACCENT4</td><td><img src="images/cellstyle_40accent4.png" /></td></tr>
+    <tr><td>CELLSTYLE_60ACCENT4</td><td><img src="images/cellstyle_60accent4.png" /></td></tr>
+    <tr><td>CELLSTYLE_ACCENT4</td><td><img src="images/cellstyle_accent4.png" /></td></tr>
+    <tr><td>CELLSTYLE_20ACCENT5</td><td><img src="images/cellstyle_20accent5.png" /></td></tr>
+    <tr><td>CELLSTYLE_40ACCENT5</td><td><img src="images/cellstyle_40accent5.png" /></td></tr>
+    <tr><td>CELLSTYLE_60ACCENT5</td><td><img src="images/cellstyle_60accent5.png" /></td></tr>
+    <tr><td>CELLSTYLE_ACCENT5</td><td><img src="images/cellstyle_accent5.png" /></td></tr>
+    <tr><td>CELLSTYLE_20ACCENT6</td><td><img src="images/cellstyle_20accent6.png" /></td></tr>
+    <tr><td>CELLSTYLE_40ACCENT6</td><td><img src="images/cellstyle_40accent6.png" /></td></tr>
+    <tr><td>CELLSTYLE_60ACCENT6</td><td><img src="images/cellstyle_60accent6.png" /></td></tr>
+    <tr><td>CELLSTYLE_ACCENT6</td><td><img src="images/cellstyle_accent6.png" /></td></tr>
+    <tr><td>CELLSTYLE_COMMA</td><td>Comma</td></tr>
+    <tr><td>CELLSTYLE_COMMA0</td><td>Comma [0]</td></tr>
+    <tr><td>CELLSTYLE_CURRENCY</td><td>Currency</td></tr>
+    <tr><td>CELLSTYLE_CURRENCY0</td><td>Currency [0]</td></tr>
+    <tr><td>CELLSTYLE_PERCENT</td><td>Percent</td></tr>                    
+    </table>
+  </div>
+ </li> 
+
   <li>  
   <a name="addFont"></a><a href="font.html">Font</a>* <span class="fname">addFont</span>(<a href="font.html">Font</a>* initFont = 0)<br/>
   <div>Adds a new <a href="font.html">font</a> to the workbook, initial parameters can be copied from other <a href="format.html">font</a>. Returns NULL if error occurs.</div>
@@ -162,6 +216,10 @@ Returns the custom format identifier. It's used in <a href="format.html#setNumFo
  <li>  
   <a name="fontSize"></a><span class="keyword">int</span> <span class="fname">fontSize</span>()<br/>
   <div>Returns a number of fonts in this book.</div>
+ </li> 
+ <li>  
+  <a name="addConditionalFormat"></a><a href="conditionalFormat.html">ConditionalFormat</a>* <span class="fname">addConditionalFormat</span>()<br/>
+  <div>Adds a new <a href="conditionalFormat.html">conditional format</a> to the workbook for using with <a href="conditionalFormatting.html">conditional formatting rules</a> (only for xlsx files).</div>
  </li> 
  <li>  
   <a name="datePack"></a><span class="keyword">double</span> <span class="fname">datePack</span>(<span class="keyword">int</span> year, <span class="keyword">int</span> month, <span class="keyword">int</span> day,
@@ -287,6 +345,10 @@ Returns a picture identifier. Supports BMP, DIB, PNG, JPG and WMF picture format
     </table>
     </div>
    </li> 
+ <li>  
+  <a name="version"></a><span class="keyword">int</span> <span class="fname">version</span>() <span class="keyword">const</span><br/>
+  <div>Returns the version of the used LibXL library in hexadecimal numeral system.</div>
+ </li>
   <li>  
   <a name="biffVersion"></a><span class="keyword">int</span> <span class="fname">biffVersion</span>() <span class="keyword">const</span><br/>
   <div>Returns BIFF version of binary file. Used for xls format only.</div>
@@ -313,6 +375,36 @@ In the 1904 date base system, the lower limit is January 1, 1904, which has seri
   <a name="setTemplate"></a><span class="keyword">void</span> <span class="fname">setTemplate</span>(<span class="keyword">bool</span> tmpl = <span class="keyword">true</span>)<br/>
   <div>Sets the template flag: true - workbook is template, false - workbook is not template (default).<br/>
 It allows to change type of file from a template file (xlt and xltx) to a regular file (xls and xlsx) and vice versa.</div>
+ </li> 
+
+ <li>  
+  <a name="isWriteProtected"></a><span class="keyword">bool</span> <span class="fname">isWriteProtected</span>() <span class="keyword">const</span>
+  <br/>
+  <div>Returns whether the workbook is marked as read-only.</div>
+ </li> 
+
+<li>  
+  <a name="coreProperties"></a><a href="coreProperties.html">CoreProperties</a>* <span class="fname">coreProperties</span>()<br/>
+  <div>Returns workbook properties.</div>
+ </li> 
+ <li>  
+  <a name="removeVBA"></a><span class="keyword">bool</span> <span class="fname">removeVBA</span>()
+
+<br/>
+  <div>Removes all VBA scripts (macros) from the workbook. It should be called after loading xlsm or xlsb files. Returns true if VBA scripts were found and removed.</div>
+ </li> 
+ <li>  
+  <a name="removePrinterSettings"></a><span class="keyword">bool</span> <span class="fname">removePrinterSettings</span>()
+
+<br/>
+  <div>Removes all printer settings from the workbook. It should be called after loading an Excel file. Returns true if printer settings were found and removed.</div>
+ </li> 
+ <li>  
+  <a name="removeAllPhonetics"></a><span class="keyword">void</span> <span class="fname">removeAllPhonetics</span>()
+
+<br/>
+  <div>Removes all phonetics data (furigana) from a workbook.
+</div>
  </li> 
   
  <li>  
@@ -341,13 +433,14 @@ Returns true if a valid locale argument is given.</div>
     </ul>
 
 <div class="blinks">
-   <a href="index.html">Index</a>&nbsp;<b>Book</b>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a></div>       
+   <a href="index.html">Index</a>&nbsp;<b>Book</b>&nbsp;<a href="spreadsheet.html">Sheet</a>&nbsp;<a href="format.html">Format</a>&nbsp;<a href="font.html">Font</a>&nbsp;<a href="autoFilter.html">AutoFilter</a>&nbsp;<a href="filterColumn.html">FilterColumn</a>&nbsp;<a href="richString.html">RichString</a>&nbsp;<a href="formControl.html">FormControl</a>&nbsp;<a href="conditionalFormatting.html">ConditionalFormatting</a>&nbsp;<a href="conditionalFormat.html">ConditionalFormat</a><br/>
+   <a href="coreProperties.html">CoreProperties</a>&nbsp;<a href="table.html">Table</a></div>       
 
   </div>
  </td>
   </tr>
   <tr>
-    <td id="footer">© 2008 - 2020 XLware. All rights reserved.</td>
+    <td id="footer">© 2008 - 2025 XLware. All rights reserved.</td>
   </tr>
   </tbody>
   </table>

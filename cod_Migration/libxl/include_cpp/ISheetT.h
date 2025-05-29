@@ -1,11 +1,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
-//                    LibXL C++ headers version 3.9.0                        //
+//                    LibXL C++ headers version 4.6.0                        //
 //                                                                           //
-//       Copyright (c) 2008 - 2020 Dmytro Skrypnyk and XLware s.r.o.         //
+//                 Copyright (c) 2008 - 2025 XLware s.r.o.                   //
 //                                                                           //
 //   THIS FILE AND THE SOFTWARE CONTAINED HEREIN IS PROVIDED 'AS IS' AND     //
 //                COMES WITH NO WARRANTIES OF ANY KIND.                      //
+//                                                                           //
+//          Please define LIBXL_STATIC variable for static linking.          //
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -21,6 +23,9 @@ namespace libxl
     template<class TCHAR> struct IFormatT;
     template<class TCHAR> struct IAutoFilterT;
     template<class TCHAR> struct IRichStringT;
+    template<class TCHAR> struct IFormControlT;
+    template<class TCHAR> struct IConditionalFormattingT;
+    template<class TCHAR> struct ITableT;
 
     template<class TCHAR>
     struct ISheetT
@@ -69,14 +74,24 @@ namespace libxl
         virtual              int XLAPIENTRY colWidthPx(int col) const = 0;
         virtual              int XLAPIENTRY rowHeightPx(int row) const = 0;
 
+        virtual IFormatT<TCHAR>* XLAPIENTRY colFormat(int col) const = 0;
+        virtual IFormatT<TCHAR>* XLAPIENTRY rowFormat(int row) const = 0;
+
         virtual             bool XLAPIENTRY setCol(int colFirst, int colLast, double width, IFormatT<TCHAR>* format = 0, bool hidden = false) = 0;
+        virtual             bool XLAPIENTRY setColPx(int colFirst, int colLast, int widthPx, IFormatT<TCHAR>* format = 0, bool hidden = false) = 0;
+
         virtual             bool XLAPIENTRY setRow(int row, double height, IFormatT<TCHAR>* format = 0, bool hidden = false) = 0;
+        virtual             bool XLAPIENTRY setRowPx(int row, int heightPx, IFormatT<TCHAR>* format = 0, bool hidden = false) = 0;
 
         virtual             bool XLAPIENTRY rowHidden(int row) const = 0;
         virtual             bool XLAPIENTRY setRowHidden(int row, bool hidden) = 0;
 
         virtual             bool XLAPIENTRY colHidden(int col) const = 0;
         virtual             bool XLAPIENTRY setColHidden(int col, bool hidden) = 0;
+
+        virtual             double XLAPIENTRY defaultRowHeight() const = 0;
+        virtual             void XLAPIENTRY setDefaultRowHeight(double height) = 0;
+
 
         virtual             bool XLAPIENTRY getMerge(int row, int col, int* rowFirst = 0, int* rowLast = 0, int* colFirst = 0, int* colLast = 0) = 0;
         virtual             bool XLAPIENTRY setMerge(int rowFirst, int rowLast, int colFirst, int colLast) = 0;
@@ -204,16 +219,24 @@ namespace libxl
         virtual              int XLAPIENTRY namedRangeSize() const = 0;
         virtual     const TCHAR* XLAPIENTRY namedRange(int index, int* rowFirst, int* rowLast, int* colFirst, int* colLast, int* scopeId = 0, bool* hidden = 0) = 0;
 
+        virtual             bool XLAPIENTRY getTable(const TCHAR* name, int* rowFirst, int* rowLast, int* colFirst, int* colLast, int* headerRowCount, int* totalsRowCount) = 0;
         virtual              int XLAPIENTRY tableSize() const = 0;
         virtual     const TCHAR* XLAPIENTRY table(int index, int* rowFirst, int* rowLast, int* colFirst, int* colLast, int* headerRowCount, int* totalsRowCount) = 0;
 
+        virtual  ITableT<TCHAR>* XLAPIENTRY addTable(const TCHAR* name, int rowFirst, int rowLast, int colFirst, int colLast, bool hasHeaders = false, TableStyle tableStyle = TABLESTYLE_MEDIUM2) = 0;
+        virtual  ITableT<TCHAR>* XLAPIENTRY getTableByName(const TCHAR* name) = 0;
+        virtual  ITableT<TCHAR>* XLAPIENTRY getTableByIndex(int index) = 0;
+
         virtual              int XLAPIENTRY hyperlinkSize() const = 0;
-        virtual     const TCHAR* XLAPIENTRY hyperlink(int index, int* rowFirst, int* rowLast, int* colFirst, int* colLast) = 0;
+        virtual     const TCHAR* XLAPIENTRY hyperlink(int index, int* rowFirst = 0, int* rowLast = 0, int* colFirst = 0, int* colLast = 0) = 0;
         virtual             bool XLAPIENTRY delHyperlink(int index) = 0;
         virtual             void XLAPIENTRY addHyperlink(const TCHAR* hyperlink, int rowFirst, int rowLast, int colFirst, int colLast) = 0;
+        virtual              int XLAPIENTRY hyperlinkIndex(int row, int col) const = 0;
 
+        virtual             bool XLAPIENTRY isAutoFilter() const = 0;
         virtual IAutoFilterT<TCHAR>* XLAPIENTRY autoFilter() = 0;
         virtual             void XLAPIENTRY applyFilter() = 0;
+        virtual             void XLAPIENTRY applyFilter2(IAutoFilterT<TCHAR>* autoFilter) = 0;
         virtual             void XLAPIENTRY removeFilter() = 0;
 
         virtual     const TCHAR* XLAPIENTRY name() const = 0;
@@ -236,8 +259,13 @@ namespace libxl
         virtual             void XLAPIENTRY addrToRowCol(const TCHAR* addr, int* row, int* col, bool* rowRelative = 0, bool* colRelative = 0) = 0;
         virtual     const TCHAR* XLAPIENTRY rowColToAddr(int row, int col, bool rowRelative = true, bool colRelative = true) = 0;
 
+        virtual            Color XLAPIENTRY tabColor() const = 0;
         virtual             void XLAPIENTRY setTabColor(Color color) = 0;
+
+        virtual             bool XLAPIENTRY getTabColor(int* red, int* green, int* blue) const = 0;
         virtual             void XLAPIENTRY setTabColor(int red, int green, int blue) = 0;
+
+        virtual             bool XLAPIENTRY setBorder(int rowFirst, int rowLast, int colFirst, int colLast, BorderStyle borderStyle, Color borderColor) = 0;
 
         virtual             bool XLAPIENTRY addIgnoredError(int rowFirst, int colFirst, int rowLast, int colLast, IgnoredError iError) = 0;
 
@@ -250,6 +278,18 @@ namespace libxl
                                                               const TCHAR* errorTitle = 0, const TCHAR* error = 0, DataValidationErrorStyle errorStyle = VALIDATION_ERRSTYLE_STOP) = 0;
 
         virtual             void XLAPIENTRY removeDataValidations() = 0;
+
+        virtual              int XLAPIENTRY formControlSize() const = 0;
+        virtual IFormControlT<TCHAR>* XLAPIENTRY formControl(int index) = 0;
+
+        virtual IConditionalFormattingT<TCHAR>* XLAPIENTRY addConditionalFormatting() = 0;
+
+        virtual             bool XLAPIENTRY getActiveCell(int* row, int* col) const = 0;
+        virtual             void XLAPIENTRY setActiveCell(int row, int col) = 0;
+
+        virtual     const TCHAR* XLAPIENTRY selectionRange() const = 0;
+        virtual             void XLAPIENTRY addSelectionRange(const TCHAR* sqref) = 0;
+        virtual             void XLAPIENTRY removeSelection() = 0;
 
         virtual                             ~ISheetT() {}
     };

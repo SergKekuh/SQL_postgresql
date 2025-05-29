@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QProcess>
+#include <QMainWindow>
 
 #ifdef _WIN32
   #include <windows.h>
@@ -26,9 +27,9 @@ void MainWindow::generateExcel()
 
     Book* book = xlCreateBook(); // use xlCreateXMLBook() for working with xlsx files
 
-    Sheet* sheet = book->addSheet("Sheet1");
+    Sheet* sheet = book->addSheet(L"Sheet1");
 
-    sheet->writeStr(2, 1, "Hello, World !");
+    sheet->writeStr(2, 1, L"Hello, World !");
     sheet->writeNum(4, 1, 1000);
     sheet->writeNum(5, 1, 2000);
 
@@ -37,7 +38,7 @@ void MainWindow::generateExcel()
     font->setBold(true);
     Format* boldFormat = book->addFormat();
     boldFormat->setFont(font);
-    sheet->writeFormula(6, 1, "SUM(B5:B6)", boldFormat);
+    sheet->writeFormula(6, 1, L"SUM(B5:B6)", boldFormat);
 
     Format* dateFormat = book->addFormat();
     dateFormat->setNumFormat(NUMFORMAT_DATE);
@@ -45,7 +46,7 @@ void MainWindow::generateExcel()
 
     sheet->setCol(1, 1, 12);
 
-    book->save("report.xls");
+    book->save(L"report.xls");
 
     book->release();
 
@@ -54,7 +55,7 @@ void MainWindow::generateExcel()
 
 #ifdef _WIN32
 
-    ::ShellExecuteA(NULL, "open", "report.xls", NULL, NULL, SW_SHOW);
+    ::ShellExecuteA(nullptr, "open", "report.xls", nullptr, nullptr, SW_SHOW);
 
 #elif __APPLE__
 

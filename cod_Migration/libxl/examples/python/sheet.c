@@ -17,7 +17,13 @@ init(XLPySheet *self)
 static void
 dealloc(XLPySheet *self)
 {
+	#if PY_MAJOR_VERSION >= 3
+    PyTypeObject *tp = Py_TYPE(self);
+    tp->tp_free(self);
+    Py_DECREF(tp);
+	#else
 	self->ob_type->tp_free((PyObject*)self);
+	#endif
 }
 
 static PyObject *
@@ -43,15 +49,12 @@ static PyObject *
 cell_format(XLPySheet *self, PyObject *args)
 {
 	const int row, col;
-    FormatHandle fmt;
-    XLPyFormat *obj;
-
 	if(!PyArg_ParseTuple(args, "ii", &row, &col)) return NULL;
 
-	fmt = xlSheetCellFormat(self->handler, row, col);
+	FormatHandle fmt = xlSheetCellFormat(self->handler, row, col);
 	if(!fmt) Py_RETURN_NONE;
 
-	obj = PyObject_New(XLPyFormat, &XLPyFormatType);
+	XLPyFormat *obj = PyObject_New(XLPyFormat, &XLPyFormatType);
 	obj->handler = fmt;
 	return (PyObject *)obj;
 }
@@ -72,18 +75,15 @@ static PyObject *
 read_str(XLPySheet *self, PyObject *args)
 {
 	const int row, col;
-	FormatHandle fmt = NULL;
-    const char *str;
-    XLPyFormat *obj;
-
 	if(!PyArg_ParseTuple(args, "ii", &row, &col)) return NULL;
 
-	str = xlSheetReadStr(self->handler, row, col, &fmt);
+	FormatHandle fmt = NULL;
+	const char *str = xlSheetReadStr(self->handler, row, col, &fmt);
 	if(!str) Py_RETURN_NONE;
 
 	if(!fmt) return Py_BuildValue("(sO)", str, Py_None);
 
-	obj = PyObject_New(XLPyFormat, &XLPyFormatType);
+	XLPyFormat *obj = PyObject_New(XLPyFormat, &XLPyFormatType);
 	obj->handler = fmt;
 	return Py_BuildValue("(sO)", str, obj);
 }
@@ -106,17 +106,15 @@ static PyObject *
 read_num(XLPySheet *self, PyObject *args)
 {
 	const int row, col;
-    FormatHandle fmt = NULL;
-    double num;
-    XLPyFormat *obj;
-
 	if(!PyArg_ParseTuple(args, "ii", &row, &col)) return NULL;
-		
+
+	FormatHandle fmt = NULL;
+	double num;
 	num = xlSheetReadNum(self->handler, row, col, &fmt);
 
 	if(!fmt) return Py_BuildValue("(dO)", num, Py_None);
 
-	obj = PyObject_New(XLPyFormat, &XLPyFormatType);
+	XLPyFormat *obj = PyObject_New(XLPyFormat, &XLPyFormatType);
 	obj->handler = fmt;
 	return Py_BuildValue("(dO)", num, obj);
 }
@@ -139,18 +137,15 @@ static PyObject *
 read_bool(XLPySheet *self, PyObject *args)
 {
 	const int row, col;
-	FormatHandle fmt = NULL;
-    XLPyFormat *obj;
-    int val;
-
 	if(!PyArg_ParseTuple(args, "ii", &row, &col)) return NULL;
 
-	val = xlSheetReadBool(self->handler, row, col, &fmt);
+	FormatHandle fmt = NULL;
+	int val = xlSheetReadBool(self->handler, row, col, &fmt);
 
 	if(!fmt) return Py_BuildValue("(OO)",
 			(0 == val) ? Py_False : Py_True, Py_None);
 
-	obj = PyObject_New(XLPyFormat, &XLPyFormatType);
+	XLPyFormat *obj = PyObject_New(XLPyFormat, &XLPyFormatType);
 	obj->handler = fmt;
 	return Py_BuildValue("(OO)",
 			(0 == val) ? Py_False : Py_True, obj);
@@ -174,18 +169,15 @@ static PyObject *
 read_blank(XLPySheet *self, PyObject *args)
 {
 	const int row, col;
-	FormatHandle fmt = NULL;
-    int val;
-    XLPyFormat *obj;
-
 	if(!PyArg_ParseTuple(args, "ii", &row, &col)) return NULL;
 
-	val = xlSheetReadBlank(self->handler, row, col, &fmt);
+	FormatHandle fmt = NULL;
+	int val = xlSheetReadBlank(self->handler, row, col, &fmt);
 
 	if(!fmt) return Py_BuildValue("(OO)",
 			(0 == val) ? Py_False : Py_True, Py_None);
 
-	obj = PyObject_New(XLPyFormat, &XLPyFormatType);
+	XLPyFormat *obj = PyObject_New(XLPyFormat, &XLPyFormatType);
 	obj->handler = fmt;
 	return Py_BuildValue("(OO)",
 			(0 == val) ? Py_False : Py_True, obj);
@@ -208,17 +200,14 @@ static PyObject *
 read_formula(XLPySheet *self, PyObject *args)
 {
 	const int row, col;
-    FormatHandle fmt = NULL;
-    const char *val;
-	XLPyFormat *obj;
-
 	if(!PyArg_ParseTuple(args, "ii", &row, &col)) return NULL;
-	
-	val = xlSheetReadFormula(self->handler, row, col, &fmt);
+
+	FormatHandle fmt = NULL;
+	const char *val = xlSheetReadFormula(self->handler, row, col, &fmt);
 
 	if(!fmt) return Py_BuildValue("(sO)", val, Py_None);
 
-	obj = PyObject_New(XLPyFormat, &XLPyFormatType);
+	XLPyFormat *obj = PyObject_New(XLPyFormat, &XLPyFormatType);
 	obj->handler = fmt;
 	return Py_BuildValue("(sO)", val, obj);
 }
@@ -241,11 +230,9 @@ static PyObject *
 read_comment(XLPySheet *self, PyObject *args)
 {
 	int row, col;
-    const char *str;
-
 	if(!PyArg_ParseTuple(args, "ii", &row, &col)) return NULL;
 
-	str = xlSheetReadComment(self->handler, row, col);
+	const char *str = xlSheetReadComment(self->handler, row, col);
 	return Py_BuildValue("s", str);
 }
 
@@ -406,10 +393,9 @@ static PyObject *
 get_merge(XLPySheet *self, PyObject *args)
 {
 	int row, col;
-    int rowFirst, rowLast, colFirst, colLast;
-
 	if(!PyArg_ParseTuple(args, "ii", &row, &col)) return NULL;
-	
+
+	int rowFirst, rowLast, colFirst, colLast;
 	if(!xlSheetGetMerge(self->handler, row, col, &rowFirst, &rowLast, &colFirst,
 		&colLast)) {
 		Py_RETURN_NONE;
@@ -453,9 +439,9 @@ static PyObject *
 get_picture(XLPySheet *self, PyObject *args)
 {
 	int index;
-	int rowTop, colLeft, rowBottom, colRight, width, height, offset_x, offset_y;
-
 	if(!PyArg_ParseTuple(args, "i", &index)) return NULL;
+
+	int rowTop, colLeft, rowBottom, colRight, width, height, offset_x, offset_y;
 
 	if(-1 == xlSheetGetPicture(self->handler, index, &rowTop, &colLeft,
 		&rowBottom, &colRight, &width, &height, &offset_x, &offset_y)) {
@@ -1052,10 +1038,9 @@ get_named_range(XLPySheet *self, PyObject *args)
 {
 	const char *name;
 	int scopeId;
-	int rowFirst, rowLast, colFirst, colLast, hidden;
-
 	if(!PyArg_ParseTuple(args, "si", &name, &scopeId)) return NULL;
 
+	int rowFirst, rowLast, colFirst, colLast, hidden;
 	if(!xlSheetGetNamedRange(self->handler, name, &rowFirst, &rowLast,
 		&colFirst, &colLast, scopeId, &hidden)) Py_RETURN_NONE;
 
@@ -1067,12 +1052,10 @@ set_named_range(XLPySheet *self, PyObject *args)
 {
 	const char *name;
 	int rowFirst, rowLast, colFirst, colLast, scopeId;
-    int r;
-
 	if(!PyArg_ParseTuple(args, "siiiii", &name, &rowFirst, &rowLast,
 		&colFirst, &colLast, &scopeId)) return NULL;
 
-	r = xlSheetSetNamedRange(self->handler, name, rowFirst, rowLast,
+	int r = xlSheetSetNamedRange(self->handler, name, rowFirst, rowLast,
 		colFirst, colLast, scopeId);
 
 	if(!r) Py_RETURN_NONE;
@@ -1083,8 +1066,7 @@ static PyObject *
 del_named_range(XLPySheet *self, PyObject *args)
 {
 	const char *name;
-    int scopeId;
-
+        int scopeId;
 	if(!PyArg_ParseTuple(args, "si", &name, &scopeId)) return NULL;
 
 	if(xlSheetDelNamedRange(self->handler, name, scopeId)) Py_RETURN_TRUE;
@@ -1103,12 +1085,10 @@ static PyObject *
 named_range(XLPySheet *self, PyObject *args)
 {
 	int index;
-	int rowFirst, rowLast, colFirst, colLast, scopeId, hidden;
-    const char *range;
-
 	if(!PyArg_ParseTuple(args, "i", &index)) return NULL;
 
-	range = xlSheetNamedRange(self->handler, index,
+	int rowFirst, rowLast, colFirst, colLast, scopeId, hidden;
+	const char *range = xlSheetNamedRange(self->handler, index,
 		&rowFirst, &rowLast, &colFirst, &colLast, &scopeId, &hidden);
 
 	return Py_BuildValue("(siiiiii)", range, rowFirst, rowLast, colFirst, colLast, scopeId, hidden);
@@ -1172,10 +1152,9 @@ static PyObject *
 addr_to_row_col(XLPySheet *self, PyObject *args)
 {
 	const char *addr;
-    int row, col, rowRelative, colRelative;
-
 	if(!PyArg_ParseTuple(args, "s", &addr)) return NULL;
-	
+
+	int row, col, rowRelative, colRelative;
 	xlSheetAddrToRowCol(self->handler, addr, &row, &col, &rowRelative,
 		&colRelative);
 
@@ -1253,12 +1232,12 @@ static PyMethodDef methods[] = {
 		"Returns column width."},
 	{"rowHeight", (PyCFunction) row_height, METH_VARARGS,
 		"Returns row height."},
-	{"setCol", (PyCFunction) set_col, METH_KEYWORDS,
+	{"setCol", (PyCFunction) set_col, METH_VARARGS | METH_KEYWORDS,
 		"Sets column width and format for all columns from colFirst to colLast. "
 		"Column width measured as the number of characters of the maximum digit width of the numbers 0, 1, 2, ..., 9 as rendered in the normal style's font. "
 		"If format equals None then format is ignored. "
 		"Columns may be hidden. Returns False if error occurs"},
-	{"setRow", (PyCFunction) set_row, METH_KEYWORDS,
+	{"setRow", (PyCFunction) set_row, METH_VARARGS | METH_KEYWORDS,
 		"Sets row height and format. Row height measured in point size. "
 		"If format equals None then format is ignored. "
 		"Row may be hidden. Returns False if error occurs"},
@@ -1486,6 +1465,51 @@ static PyMethodDef methods[] = {
 	{NULL}
 };
 
+#if PY_MAJOR_VERSION >= 3
+
+PyTypeObject XLPySheetType = {
+   PyVarObject_HEAD_INIT(NULL, 0)
+   "XLPySheet",               /* tp_name */
+   sizeof(XLPySheet),         /* tp_basicsize */
+   0,                         /* tp_itemsize */
+   (destructor)dealloc,/* tp_dealloc */
+   0,                         /* tp_print */
+   0,                         /* tp_getattr */
+   0,                         /* tp_setattr */
+   0,                         /* tp_compare */
+   0,                         /* tp_repr */
+   0,                         /* tp_as_number */
+   0,                         /* tp_as_sequence */
+   0,                         /* tp_as_mapping */
+   0,                         /* tp_hash */
+   0,                         /* tp_call */
+   0,                         /* tp_str */
+   0,                         /* tp_getattro */
+   0,                         /* tp_setattro */
+   0,                         /* tp_as_buffer */
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, /* tp_flags*/
+   "XLPy Sheet",                 /* tp_doc */
+   0,                         /* tp_traverse */
+   0,                         /* tp_clear */
+   0,                         /* tp_richcompare */
+   0,                         /* tp_weaklistoffset */
+   0,                         /* tp_iter */
+   0,                         /* tp_iternext */
+   methods,            /* tp_methods */
+   0,                         /* tp_members */
+   0,                         /* tp_getset */
+   0,                         /* tp_base */
+   0,                         /* tp_dict */
+   0,                         /* tp_descr_get */
+   0,                         /* tp_descr_set */
+   0,                         /* tp_dictoffset */
+   (initproc)init,     /* tp_init */
+   0,                         /* tp_alloc */
+   0,                         /* tp_new */
+};
+
+#else
+
 PyTypeObject XLPySheetType = {
    PyObject_HEAD_INIT(NULL)
    0,                         /* ob_size */
@@ -1527,3 +1551,5 @@ PyTypeObject XLPySheetType = {
    0,                         /* tp_alloc */
    0,                         /* tp_new */
 };
+
+#endif
