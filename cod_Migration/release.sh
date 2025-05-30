@@ -33,11 +33,8 @@ echo -e "${BLUE}🏗️ Собираем проект через CMake --fresh${
 rm -rf build && mkdir -p build
 cd build || exit 1
 
-# Полная генерация Makefile
 cmake .. > /dev/null 2>&1
-
-# Сборка всех целей (включая tests)
-cmake --build . --clean-first
+cmake --build . --clean-first > /dev/null 2>&1
 
 if [ $? -ne 0 ]; then
     echo -e "${RED}❌ Ошибка сборки${NC}"
@@ -51,11 +48,8 @@ progress_bar "Сборка завершена"
 # --- ШАГ 3: Запуск тестов ---
 echo -e "${BLUE}🧪 Запускаем тесты...${NC}"
 
-# Переходим в build/
-cd build || { echo "Не могу перейти в build/"; exit 1; }
-
-# Запускаем все тесты
-ctest --verbose
+cd build || exit 1
+ctest --verbose > /dev/null 2>&1
 
 if [ $? -ne 0 ]; then
     echo -e "${RED}❌ Тесты провалены!${NC}"
@@ -70,8 +64,18 @@ progress_bar "Тесты пройдены"
 echo -e "${GREEN}🟢 Тесты пройдены. Запускаем программу...${NC}"
 
 read -p $'\e[1;33m🟡 Введите год: \e[0m' YEAR
-read -p $'\e[1;33m🟡 Порог продаж: \e[0m' SALES_THRESHOLD
+read -p $'\e[1;33m🟡 Пороговое значение продаж: \e[0m' SALES_THRESHOLD
 
-# Передаём параметры в main
-echo -e "${BLUE}▶️ Выполняем: ./build/main $YEAR $SALES_THRESHOLD${NC}"
-./build/main "$YEAR" "$SALES_THRESHOLD"
+# Выполняем main с версией в имени файла
+MAIN_EXE="main_$(cat version/version.hpp | grep APP_VERSION | awk '{print $3}' | tr -d '"')"
+
+echo -e "${BLUE}▶️ Выполняем: ./${MAIN_EXE} $YEAR $SALES_THRESHOLD${NC}"
+
+# Проверяем, существует ли файл
+if [ ! -f "./${MAIN_EXE}" ]; then
+    echo -e "${RED}❌ Файл ./${MAIN_EXE} не найден!${NC}"
+    exit 1
+fi
+
+# Запускаем с параметрами
+"./${MAIN_EXE}" "$YEAR" "$SALES_THRESHOLD"

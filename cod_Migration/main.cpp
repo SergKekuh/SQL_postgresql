@@ -8,7 +8,14 @@
 #include <iostream>
 #include <string>
 
-int main() {
+
+int main(int argc, char* argv[]) {
+    // Проверка на количество аргументов
+    if (argc < 3) {
+        std::cerr << "❗ Нужно передать: год и пороговое значение продаж\n";
+        std::cerr << "Использование: " << argv[0] << " <год> <порог_продаж>\n";
+        return 1;
+    }
 
     std::cout << "PostgreSQL Migration Tool " << APP_VERSION << std::endl;
 
@@ -30,18 +37,17 @@ int main() {
 
     // Сервис статистики
     StatisticsService stats(db);
-
-    // Параметры
-    int year = 2023;
-    double maxSales = 142000.0;
-    double minSales = 142000.0;
+   
+    // Парсим аргументы
+    int year = std::atoi(argv[1]);
+    double sales_threshold = std::atof(argv[2]);
 
     logger.log(Logger::format("Fetching data for year: %d", year));
 
     // Получаем данные из БД
     auto allStats = stats.getAllStatistics(year);
-    auto belowStats = stats.getBelowStatistics(year, maxSales);
-    auto higherStats = stats.getHigherStatistics(year, minSales);
+    auto belowStats = stats.getBelowStatistics(year, sales_threshold);
+    auto higherStats = stats.getHigherStatistics(year, sales_threshold);
 
     // Выводим на консоль (для проверки)
     std::cout << "=== All statistics ===" << std::endl;
@@ -72,10 +78,12 @@ int main() {
         std::string logMsg = "Data successfully exported to: " + filename;
         std::cout << logMsg << std::endl;
         logger.log(LOG(logMsg.c_str()));
+        std::cout << "✅ Отчёт создан: " << filename << "\n";
     } else {
         const char* msg = "Error exporting data to Excel!";
         std::cerr << msg << std::endl;
         logger.log(LOG(msg));
+        std::cerr << "❌ Ошибка при экспорте в Excel!\n";
     }
 
     logger.log(LOG("Program finished successfully"));
