@@ -10,3 +10,33 @@
 2025-05-30 14:00:34 [INFO] | Printing statistics to console
 2025-05-30 14:00:34 [INFO] | Data successfully exported to: reports/statistics_report_2025-05-30_14-00-34.xlsx
 2025-05-30 14:00:34 [INFO] | Program finished successfully
+2025-05-30 14:24:53 [INFO] | Запуск программы версии: v1.0.0-3-gbded04a
+2025-05-30 14:24:53 [INFO] | Successfully connected to the database
+2025-05-30 14:24:53 Fetching data for year: 2024
+2025-05-30 14:24:53 [INFO] | Printing statistics to console
+2025-05-30 14:24:53 [INFO] | Data successfully exported to: reports/statistics_report_2025-05-30_14-24-53.xlsx
+2025-05-30 14:24:53 [INFO] | Program finished successfully
+2025-05-30 14:30:29 [INFO] | Запуск программы версии: v1.0.0-3-gbded04a
+2025-05-30 14:30:29 [INFO] | Successfully connected to the database
+2025-05-30 14:30:29 Fetching data for year: 2024
+2025-05-30 14:30:29 [INFO] | Printing statistics to console
+2025-05-30 14:30:29 [INFO] | Data successfully exported to: reports/statistics_report_2025-05-30_14-30-29.xlsx
+2025-05-30 14:30:29 [INFO] | Program finished successfully
+2025-05-30 14:41:10 [INFO] | Запуск программы версии: v1.0.0-3-gbded04a
+2025-05-30 14:41:10 [INFO] | Successfully connected to the database
+2025-05-30 14:41:10 Fetching data for year: 2024
+2025-05-30 14:41:10 [INFO] | Printing statistics to console
+2025-05-30 14:41:10 [INFO] | Data successfully exported to: reports/statistics_report_2025-05-30_14-41-10.xlsx
+2025-05-30 14:41:10 [INFO] | Program finished successfully
+2025-05-30 14:45:47 [INFO] | Запуск программы версии: v1.0.0-3-gbded04a
+2025-05-30 14:45:47 [INFO] | Successfully connected to the database
+2025-05-30 14:45:47 Fetching data for year: 2024
+2025-05-30 14:45:47 [INFO] | Printing statistics to console
+2025-05-30 14:45:47 [INFO] | Data successfully exported to: reports/statistics_report_2025-05-30_14-45-47.xlsx
+2025-05-30 14:45:47 [INFO] | Program finished successfully
+2025-05-30 14:55:55 [INFO] | Запуск программы версии: v1.0.0-3-gbded04a
+2025-05-30 14:55:55 [INFO] | Successfully connected to the database
+2025-05-30 14:55:55 Fetching data for year: 2024
+2025-05-30 14:55:55 [INFO] | Printing statistics to console
+2025-05-30 14:55:55 [INFO] | Data successfully exported to: reports/statistics_report_2025-05-30_14-55-55.xlsx
+2025-05-30 14:55:55 [INFO] | Program finished successfully

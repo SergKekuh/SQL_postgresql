@@ -54,11 +54,11 @@ int main(int argc, char* argv[]) {
     logger.log(LOG("Printing statistics to console"));
 
     for (const auto& stat : allStats) {
-        std::cout << stat.category << " | "
-                  << stat.companies << " | "
-                  << stat.total_invoices << " | "
-                  << stat.total_sales << " | "
-                  << stat.avg_sales << " | "
+        std::cout << stat.category << " \t| "
+                  << stat.companies << " \t| "
+                  << stat.total_invoices << " \t| "
+                  << stat.total_sales << " \t| "
+                  << stat.avg_sales << " \t| "
                   << stat.percent_share << "%" << std::endl;
     }
 
