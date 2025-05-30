@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "/home/serg/Documents/SQL_postgresql/cod_Migration/version/version.hpp"
   "CMakeFiles/generate_version"
 )
 

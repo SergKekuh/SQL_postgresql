@@ -1,0 +1,60 @@
+name: Bump Version on Push to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Get current version
+        id: get_version
+        run: |
+          CURRENT_TAG=$(git describe --tags --match "v*" 2>/dev/null | head -n1)
+          echo "CURRENT_VERSION=$CURRENT_TAG" >> $GITHUB_ENV
+
+      - name: Bump patch version
+        id: bump_version
+        run: |
+          # Инициализируем заранее
+          NEW_VERSION=""
+
+          if [[ "$CURRENT_VERSION" == v* ]]; then
+            VERSION=${CURRENT_VERSION#v}
+            MAJOR=$(echo $VERSION | awk -F. '{print $1}')
+            MINOR=$(echo $VERSION | awk -F. '{print $2}')
+            PATCH=$(echo $VERSION | awk -F. '{print $3}')
+
+            NEW_VERSION="v$MAJOR.$MINOR.$((PATCH + 1))"
+          else
+            NEW_VERSION="v0.1.0"
+          fi
+
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      - name: Create and push tag
+        run: |
+          if [ -z "$NEW_VERSION" ]; then
+            echo "❌ NEW_VERSION не определена!"
+            exit 1
+          fi
+
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git tag "$NEW_VERSION"
+          git push origin "$NEW_VERSION"
+        env:
+          NEW_VERSION: ${{ env.NEW_VERSION }}

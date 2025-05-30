@@ -1,2 +1,2 @@
-RunTests 1 0.111218
+RunTests 1 0.105621
 ---

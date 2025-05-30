@@ -28,7 +28,11 @@ add_custom_target(generate_version
     COMMAND ${PROJECT_SOURCE_DIR}/version/generate_version.sh
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     COMMENT "Генерируем version.hpp из Git..."
+    BYPRODUCTS ${PROJECT_SOURCE_DIR}/version/version.hpp
 )
+
+# Подключаем заголовки с версией
+include_directories(${PROJECT_SOURCE_DIR}/version)
 
 # --- ЯДРО ПРОГРАММЫ (библиотека) ---
 file(GLOB CORE_SOURCES "src/*.cpp")
@@ -45,18 +49,22 @@ add_executable(main main.cpp)
 add_dependencies(main generate_version)
 target_link_libraries(main PRIVATE migration_core)
 
-# Копируем main в корень
+# Получаем версию из файла
+file(READ ${PROJECT_SOURCE_DIR}/version/version.hpp APP_VERSION_CONTENT)
+string(REGEX MATCH "APP_VERSION \"([^\"]+)\"" _ ${APP_VERSION_CONTENT})
+set(APP_VERSION ${CMAKE_MATCH_1})
+
+# Переименовываем исполняемый файл с версией
+set_target_properties(main PROPERTIES OUTPUT_NAME "main_${APP_VERSION}")
+
+# Копируем main в корень проекта с версией
 add_custom_command(
     TARGET main POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:main> ${PROJECT_SOURCE_DIR}/main
-    COMMENT "Копируем main в корень проекта"
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:main> ${PROJECT_SOURCE_DIR}/main_${APP_VERSION}
+    COMMENT "Копируем main с версией в корень проекта"
 )
 
 # --- ТЕСТЫ ---
 enable_testing()
-
-# Подключаем заголовки GTest
 include_directories(/usr/src/googletest/googletest/include)
-
-# Добавляем поддержку тестов
 add_subdirectory(test)
