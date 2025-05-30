@@ -12,12 +12,17 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # PostgreSQL
 find_package(PostgreSQL REQUIRED)
 
+# Подключение GTest
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
 # Подключаем заголовочные файлы
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
     ${PostgreSQL_INCLUDE_DIRS}
     ${PROJECT_SOURCE_DIR}/libxl/include_cpp
     ${PROJECT_SOURCE_DIR}/version
+    ${GTEST_INCLUDE_DIRS}   #<-- Это заменяет /usr/src/googletest/googletest/include
 )
 
 # Указываем путь к libxl
@@ -26,9 +31,9 @@ set(LIBXL_PATH ${PROJECT_SOURCE_DIR}/libxl/lib64)
 # --- ВЕРСИЯ ПРОГРАММЫ ---
 add_custom_target(generate_version
     COMMAND ${PROJECT_SOURCE_DIR}/version/generate_version.sh
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    COMMENT "Генерируем version.hpp из Git..."
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}    
     BYPRODUCTS ${PROJECT_SOURCE_DIR}/version/version.hpp
+    COMMENT "Генерируем version.hpp из Git..."
 )
 
 # Подключаем заголовки с версией
@@ -65,6 +70,10 @@ add_custom_command(
 )
 
 # --- ТЕСТЫ ---
+
 enable_testing()
-include_directories(/usr/src/googletest/googletest/include)
+#include_directories(/usr/src/googletest/googletest/include)
 add_subdirectory(test)
+
+message(STATUS "GTest include path: ${GTEST_INCLUDE_DIRS}")
+message(STATUS "GTest libraries: ${GTEST_LIBRARIES}")

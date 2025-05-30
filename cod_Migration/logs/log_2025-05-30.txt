@@ -4,3 +4,9 @@
 2025-05-30 10:18:49 [INFO] | Printing statistics to console
 2025-05-30 10:18:49 [INFO] | Data successfully exported to: reports/statistics_report_2025-05-30_10-18-49.xlsx
 2025-05-30 10:18:49 [INFO] | Program finished successfully
+2025-05-30 14:00:34 [INFO] | Запуск программы версии: v1.0.0-2-g1474ffb
+2025-05-30 14:00:34 [INFO] | Successfully connected to the database
+2025-05-30 14:00:34 Fetching data for year: 2024
+2025-05-30 14:00:34 [INFO] | Printing statistics to console
+2025-05-30 14:00:34 [INFO] | Data successfully exported to: reports/statistics_report_2025-05-30_14-00-34.xlsx
+2025-05-30 14:00:34 [INFO] | Program finished successfully

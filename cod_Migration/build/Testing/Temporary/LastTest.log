@@ -1,10 +1,10 @@
-Start testing: May 30 12:47 UTC
+Start testing: May 30 14:00 UTC
 ----------------------------------------------------------
 1/1 Testing: RunTests
 1/1 Test: RunTests
 Command: "/home/serg/Documents/SQL_postgresql/cod_Migration/build/test/tests"
 Directory: /home/serg/Documents/SQL_postgresql/cod_Migration/build/test
-"RunTests" start time: May 30 12:47 UTC
+"RunTests" start time: May 30 14:00 UTC
 Output:
 ----------------------------------------------------------
 [==========] Running 2 tests from 1 test suite.
@@ -12,21 +12,21 @@ Output:
 [----------] 2 tests from DatabaseTest
 [ RUN      ] DatabaseTest.CanCreateObject
 Connected to database successfully!
-[       OK ] DatabaseTest.CanCreateObject (47 ms)
+[       OK ] DatabaseTest.CanCreateObject (61 ms)
 [ RUN      ] DatabaseTest.CanConnectToDatabase
 Connected to database successfully!
-[       OK ] DatabaseTest.CanConnectToDatabase (28 ms)
-[----------] 2 tests from DatabaseTest (76 ms total)
+[       OK ] DatabaseTest.CanConnectToDatabase (31 ms)
+[----------] 2 tests from DatabaseTest (93 ms total)
 
 [----------] Global test environment tear-down
-[==========] 2 tests from 1 test suite ran. (76 ms total)
+[==========] 2 tests from 1 test suite ran. (93 ms total)
 [  PASSED  ] 2 tests.
 <end of output>
 Test time =   0.11 sec
 ----------------------------------------------------------
 Test Passed.
-"RunTests" end time: May 30 12:47 UTC
+"RunTests" end time: May 30 14:00 UTC
 "RunTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: May 30 12:47 UTC
+End testing: May 30 14:00 UTC
