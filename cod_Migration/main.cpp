@@ -3,14 +3,18 @@
 #include "StatisticsService.h"
 #include "ExcelExporter.h"
 #include "Logger.h"
+#include "version/version.hpp"
 
 #include <iostream>
 #include <string>
 
 int main() {
+
+    std::cout << "PostgreSQL Migration Tool " << APP_VERSION << std::endl;
+
     // Инициализируем логгер — создаёт папку logs/, если её нет
     Logger logger;
-    logger.log(LOG("Program started"));
+    logger.log(LOG("Запуск программы версии: " + std::string(APP_VERSION)));
 
     // Подключение к базе данных
     Database db("bd_migrations", "postgres", "root");

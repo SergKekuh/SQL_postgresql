@@ -130,6 +130,7 @@ CMakeFiles/main.dir/main.cpp.o: \
  /home/serg/Documents/SQL_postgresql/cod_Migration/include/ClientStatistics.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/include/ExcelExporter.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/include/Logger.h \
+ /home/serg/Documents/SQL_postgresql/cod_Migration/version/version.hpp \
  /usr/include/c++/14/iostream /usr/include/c++/14/ostream \
  /usr/include/c++/14/ios /usr/include/c++/14/exception \
  /usr/include/c++/14/bits/exception_ptr.h \

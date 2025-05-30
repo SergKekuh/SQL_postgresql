@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /home/serg/Documents/SQL_postgresql/cod_Migration/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
@@ -124,6 +134,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named generate_version
+
+# Build rule for target.
+generate_version: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 generate_version
+.PHONY : generate_version
+
+# fast build rule for target.
+generate_version/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/generate_version.dir/build.make CMakeFiles/generate_version.dir/build
+.PHONY : generate_version/fast
+
+#=============================================================================
+# Target rules for targets named migration_core
+
+# Build rule for target.
+migration_core: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 migration_core
+.PHONY : migration_core
+
+# fast build rule for target.
+migration_core/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/build
+.PHONY : migration_core/fast
+
+#=============================================================================
 # Target rules for targets named main
 
 # Build rule for target.
@@ -135,6 +171,19 @@ main: cmake_check_build_system
 main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
+
+#=============================================================================
+# Target rules for targets named tests
+
+# Build rule for target.
+tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests
+.PHONY : tests
+
+# fast build rule for target.
+tests/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/tests.dir/build.make test/CMakeFiles/tests.dir/build
+.PHONY : tests/fast
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -165,7 +214,7 @@ src/ClientActivity.o: src/ClientActivity.cpp.o
 
 # target to build an object file
 src/ClientActivity.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ClientActivity.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ClientActivity.cpp.o
 .PHONY : src/ClientActivity.cpp.o
 
 src/ClientActivity.i: src/ClientActivity.cpp.i
@@ -173,7 +222,7 @@ src/ClientActivity.i: src/ClientActivity.cpp.i
 
 # target to preprocess a source file
 src/ClientActivity.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ClientActivity.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ClientActivity.cpp.i
 .PHONY : src/ClientActivity.cpp.i
 
 src/ClientActivity.s: src/ClientActivity.cpp.s
@@ -181,7 +230,7 @@ src/ClientActivity.s: src/ClientActivity.cpp.s
 
 # target to generate assembly for a file
 src/ClientActivity.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ClientActivity.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ClientActivity.cpp.s
 .PHONY : src/ClientActivity.cpp.s
 
 src/ClientStatistics.o: src/ClientStatistics.cpp.o
@@ -189,7 +238,7 @@ src/ClientStatistics.o: src/ClientStatistics.cpp.o
 
 # target to build an object file
 src/ClientStatistics.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ClientStatistics.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ClientStatistics.cpp.o
 .PHONY : src/ClientStatistics.cpp.o
 
 src/ClientStatistics.i: src/ClientStatistics.cpp.i
@@ -197,7 +246,7 @@ src/ClientStatistics.i: src/ClientStatistics.cpp.i
 
 # target to preprocess a source file
 src/ClientStatistics.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ClientStatistics.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ClientStatistics.cpp.i
 .PHONY : src/ClientStatistics.cpp.i
 
 src/ClientStatistics.s: src/ClientStatistics.cpp.s
@@ -205,7 +254,7 @@ src/ClientStatistics.s: src/ClientStatistics.cpp.s
 
 # target to generate assembly for a file
 src/ClientStatistics.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ClientStatistics.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ClientStatistics.cpp.s
 .PHONY : src/ClientStatistics.cpp.s
 
 src/ClientUnit.o: src/ClientUnit.cpp.o
@@ -213,7 +262,7 @@ src/ClientUnit.o: src/ClientUnit.cpp.o
 
 # target to build an object file
 src/ClientUnit.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ClientUnit.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o
 .PHONY : src/ClientUnit.cpp.o
 
 src/ClientUnit.i: src/ClientUnit.cpp.i
@@ -221,7 +270,7 @@ src/ClientUnit.i: src/ClientUnit.cpp.i
 
 # target to preprocess a source file
 src/ClientUnit.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ClientUnit.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ClientUnit.cpp.i
 .PHONY : src/ClientUnit.cpp.i
 
 src/ClientUnit.s: src/ClientUnit.cpp.s
@@ -229,7 +278,7 @@ src/ClientUnit.s: src/ClientUnit.cpp.s
 
 # target to generate assembly for a file
 src/ClientUnit.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ClientUnit.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ClientUnit.cpp.s
 .PHONY : src/ClientUnit.cpp.s
 
 src/Database.o: src/Database.cpp.o
@@ -237,7 +286,7 @@ src/Database.o: src/Database.cpp.o
 
 # target to build an object file
 src/Database.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Database.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/Database.cpp.o
 .PHONY : src/Database.cpp.o
 
 src/Database.i: src/Database.cpp.i
@@ -245,7 +294,7 @@ src/Database.i: src/Database.cpp.i
 
 # target to preprocess a source file
 src/Database.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Database.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/Database.cpp.i
 .PHONY : src/Database.cpp.i
 
 src/Database.s: src/Database.cpp.s
@@ -253,7 +302,7 @@ src/Database.s: src/Database.cpp.s
 
 # target to generate assembly for a file
 src/Database.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Database.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/Database.cpp.s
 .PHONY : src/Database.cpp.s
 
 src/ExcelExporter.o: src/ExcelExporter.cpp.o
@@ -261,7 +310,7 @@ src/ExcelExporter.o: src/ExcelExporter.cpp.o
 
 # target to build an object file
 src/ExcelExporter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ExcelExporter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o
 .PHONY : src/ExcelExporter.cpp.o
 
 src/ExcelExporter.i: src/ExcelExporter.cpp.i
@@ -269,7 +318,7 @@ src/ExcelExporter.i: src/ExcelExporter.cpp.i
 
 # target to preprocess a source file
 src/ExcelExporter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ExcelExporter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.i
 .PHONY : src/ExcelExporter.cpp.i
 
 src/ExcelExporter.s: src/ExcelExporter.cpp.s
@@ -277,7 +326,7 @@ src/ExcelExporter.s: src/ExcelExporter.cpp.s
 
 # target to generate assembly for a file
 src/ExcelExporter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/ExcelExporter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.s
 .PHONY : src/ExcelExporter.cpp.s
 
 src/Logger.o: src/Logger.cpp.o
@@ -285,7 +334,7 @@ src/Logger.o: src/Logger.cpp.o
 
 # target to build an object file
 src/Logger.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Logger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/Logger.cpp.o
 .PHONY : src/Logger.cpp.o
 
 src/Logger.i: src/Logger.cpp.i
@@ -293,7 +342,7 @@ src/Logger.i: src/Logger.cpp.i
 
 # target to preprocess a source file
 src/Logger.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Logger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/Logger.cpp.i
 .PHONY : src/Logger.cpp.i
 
 src/Logger.s: src/Logger.cpp.s
@@ -301,7 +350,7 @@ src/Logger.s: src/Logger.cpp.s
 
 # target to generate assembly for a file
 src/Logger.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Logger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/Logger.cpp.s
 .PHONY : src/Logger.cpp.s
 
 src/StatisticsService.o: src/StatisticsService.cpp.o
@@ -309,7 +358,7 @@ src/StatisticsService.o: src/StatisticsService.cpp.o
 
 # target to build an object file
 src/StatisticsService.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/StatisticsService.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o
 .PHONY : src/StatisticsService.cpp.o
 
 src/StatisticsService.i: src/StatisticsService.cpp.i
@@ -317,7 +366,7 @@ src/StatisticsService.i: src/StatisticsService.cpp.i
 
 # target to preprocess a source file
 src/StatisticsService.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/StatisticsService.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/StatisticsService.cpp.i
 .PHONY : src/StatisticsService.cpp.i
 
 src/StatisticsService.s: src/StatisticsService.cpp.s
@@ -325,7 +374,7 @@ src/StatisticsService.s: src/StatisticsService.cpp.s
 
 # target to generate assembly for a file
 src/StatisticsService.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/StatisticsService.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/StatisticsService.cpp.s
 .PHONY : src/StatisticsService.cpp.s
 
 src/group.o: src/group.cpp.o
@@ -333,7 +382,7 @@ src/group.o: src/group.cpp.o
 
 # target to build an object file
 src/group.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/group.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/group.cpp.o
 .PHONY : src/group.cpp.o
 
 src/group.i: src/group.cpp.i
@@ -341,7 +390,7 @@ src/group.i: src/group.cpp.i
 
 # target to preprocess a source file
 src/group.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/group.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/group.cpp.i
 .PHONY : src/group.cpp.i
 
 src/group.s: src/group.cpp.s
@@ -349,7 +398,7 @@ src/group.s: src/group.cpp.s
 
 # target to generate assembly for a file
 src/group.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/group.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/group.cpp.s
 .PHONY : src/group.cpp.s
 
 src/year.o: src/year.cpp.o
@@ -357,7 +406,7 @@ src/year.o: src/year.cpp.o
 
 # target to build an object file
 src/year.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/year.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/year.cpp.o
 .PHONY : src/year.cpp.o
 
 src/year.i: src/year.cpp.i
@@ -365,7 +414,7 @@ src/year.i: src/year.cpp.i
 
 # target to preprocess a source file
 src/year.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/year.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/year.cpp.i
 .PHONY : src/year.cpp.i
 
 src/year.s: src/year.cpp.s
@@ -373,7 +422,7 @@ src/year.s: src/year.cpp.s
 
 # target to generate assembly for a file
 src/year.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/year.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/year.cpp.s
 .PHONY : src/year.cpp.s
 
 # Help Target
@@ -385,7 +434,11 @@ help:
 	@echo "... codegen"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
+	@echo "... generate_version"
 	@echo "... main"
+	@echo "... migration_core"
+	@echo "... tests"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

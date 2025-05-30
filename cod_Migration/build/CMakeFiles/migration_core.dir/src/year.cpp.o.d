@@ -1,7 +1,7 @@
-CMakeFiles/main.dir/src/ClientUnit.cpp.o: \
- /home/serg/Documents/SQL_postgresql/cod_Migration/src/ClientUnit.cpp \
+CMakeFiles/migration_core.dir/src/year.cpp.o: \
+ /home/serg/Documents/SQL_postgresql/cod_Migration/src/year.cpp \
  /usr/include/stdc-predef.h \
- /home/serg/Documents/SQL_postgresql/cod_Migration/include/ClientUnit.h \
+ /home/serg/Documents/SQL_postgresql/cod_Migration/include/year.h \
  /usr/include/c++/14/string /usr/include/c++/14/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/14/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/14/bits/os_defines.h \

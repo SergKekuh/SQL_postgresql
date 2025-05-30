@@ -3,15 +3,7 @@ main: \
   /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/crti.o \
   /usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o \
   CMakeFiles/main.dir/main.cpp.o \
-  CMakeFiles/main.dir/src/ClientActivity.cpp.o \
-  CMakeFiles/main.dir/src/ClientStatistics.cpp.o \
-  CMakeFiles/main.dir/src/ClientUnit.cpp.o \
-  CMakeFiles/main.dir/src/Database.cpp.o \
-  CMakeFiles/main.dir/src/ExcelExporter.cpp.o \
-  CMakeFiles/main.dir/src/Logger.cpp.o \
-  CMakeFiles/main.dir/src/StatisticsService.cpp.o \
-  CMakeFiles/main.dir/src/group.cpp.o \
-  CMakeFiles/main.dir/src/year.cpp.o \
+  libmigration_core.a \
   /usr/lib/x86_64-linux-gnu/libpq.so \
   /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/lib64/libxl.so \
   /usr/lib/gcc/x86_64-linux-gnu/14/libstdc++.so \
@@ -65,23 +57,7 @@ main: \
 
 CMakeFiles/main.dir/main.cpp.o:
 
-CMakeFiles/main.dir/src/ClientActivity.cpp.o:
-
-CMakeFiles/main.dir/src/ClientStatistics.cpp.o:
-
-CMakeFiles/main.dir/src/ClientUnit.cpp.o:
-
-CMakeFiles/main.dir/src/Database.cpp.o:
-
-CMakeFiles/main.dir/src/ExcelExporter.cpp.o:
-
-CMakeFiles/main.dir/src/Logger.cpp.o:
-
-CMakeFiles/main.dir/src/StatisticsService.cpp.o:
-
-CMakeFiles/main.dir/src/group.cpp.o:
-
-CMakeFiles/main.dir/src/year.cpp.o:
+libmigration_core.a:
 
 /usr/lib/x86_64-linux-gnu/libpq.so:
 

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmigration_core.a CMakeFiles/migration_core.dir/src/ClientActivity.cpp.o CMakeFiles/migration_core.dir/src/ClientStatistics.cpp.o CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o CMakeFiles/migration_core.dir/src/Database.cpp.o CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o CMakeFiles/migration_core.dir/src/Logger.cpp.o CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o CMakeFiles/migration_core.dir/src/group.cpp.o CMakeFiles/migration_core.dir/src/year.cpp.o
+/usr/bin/ranlib libmigration_core.a
