@@ -15,4 +15,4 @@ echo "#define APP_VERSION \"$VERSION\"" >> version/version.hpp
 echo "#define GIT_COMMIT \"$GIT_HASH\"" >> version/version.hpp
 echo "#define GIT_BRANCH \"$GIT_BRANCH\"" >> version/version.hpp
 
-echo "Версия: $VERSION"
+echo -e "\e[32m🔄 Версия: $VERSION\e[0m"

@@ -70,7 +70,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    std::string templatePath = "../template/template_empty.xlsx";
+    std::string templatePath = "template/template_empty.xlsx";
     std::string filename = "reports/" + ExcelExporter::generateFilenameWithTimestamp("statistics_report", ".xlsx");
 
     if (!ExcelExporter::createReportsDirectoryIfNotExists("reports/")) {
@@ -84,16 +84,36 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // --- ШАГ 2: Записываем все три набора данных ---
-    ExcelExporter::exportToSheet(belowStats, /*startRow=*/6);
-    ExcelExporter::exportToSheet(higherStats, /*startRow=*/12);
-    ExcelExporter::exportToSheet(allStats, /*startRow=*/18);
+    // // --- ШАГ 2: Записываем все три набора данных ---
+    // ExcelExporter::exportToSheet(belowStats, /*startRow=*/6);
+    // ExcelExporter::exportToSheet(higherStats, /*startRow=*/12);
+    // ExcelExporter::exportToSheet(allStats, /*startRow=*/18);
 
-    // --- ШАГ 3: Сохраняем книгу ---
-    if (!ExcelExporter::saveWorkbook(filename)) {
-        logger.log(LOG("❌ Ошибка при сохранении Excel-файла"));
-        std::cerr << "❌ Не удалось сохранить файл\n";
-        return 1;
+    // belowStats — начинаем с строки 7 (row=6)
+    int col = 2;  // C
+    for (const auto& stat : belowStats) {
+        ExcelExporter::exportSingleStatToColumn(stat, col++, /*startRow=*/6);
+    }
+
+    // belowStats → начинаем с строки 6 (C7), колонка I (итог) в строке 12 (I13)
+    int col = 2;  // C
+    for (size_t i = 0; i < belowStats.size(); ++i) {
+        bool isLast = (i == belowStats.size() - 1);
+        ExcelExporter::exportSingleStatToColumn(belowStats[i], col++, /*startRow=*/6, isLast);
+    }
+
+    // higherStats → начинаем с строки 12 (C13)
+    col = 2;
+    for (size_t i = 0; i < higherStats.size(); ++i) {
+        bool isLast = (i == higherStats.size() - 1);
+        ExcelExporter::exportSingleStatToColumn(higherStats[i], col++, /*startRow=*/12, isLast);
+    }
+
+    // allStats → начинаем с строки 18 (C19)
+    col = 2;
+    for (size_t i = 0; i < allStats.size(); ++i) {
+        bool isLast = (i == allStats.size() - 1);
+        ExcelExporter::exportSingleStatToColumn(allStats[i], col++, /*startRow=*/18, isLast);
     }
 
     std::string logMsg = "✅ Данные успешно экспортированы в: " + filename;

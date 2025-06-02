@@ -30,3 +30,62 @@
 2025-06-02 11:52:40 [INFO] | Printing statistics to console
 2025-06-02 11:52:40 [INFO] | Данные успешно экспортированы в Excel: reports/statistics_report_2025-06-02_11-52-40.xlsx
 2025-06-02 11:52:40 [INFO] | Program finished successfully
+2025-06-02 14:18:00 [INFO] | Запуск программы версии: v1.0.0-8-g099b7e0
+2025-06-02 14:18:00 [INFO] | Successfully connected to the database
+2025-06-02 14:18:00 Fetching data for year: 2024
+2025-06-02 14:18:00 [INFO] | Printing statistics to console
+2025-06-02 14:18:00 [INFO] | Не удалось открыть шаблон Excel
+2025-06-02 14:20:50 [INFO] | Запуск программы версии: v1.0.0-8-g099b7e0
+2025-06-02 14:20:50 [INFO] | Successfully connected to the database
+2025-06-02 14:20:50 Fetching data for year: 2024
+2025-06-02 14:20:50 [INFO] | Printing statistics to console
+2025-06-02 14:20:50 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-06-02_14-20-50.xlsx
+2025-06-02 14:20:50 [INFO] | Program finished successfully
+2025-06-02 14:29:06 [INFO] | Запуск программы версии: v1.0.0-8-g099b7e0
+2025-06-02 14:29:06 [INFO] | Successfully connected to the database
+2025-06-02 14:29:06 Fetching data for year: 2024
+2025-06-02 14:29:06 [INFO] | Printing statistics to console
+2025-06-02 14:29:07 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-06-02_14-29-06.xlsx
+2025-06-02 14:29:07 [INFO] | Program finished successfully
+2025-06-02 14:31:23 [INFO] | Запуск программы версии: v1.0.0-8-g099b7e0
+2025-06-02 14:31:23 [INFO] | Successfully connected to the database
+2025-06-02 14:31:23 Fetching data for year: 2024
+2025-06-02 14:31:23 [INFO] | Printing statistics to console
+2025-06-02 14:31:23 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-06-02_14-31-23.xlsx
+2025-06-02 14:31:23 [INFO] | Program finished successfully
+2025-06-02 15:29:39 [INFO] | Запуск программы версии: v1.0.0-8-g099b7e0
+2025-06-02 15:29:39 [INFO] | Successfully connected to the database
+2025-06-02 15:29:39 Fetching data for year: 2024
+2025-06-02 15:29:39 [INFO] | Printing statistics to console
+2025-06-02 15:29:39 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-06-02_15-29-39.xlsx
+2025-06-02 15:29:39 [INFO] | Program finished successfully
+2025-06-02 15:31:11 [INFO] | Запуск программы версии: v1.0.0-8-g099b7e0
+2025-06-02 15:31:11 [INFO] | Successfully connected to the database
+2025-06-02 15:31:11 Fetching data for year: 2024
+2025-06-02 15:31:11 [INFO] | Printing statistics to console
+2025-06-02 15:31:11 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-06-02_15-31-11.xlsx
+2025-06-02 15:31:11 [INFO] | Program finished successfully
+2025-06-02 15:40:39 [INFO] | Запуск программы версии: v1.0.0-8-g099b7e0
+2025-06-02 15:40:39 [INFO] | Successfully connected to the database
+2025-06-02 15:40:39 Fetching data for year: 2024
+2025-06-02 15:40:39 [INFO] | Printing statistics to console
+2025-06-02 15:40:39 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-06-02_15-40-39.xlsx
+2025-06-02 15:40:39 [INFO] | Program finished successfully
+2025-06-02 15:56:41 [INFO] | Запуск программы версии: v1.0.0-8-g099b7e0
+2025-06-02 15:56:42 [INFO] | Successfully connected to the database
+2025-06-02 15:56:42 Fetching data for year: 2024
+2025-06-02 15:56:42 [INFO] | Printing statistics to console
+2025-06-02 15:56:42 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-06-02_15-56-42.xlsx
+2025-06-02 15:56:42 [INFO] | Program finished successfully
+2025-06-02 15:58:34 [INFO] | Запуск программы версии: v1.0.0-8-g099b7e0
+2025-06-02 15:58:35 [INFO] | Successfully connected to the database
+2025-06-02 15:58:35 Fetching data for year: 2024
+2025-06-02 15:58:35 [INFO] | Printing statistics to console
+2025-06-02 15:58:35 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-06-02_15-58-35.xlsx
+2025-06-02 15:58:35 [INFO] | Program finished successfully
+2025-06-02 16:01:25 [INFO] | Запуск программы версии: v1.0.0-8-g099b7e0
+2025-06-02 16:01:25 [INFO] | Successfully connected to the database
+2025-06-02 16:01:25 Fetching data for year: 2024
+2025-06-02 16:01:25 [INFO] | Printing statistics to console
+2025-06-02 16:01:25 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-06-02_16-01-25.xlsx
+2025-06-02 16:01:25 [INFO] | Program finished successfully

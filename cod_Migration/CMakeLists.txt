@@ -12,7 +12,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # PostgreSQL
 find_package(PostgreSQL REQUIRED)
 
-# Подключение GTest
+# GTest
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
@@ -22,25 +22,19 @@ include_directories(
     ${PostgreSQL_INCLUDE_DIRS}
     ${PROJECT_SOURCE_DIR}/libxl/include_cpp
     ${PROJECT_SOURCE_DIR}/version
-    ${GTEST_INCLUDE_DIRS}   #<-- Это заменяет /usr/src/googletest/googletest/include
+    ${GTEST_INCLUDE_DIRS}
 )
 
 # Указываем путь к libxl
 set(LIBXL_PATH ${PROJECT_SOURCE_DIR}/libxl/lib64)
 
-# --- ВЕРСИЯ ПРОГРАММЫ ---
+# --- Генерация version.hpp из Git ---
 add_custom_target(generate_version
     COMMAND ${PROJECT_SOURCE_DIR}/version/generate_version.sh
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}    
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     BYPRODUCTS ${PROJECT_SOURCE_DIR}/version/version.hpp
-    COMMENT "Генерируем version.hpp из Git..."
+    COMMENT "🔄 Генерируем version.hpp из Git"
 )
-
-# Выполняем generate_version перед main
-add_dependencies(main generate_version)
-
-# Подключаем заголовки с версией
-include_directories(${PROJECT_SOURCE_DIR}/version)
 
 # --- ЯДРО ПРОГРАММЫ (библиотека) ---
 file(GLOB CORE_SOURCES "src/*.cpp")
@@ -57,26 +51,26 @@ add_executable(main main.cpp)
 add_dependencies(main generate_version)
 target_link_libraries(main PRIVATE migration_core)
 
-# Получаем версию из файла
+# --- Получаем версию из файла ---
 file(READ ${PROJECT_SOURCE_DIR}/version/version.hpp APP_VERSION_CONTENT)
 string(REGEX MATCH "APP_VERSION \"([^\"]+)\"" _ ${APP_VERSION_CONTENT})
 set(APP_VERSION ${CMAKE_MATCH_1})
 
-# Переименовываем исполняемый файл с версией
+# --- Переименовываем main до сборки ---
 set_target_properties(main PROPERTIES OUTPUT_NAME "main_${APP_VERSION}")
 
-# Копируем main в корень проекта с версией
+# --- Копируем main в корень после сборки ---
 add_custom_command(
     TARGET main POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:main> ${PROJECT_SOURCE_DIR}/main_${APP_VERSION}
-    COMMENT "Копируем main с версией в корень проекта"
+    COMMENT "📁 main скопирован в корень проекта как main_${APP_VERSION}"
 )
 
 # --- ТЕСТЫ ---
-
 enable_testing()
-#include_directories(/usr/src/googletest/googletest/include)
 add_subdirectory(test)
 
-message(STATUS "GTest include path: ${GTEST_INCLUDE_DIRS}")
-message(STATUS "GTest libraries: ${GTEST_LIBRARIES}")
+# --- СТАТИЧЕСКИЕ СООБЩЕНИЯ ---
+message(STATUS "🟢 GTest include path: ${GTEST_INCLUDE_DIRS}")
+message(STATUS "🟢 PostgreSQL include path: ${PostgreSQL_INCLUDE_DIRS}")
+message(STATUS "🟢 PostgreSQL libraries: ${PostgreSQL_LIBRARIES}")

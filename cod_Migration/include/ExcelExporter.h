@@ -5,25 +5,38 @@
 #include <vector>
 #include "ClientStatistics.h"
 
+// Подключаем libxl заранее, чтобы использовать типы
+#include <libxl.h>
+
 class ExcelExporter {
 public:
-    // Открывает шаблон и готовит его для нескольких записей
+    // Открывает шаблон Excel
     static bool openTemplate(const std::string& templatePath);
 
-    // Записывает одну группу статистики
-    static bool exportToSheet(
-        const std::vector<ClientStatistics>& stats,
-        int startRow);  // Начальная строка для этой группы
+    // Записывает одну группу данных по столбцу (например, C, D, E...)
+    static bool exportToSheet(const std::vector<ClientStatistics>& stats, int startRow);
 
-    // Сохраняет книгу в файл
+     // Экспорт одного статистического объекта
+    static bool exportSingleStatToColumn(
+        const ClientStatistics& stat,
+        int col,
+        int startRow,
+        bool isLast = false);  // Указывает, является ли эта запись последней в группе
+
+    // Сохраняет книгу
     static bool saveWorkbook(const std::string& outputFilename);
 
-    // Создание папки reports/
-    static bool createReportsDirectoryIfNotExists(const std::string& dirPath = "reports/");
-    static std::string generateFilenameWithTimestamp(const std::string& baseName = "statistics_report", const std::string& extension = ".xlsx");
+    // Вспомогательные методы
+    static std::string generateFilenameWithTimestamp(
+        const std::string& baseName = "statistics_report",
+        const std::string& extension = ".xlsx");
+
+    static bool createReportsDirectoryIfNotExists(
+        const std::string& dirPath = "reports/");
 
 private:
-    static libxl::Book* sharedBook;  // Указатель на общий workbook
+    // Статический указатель на книгу
+    static libxl::Book* sharedBook;
 };
 
 #endif // EXCELEXPORTER_H

@@ -59,6 +59,14 @@ echo -e "${BLUE}🚀 release.sh — полная очистка и сборка 
 echo -e "${BLUE}🔄 Получаем версию из Git...${NC}"
 ./version/generate_version.sh
 
+if [ $? -ne 0 ]; then
+    echo -e "${RED}❌ Не удалось сгенерировать версию${NC}"
+    exit 1
+fi
+
+APP_VERSION=$(cat version/version.hpp | grep APP_VERSION | awk '{print $3}' | tr -d '"')
+echo -e "${GREEN}📦 Версия: ${APP_VERSION}${NC}"
+
 # --- ШАГ 2: Очистка и сборка через CMake --
 echo -e "${BLUE}🏗️ Собираем проект через CMake --fresh...${NC}"
 
