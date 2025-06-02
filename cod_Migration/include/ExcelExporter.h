@@ -6,16 +6,18 @@
 
 class ExcelExporter {
 public:
-    // Экспорт всех наборов данных в один файл на разных листах
-    static bool exportAllToXlsx(const std::string& filename,
-                                const std::vector<ClientStatistics>& allStats,
-                                const std::vector<ClientStatistics>& belowStats,
-                                const std::vector<ClientStatistics>& higherStats);
+    // Экспорт всех трёх статистик на один лист из шаблона
+    static bool exportToSheetFromTemplate(
+        const std::string& templatePath,
+        const std::string& outputFilename,
+        const std::vector<ClientStatistics>& stats,
+        int startRow,         // Например: 6 (строка 7)
+        int totalRow = 0);   // Например: 6 → I7
 
     // Генерация имени файла с датой
-    static std::string generateFilenameWithTimestamp(const std::string& baseName = "report", const std::string& extension = ".xlsx");
+    static std::string generateFilenameWithTimestamp(const std::string& baseName = "statistics_report", const std::string& extension = ".xlsx");
 
-    // Создать папку reports, если её нет
+    // Создание папки reports/
     static bool createReportsDirectoryIfNotExists(const std::string& dirPath = "reports/");
 };
 

@@ -70,20 +70,35 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Генерируем имя файла с датой и временем
+    // Путь к шаблону
+    std::string templatePath = "template/template_empty.xlsx";
+
+    // Генерируем имя выходного файла
     std::string filename = "reports/" + ExcelExporter::generateFilenameWithTimestamp("statistics_report", ".xlsx");
 
-    // Сохраняем все данные в один Excel-файл на разных листах
-    if (ExcelExporter::exportAllToXlsx(filename, allStats, belowStats, higherStats)) {
-        std::string logMsg = "Data successfully exported to: " + filename;
-        std::cout << logMsg << std::endl;
+    // Убедимся, что папка reports существует
+    if (!ExcelExporter::createReportsDirectoryIfNotExists("reports/")) {
+        logger.log(LOG("Ошибка создания папки reports/"));
+        return 1;
+    }
+
+    // Экспортируем данные на один лист из шаблона
+
+    bool success = true;
+
+    success &= ExcelExporter::exportToSheetFromTemplate(templatePath, filename, belowStats, /*startRow=*/6, /*totalRow=*/12);
+    success &= ExcelExporter::exportToSheetFromTemplate(templatePath, filename, higherStats, /*startRow=*/12, /*totalRow=*/18);
+    success &= ExcelExporter::exportToSheetFromTemplate(templatePath, filename, allStats, /*startRow=*/18, /*totalRow=*/24);
+
+    if (success) {
+        std::string logMsg = "Данные успешно экспортированы в Excel: " + filename;
+        std::cout << logMsg << "\n";
         logger.log(LOG(logMsg.c_str()));
         std::cout << "✅ Отчёт создан: " << filename << "\n";
     } else {
-        const char* msg = "Error exporting data to Excel!";
-        std::cerr << msg << std::endl;
-        logger.log(LOG(msg));
-        std::cerr << "❌ Ошибка при экспорте в Excel!\n";
+        logger.log(LOG("❌ Ошибка при экспорте в Excel"));
+        std::cerr << "❌ Не удалось сохранить отчёт!\n";
+        return 1;
     }
 
     logger.log(LOG("Program finished successfully"));
