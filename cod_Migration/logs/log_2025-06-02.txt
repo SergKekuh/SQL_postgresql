@@ -1,0 +1,32 @@
+2025-06-02 11:15:18 [INFO] | Запуск программы версии: v1.0.0-7-g5983844
+2025-06-02 11:15:18 [INFO] | Successfully connected to the database
+2025-06-02 11:15:18 Fetching data for year: 2024
+2025-06-02 11:15:18 [INFO] | Printing statistics to console
+2025-06-02 11:15:18 [INFO] | ❌ Ошибка при экспорте в Excel
+2025-06-02 11:19:25 [INFO] | Запуск программы версии: v1.0.0-7-g5983844
+2025-06-02 11:19:25 [INFO] | Successfully connected to the database
+2025-06-02 11:19:25 Fetching data for year: 2024
+2025-06-02 11:19:25 [INFO] | Printing statistics to console
+2025-06-02 11:19:25 [INFO] | Данные успешно экспортированы в Excel: reports/statistics_report_2025-06-02_11-19-25.xlsx
+2025-06-02 11:19:25 [INFO] | Program finished successfully
+2025-06-02 11:28:18 [INFO] | Запуск программы версии: v1.0.0-7-g5983844
+2025-06-02 11:28:18 [INFO] | Successfully connected to the database
+2025-06-02 11:28:18 Fetching data for year: 0
+2025-06-02 11:28:48 [INFO] | Запуск программы версии: v1.0.0-7-g5983844
+2025-06-02 11:28:48 [INFO] | Successfully connected to the database
+2025-06-02 11:28:48 Fetching data for year: 2024
+2025-06-02 11:28:48 [INFO] | Printing statistics to console
+2025-06-02 11:28:48 [INFO] | Данные успешно экспортированы в Excel: reports/statistics_report_2025-06-02_11-28-48.xlsx
+2025-06-02 11:28:48 [INFO] | Program finished successfully
+2025-06-02 11:32:41 [INFO] | Запуск программы версии: v1.0.0-7-g5983844
+2025-06-02 11:32:41 [INFO] | Successfully connected to the database
+2025-06-02 11:32:41 Fetching data for year: 2024
+2025-06-02 11:32:41 [INFO] | Printing statistics to console
+2025-06-02 11:32:41 [INFO] | Данные успешно экспортированы в Excel: reports/statistics_report_2025-06-02_11-32-41.xlsx
+2025-06-02 11:32:41 [INFO] | Program finished successfully
+2025-06-02 11:52:40 [INFO] | Запуск программы версии: v1.0.0-7-g5983844
+2025-06-02 11:52:40 [INFO] | Successfully connected to the database
+2025-06-02 11:52:40 Fetching data for year: 2024
+2025-06-02 11:52:40 [INFO] | Printing statistics to console
+2025-06-02 11:52:40 [INFO] | Данные успешно экспортированы в Excel: reports/statistics_report_2025-06-02_11-52-40.xlsx
+2025-06-02 11:52:40 [INFO] | Program finished successfully

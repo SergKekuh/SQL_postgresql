@@ -70,36 +70,35 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Путь к шаблону
-    std::string templatePath = "template/template_empty.xlsx";
-
-    // Генерируем имя выходного файла
+    std::string templatePath = "../template/template_empty.xlsx";
     std::string filename = "reports/" + ExcelExporter::generateFilenameWithTimestamp("statistics_report", ".xlsx");
 
-    // Убедимся, что папка reports существует
     if (!ExcelExporter::createReportsDirectoryIfNotExists("reports/")) {
         logger.log(LOG("Ошибка создания папки reports/"));
         return 1;
     }
 
-    // Экспортируем данные на один лист из шаблона
-
-    bool success = true;
-
-    success &= ExcelExporter::exportToSheetFromTemplate(templatePath, filename, belowStats, /*startRow=*/6, /*totalRow=*/12);
-    success &= ExcelExporter::exportToSheetFromTemplate(templatePath, filename, higherStats, /*startRow=*/12, /*totalRow=*/18);
-    success &= ExcelExporter::exportToSheetFromTemplate(templatePath, filename, allStats, /*startRow=*/18, /*totalRow=*/24);
-
-    if (success) {
-        std::string logMsg = "Данные успешно экспортированы в Excel: " + filename;
-        std::cout << logMsg << "\n";
-        logger.log(LOG(logMsg.c_str()));
-        std::cout << "✅ Отчёт создан: " << filename << "\n";
-    } else {
-        logger.log(LOG("❌ Ошибка при экспорте в Excel"));
-        std::cerr << "❌ Не удалось сохранить отчёт!\n";
+    // --- ШАГ 1: Открываем шаблон ---
+    if (!ExcelExporter::openTemplate(templatePath)) {
+        logger.log(LOG("Не удалось открыть шаблон Excel"));
         return 1;
     }
+
+    // --- ШАГ 2: Записываем все три набора данных ---
+    ExcelExporter::exportToSheet(belowStats, /*startRow=*/6);
+    ExcelExporter::exportToSheet(higherStats, /*startRow=*/12);
+    ExcelExporter::exportToSheet(allStats, /*startRow=*/18);
+
+    // --- ШАГ 3: Сохраняем книгу ---
+    if (!ExcelExporter::saveWorkbook(filename)) {
+        logger.log(LOG("❌ Ошибка при сохранении Excel-файла"));
+        std::cerr << "❌ Не удалось сохранить файл\n";
+        return 1;
+    }
+
+    std::string logMsg = "✅ Данные успешно экспортированы в: " + filename;
+    std::cout << logMsg << "\n";
+    logger.log(LOG(logMsg));
 
     logger.log(LOG("Program finished successfully"));
     return 0;

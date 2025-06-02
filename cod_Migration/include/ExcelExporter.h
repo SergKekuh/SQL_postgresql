@@ -1,24 +1,29 @@
 #ifndef EXCELEXPORTER_H
 #define EXCELEXPORTER_H
 
+#include <string>
 #include <vector>
 #include "ClientStatistics.h"
 
 class ExcelExporter {
 public:
-    // Экспорт всех трёх статистик на один лист из шаблона
-    static bool exportToSheetFromTemplate(
-        const std::string& templatePath,
-        const std::string& outputFilename,
-        const std::vector<ClientStatistics>& stats,
-        int startRow,         // Например: 6 (строка 7)
-        int totalRow = 0);   // Например: 6 → I7
+    // Открывает шаблон и готовит его для нескольких записей
+    static bool openTemplate(const std::string& templatePath);
 
-    // Генерация имени файла с датой
-    static std::string generateFilenameWithTimestamp(const std::string& baseName = "statistics_report", const std::string& extension = ".xlsx");
+    // Записывает одну группу статистики
+    static bool exportToSheet(
+        const std::vector<ClientStatistics>& stats,
+        int startRow);  // Начальная строка для этой группы
+
+    // Сохраняет книгу в файл
+    static bool saveWorkbook(const std::string& outputFilename);
 
     // Создание папки reports/
     static bool createReportsDirectoryIfNotExists(const std::string& dirPath = "reports/");
+    static std::string generateFilenameWithTimestamp(const std::string& baseName = "statistics_report", const std::string& extension = ".xlsx");
+
+private:
+    static libxl::Book* sharedBook;  // Указатель на общий workbook
 };
 
 #endif // EXCELEXPORTER_H

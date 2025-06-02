@@ -36,6 +36,9 @@ add_custom_target(generate_version
     COMMENT "Генерируем version.hpp из Git..."
 )
 
+# Выполняем generate_version перед main
+add_dependencies(main generate_version)
+
 # Подключаем заголовки с версией
 include_directories(${PROJECT_SOURCE_DIR}/version)
 
