@@ -82,31 +82,47 @@ bool ExcelExporter::exportSingleStatToColumn(
         std::cerr << "❌ Лист не найден в шаблоне\n";
         return false;
     }
+    if (!isLast)
+    {
+        // Пишем данные по строкам, начиная со startRow
+        sheet->writeNum(startRow + 0, col, stat.companies);         // C7, D7...
+        sheet->writeNum(startRow + 1, col, stat.total_invoices);   // C8, D8...
+        sheet->writeNum(startRow + 2, col, stat.total_sales);      // C9, D9...
+        sheet->writeNum(startRow + 3, col, stat.avg_sales);        // C10, D10...
+        sheet->writeNum(startRow + 4, col, stat.percent_share);   // C11, D11...
+        sheet->writeNum(startRow + 5, col, stat.percent_share);    // C12, D12...
+    }
+    else
+    {        
+        Font* boldFont = sharedBook->addFont();
+        boldFont->setSize(12);
+        boldFont->setBold(true);
 
-    // Пишем данные по строкам, начиная со startRow
-    sheet->writeNum(startRow + 0, col, stat.companies);         // C7, D7...
-    sheet->writeNum(startRow + 1, col, stat.total_invoices);   // C8, D8...
-    sheet->writeNum(startRow + 2, col, stat.total_sales);      // C9, D9...
-    sheet->writeNum(startRow + 3, col, stat.avg_sales);        // C10, D10...
-    sheet->writeNum(startRow + 4, col, stat.percent_share);   // C11, D11...
-    sheet->writeNum(startRow + 5, col, stat.percent_share);    // C12, D12...
+        Format* boldFormat = sharedBook->addFormat();
+        boldFormat->setFont(boldFont);
 
-    // Если это последний элемент группы → пишем ИТОГО в столбец I (col=8)
-    if (isLast) {
-        double totalSales = stat.total_sales;  // или передавать отдельно
-
-        sheet->writeStr(startRow + 6, 7, "Итого:");
-        sheet->writeNum(startRow + 6, 8, totalSales);
-
-        // Можно добавить форматирование
-        Format* bold = sharedBook->addFormat();
-        bold->setBold(true);
-
-        sheet->writeStr(startRow + 6, 7, "Итого:", bold);
-        sheet->writeNum(startRow + 6, 8, totalSales, bold);
+        sheet->writeNum(startRow + 0, 8, stat.companies);         // C7, D7...
+        sheet->writeNum(startRow + 1, 8, stat.total_invoices);   // C8, D8...
+        sheet->writeNum(startRow + 2, 8, stat.total_sales);      // C9, D9...
+        sheet->writeNum(startRow + 3, 8, stat.avg_sales);        // C10, D10...
+        sheet->writeNum(startRow + 4, 8, stat.percent_share);   // C11, D11...
+        sheet->writeNum(startRow + 5, 8, stat.percent_share);    // C12, D12...
     }
 
     return true;
+}
+
+bool ExcelExporter::saveWorkbook(const std::string& outputFilename) {
+    if (!sharedBook) {
+        std::cerr << "❌ Книга не была создана или уже сохранена\n";
+        return false;
+    }
+
+    bool success = sharedBook->save(outputFilename.c_str());
+    sharedBook->release();
+    sharedBook = nullptr;
+
+    return success;
 }
 
 std::string ExcelExporter::generateFilenameWithTimestamp(const std::string& baseName, const std::string& extension) {
@@ -132,6 +148,26 @@ bool ExcelExporter::createReportsDirectoryIfNotExists(const std::string& dirPath
         }
         std::cout << "🟢 Создана папка: " << dirPath << "\n";
     }
+
+    return true;
+}
+
+bool ExcelExporter::writeYearToSheet(int year) {
+    using namespace libxl;
+
+    if (!sharedBook) {
+        std::cerr << "❌ Книга не открыта. Вызовите openTemplate(...) сначала\n";
+        return false;
+    }
+
+    Sheet* sheet = sharedBook->getSheet(0);
+    if (!sheet) {
+        std::cerr << "❌ Лист не найден в шаблоне\n";
+        return false;
+    }
+
+    // Пишем год в ячейку B7 (строка 6, столбец 1)
+    sheet->writeNum(5, 1, year);  // Ячейка B7
 
     return true;
 }

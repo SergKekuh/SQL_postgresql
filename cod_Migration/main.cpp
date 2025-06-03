@@ -89,11 +89,8 @@ int main(int argc, char* argv[]) {
     // ExcelExporter::exportToSheet(higherStats, /*startRow=*/12);
     // ExcelExporter::exportToSheet(allStats, /*startRow=*/18);
 
-    // belowStats — начинаем с строки 7 (row=6)
-    int col = 2;  // C
-    for (const auto& stat : belowStats) {
-        ExcelExporter::exportSingleStatToColumn(stat, col++, /*startRow=*/6);
-    }
+    // Выводим год в Excel
+    ExcelExporter::writeYearToSheet(year);
 
     // belowStats → начинаем с строки 6 (C7), колонка I (итог) в строке 12 (I13)
     int col = 2;  // C
@@ -114,6 +111,13 @@ int main(int argc, char* argv[]) {
     for (size_t i = 0; i < allStats.size(); ++i) {
         bool isLast = (i == allStats.size() - 1);
         ExcelExporter::exportSingleStatToColumn(allStats[i], col++, /*startRow=*/18, isLast);
+    }
+
+     // --- ШАГ 3: Сохраняем книгу ---
+    if (!ExcelExporter::saveWorkbook(filename)) {
+        logger.log(LOG("❌ Ошибка при сохранении Excel-файла"));
+        std::cerr << "❌ Не удалось сохранить файл\n";
+        return 1;
     }
 
     std::string logMsg = "✅ Данные успешно экспортированы в: " + filename;

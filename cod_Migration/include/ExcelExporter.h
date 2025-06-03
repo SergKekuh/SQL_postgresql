@@ -26,6 +26,9 @@ public:
     // Сохраняет книгу
     static bool saveWorkbook(const std::string& outputFilename);
 
+    // Записываем год в Excel
+    static bool writeYearToSheet(int year);
+
     // Вспомогательные методы
     static std::string generateFilenameWithTimestamp(
         const std::string& baseName = "statistics_report",

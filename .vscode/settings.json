@@ -122,6 +122,10 @@
     "cinttypes": "cpp",
     "typeinfo": "cpp",
     "variant": "cpp",
-    "fstream": "cpp"
+    "fstream": "cpp",
+    "any": "cpp",
+    "condition_variable": "cpp",
+    "set": "cpp",
+    "mutex": "cpp"
   }
 }
