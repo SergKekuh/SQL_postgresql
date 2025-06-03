@@ -1,8 +1,9 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
         {
-            "name": "C++ Debug (Debug)",
+            "name": "C++ Debug(Debug)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/main_debug",  // ← стабильное имя

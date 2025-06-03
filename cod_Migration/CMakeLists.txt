@@ -66,6 +66,10 @@ add_custom_command(
     COMMENT "📁 main скопирован в корень проекта как main_${APP_VERSION}"
 )
 
+set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall -Wextra")
+set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type")
+set_target_properties(main PROPERTIES OUTPUT_NAME "main_debug")
+
 # --- ТЕСТЫ ---
 enable_testing()
 add_subdirectory(test)
