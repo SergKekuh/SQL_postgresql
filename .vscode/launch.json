@@ -5,7 +5,7 @@
             "name": "C++ Debug (Debug)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/main_debug",  // ← стабильное имя
+            "program": "${workspaceFolder}/cod_Migration/build/main_debug",  // ← стабильное имя
             "args": ["2024", "142000"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -26,10 +26,10 @@
             "name": "C++ Debug (Release)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/main_${env:APP_VERSION}",  // ← через переменную среды
+            "program": "${workspaceFolder}/cod_Migration/main_${env:APP_VERSION}",  // ← через переменную среды
             "args": ["2024", "142000"],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/cod_Migration/build",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",

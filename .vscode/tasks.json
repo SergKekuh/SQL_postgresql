@@ -7,7 +7,7 @@
             "command": "cmake",
             "args": [".."],
             "options": {
-                "cwd": "${workspaceFolder}/build"   // → cod_Migration/build/
+                "cwd": "${workspaceFolder}/cod_Migration/build"   // → cod_Migration/build/
             },
             "group": "none",
             "problemMatcher": ["$gcc"]

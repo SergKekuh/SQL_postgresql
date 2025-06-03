@@ -1,18 +1,18 @@
 {
     "version": "0.2.0",
     "configurations": [
-        
         {
-            "name": "C++ Debug(Debug)",
+            "name": "C++ Debug (Debug)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/main_debug",  // ← стабильное имя
+            "program": "${workspaceFolder}/build/main_debug",
             "args": ["2024", "142000"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
@@ -20,29 +20,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "cmake: build",
-            "miDebuggerPath": "/usr/bin/gdb"
-        },
-        {
-            "name": "C++ Debug (Release)",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/main_${env:APP_VERSION}",  // ← через переменную среды
-            "args": ["2024", "142000"],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "copy_main_with_version",
-            "miDebuggerPath": "/usr/bin/gdb"
+            "preLaunchTask": "cmake: build"
         }
     ]
 }
