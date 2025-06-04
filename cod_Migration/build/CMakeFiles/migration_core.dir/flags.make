@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/serg/Documents/SQL_postgresql/cod_Migration/include -I/usr/include/postgresql -I/home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp -I/home/serg/Documents/SQL_postgresql/cod_Migration/version
 
-CXX_FLAGS = -g -Wall -Wextra -std=c++17
+CXX_FLAGS = -std=c++17
 
