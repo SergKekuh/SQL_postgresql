@@ -1,19 +1,32 @@
-Start testing: Jun 04 09:01 UTC
+Start testing: Jun 04 09:43 UTC
 ----------------------------------------------------------
-Unable to find executable: /home/serg/Documents/SQL_postgresql/cod_Migration/build/test/tests
 1/1 Testing: RunTests
 1/1 Test: RunTests
-Command: ""
+Command: "/home/serg/Documents/SQL_postgresql/cod_Migration/build/test/tests"
 Directory: /home/serg/Documents/SQL_postgresql/cod_Migration/build/test
-"RunTests" start time: 
+"RunTests" start time: Jun 04 09:43 UTC
 Output:
 ----------------------------------------------------------
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from DatabaseTest
+[ RUN      ] DatabaseTest.CanCreateObject
+Connected to database successfully!
+[       OK ] DatabaseTest.CanCreateObject (82 ms)
+[ RUN      ] DatabaseTest.CanConnectToDatabase
+Connected to database successfully!
+[       OK ] DatabaseTest.CanConnectToDatabase (43 ms)
+[----------] 2 tests from DatabaseTest (125 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (125 ms total)
+[  PASSED  ] 2 tests.
 <end of output>
-Test time =   0.00 sec
+Test time =   0.15 sec
 ----------------------------------------------------------
 Test Passed.
-"RunTests" end time: Jun 04 09:01 UTC
+"RunTests" end time: Jun 04 09:43 UTC
 "RunTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jun 04 09:01 UTC
+End testing: Jun 04 09:43 UTC
