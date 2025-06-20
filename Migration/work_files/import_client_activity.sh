@@ -5,7 +5,7 @@ DB_NAME="bd_migrations"
 DB_USER="postgres"
 
 # Путь к CSV-файлу (измени на свой)
-CSV_FILE="/home/serg/Documents/SQL_postgresql/Migraciya/client_activity.csv"
+CSV_FILE="/home/serg/Documents/SQL_postgresql/Migraciya/client_activity_1.csv"
 
 # Цвета для вывода
 GREEN='\033[0;32m'
