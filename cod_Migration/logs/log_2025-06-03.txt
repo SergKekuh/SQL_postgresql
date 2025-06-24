@@ -1,4 +1,0 @@
-2025-06-03 14:14:23 [INFO] | Запуск программы версии: v1.0.0-11-ge1b66b6
-2025-06-03 14:14:23 [INFO] | Successfully connected to the database
-2025-06-03 14:14:23 Fetching data for year: 2024
-2025-06-03 14:14:23 [INFO] | Printing statistics to console
