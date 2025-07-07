@@ -18,4 +18,4 @@ cd ..
 echo -e "\e[1;32m✅ Запускаем VSCode с отладкой\e[0m"
 
 # code --reuse-window .
-code --debugId "C++ Debug(Debug)"  # ← замени на ID твоей конфигурации (смотрится в launch.json)
+#code --debugId "C++ Debug(Debug)"  # ← замени на ID твоей конфигурации (смотрится в launch.json)

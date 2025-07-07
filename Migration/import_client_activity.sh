@@ -25,9 +25,8 @@ echo -e "${GREEN}Создаём временную таблицу и загру�
 psql -U "$DB_USER" -d "$DB_NAME" <<EOF
 DROP TABLE IF EXISTS temp_client_activity;
 
--- Временная таблица СО столбцом client_activity_id
+-- Временная таблица БЕЗ столбца client_activity_id
 CREATE TEMP TABLE temp_client_activity (
-    client_activity_id integer,
     unit_id integer NOT NULL,
     year_id integer NOT NULL,
     group_id integer NOT NULL,
@@ -39,11 +38,25 @@ CREATE TEMP TABLE temp_client_activity (
 -- Загружаем все данные из CSV
 COPY temp_client_activity FROM '$CSV_FILE' DELIMITER ';' CSV HEADER;
 
--- Вставляем только те записи, которых ещё нет в таблице client_activity
-INSERT INTO public.client_activity (client_activity_id, unit_id, year_id, group_id, expense_invoices, sales, note)
-SELECT client_activity_id, unit_id, year_id, group_id, expense_invoices, sales, note
-FROM temp_client_activity
-ON CONFLICT (client_activity_id) DO NOTHING;
+-- Добавляем или обновляем данные в основной таблице
+INSERT INTO public.client_activity (unit_id, year_id, group_id, expense_invoices, sales, note)
+SELECT tca.unit_id, tca.year_id, tca.group_id, tca.expense_invoices, tca.sales, tca.note
+FROM temp_client_activity tca
+ON CONFLICT (unit_id, year_id) DO UPDATE
+SET 
+    group_id = EXCLUDED.group_id,
+    expense_invoices = EXCLUDED.expense_invoices,
+    sales = EXCLUDED.sales,
+    note = EXCLUDED.note;
+
+-- Проверяем, сколько записей было добавлено или обновлено
+DO \$\$
+DECLARE
+    inserted_count INTEGER;
+BEGIN
+    GET DIAGNOSTICS inserted_count = ROW_COUNT;
+    RAISE NOTICE 'Количество добавленных/обновленных записей: %', inserted_count;
+END \$\$;
 EOF
 
 # Проверка выполнения

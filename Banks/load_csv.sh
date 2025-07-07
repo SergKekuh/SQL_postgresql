@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Путь к папке с CSV-файлами
-CSV_DIR="/home/serg/Downloads/Banks"
+CSV_DIR="/home/serg/Documents/SQL_postgresql/Banks"
 
 # Файл для логов
-LOG_FILE="/home/serg/Downloads/Banks/load_csv.log"
+LOG_FILE="/home/serg/Documents/SQL_postgresql/Banks/load_csv.log"
 
 # Пароль пользователя postgres (если используется)
 export PGPASSWORD="root"

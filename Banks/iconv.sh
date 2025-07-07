@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Переходим в папку с файлами (если нужно)
-cd /path/to/your/folder
+cd /home/serg/Documents/SQL_postgresql/Banks
 
 # Обрабатываем все CSV файлы в папке
 for file in *.csv; do

@@ -1,0 +1,18 @@
+2025-07-03 10:00:58 [INFO] | Запуск программы версии: v1.0.0-15-g9c6a826
+2025-07-03 10:00:58 [INFO] | Successfully connected to the database
+2025-07-03 10:00:58 Fetching data for year: 2025
+2025-07-03 10:00:58 [INFO] | Printing statistics to console
+2025-07-03 10:00:58 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-07-03_10-00-58.xlsx
+2025-07-03 10:00:58 [INFO] | Program finished successfully
+2025-07-03 11:48:19 [INFO] | Запуск программы версии: v1.0.0-15-g9c6a826
+2025-07-03 11:48:19 [INFO] | Successfully connected to the database
+2025-07-03 11:48:19 Fetching data for year: 2025
+2025-07-03 11:48:19 [INFO] | Printing statistics to console
+2025-07-03 11:48:19 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-07-03_11-48-19.xlsx
+2025-07-03 11:48:19 [INFO] | Program finished successfully
+2025-07-03 12:32:41 [INFO] | Запуск программы версии: v1.0.0-15-g9c6a826
+2025-07-03 12:32:41 [INFO] | Successfully connected to the database
+2025-07-03 12:32:41 Fetching data for year: 2025
+2025-07-03 12:32:41 [INFO] | Printing statistics to console
+2025-07-03 12:32:41 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-07-03_12-32-41.xlsx
+2025-07-03 12:32:41 [INFO] | Program finished successfully

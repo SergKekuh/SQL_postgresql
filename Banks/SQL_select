@@ -1,0 +1,14 @@
+SELECT 
+    bank_name,
+    COUNT(*) AS operation_count, -- Количество операций
+    SUM(credit) AS total_credit  -- Общая сумма кредитных операций
+FROM 
+    public.operations
+WHERE 
+    bank_name IS NOT NULL -- Исключаем записи с пустым названием банка
+    AND correspondent_edrpou <> '24238290' -- Исключаем операции с correspondent_edrpou = 24238290
+GROUP BY 
+    bank_name
+ORDER BY 
+    operation_count DESC -- Сортировка по количеству операций
+LIMIT 10; -- Выводим только первые 10 банков
