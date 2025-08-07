@@ -3,6 +3,7 @@
 #include "StatisticsService.h"
 #include "ExcelExporter.h"
 #include "include/Logger.h"
+#include "include/DatabaseProcedureHandler.h"
 #include "version/version.hpp"
 
 #include <iostream>
@@ -11,7 +12,7 @@
 
 int main(int argc, char* argv[]) {
     // Проверка на количество аргументов
-    if (argc < 3) {
+    if (argc < 4) {
         std::cerr << "❗ Нужно передать: год и пороговое значение продаж\n";
         std::cerr << "Использование: " << argv[0] << " <год> <порог_продаж>\n";
         return 1;
@@ -37,17 +38,28 @@ int main(int argc, char* argv[]) {
 
     // Сервис статистики
     StatisticsService stats(db);
+    DatabaseProcedureHandler procedureHandler(db);
    
+    
     // Парсим аргументы
     int year = std::atoi(argv[1]);
     double sales_threshold = std::atof(argv[2]);
+    double multiplier = std::atof(argv[3]);
 
-    logger.log(Logger::format("Fetching data for year: %d", year));
+    //logger.log(Logger::format("Fetching data for year: %d", year));
+    logger.log(Logger::format("Fetching data for year: %d, sales threshold: %.2f, multiplier: %.2f",
+                              year, sales_threshold, multiplier));
 
+    // Выполняем хранимую процедуру generate_group_report_procedure
+    if (!procedureHandler.executeGroupReportProcedure(year, multiplier)) {
+        std::cerr << "❌ Ошибка при выполнении хранимой процедуры\n";
+        return 1;
+    }
     // Получаем данные из БД
     auto allStats = stats.getAllStatistics(year);
     auto belowStats = stats.getBelowStatistics(year, sales_threshold);
     auto higherStats = stats.getHigherStatistics(year, sales_threshold);
+    auto groupReportData = procedureHandler.fetchGroupReportData();
 
     // Выводим на консоль (для проверки)
     std::cout << "=== All statistics ===" << std::endl;
@@ -60,6 +72,14 @@ int main(int argc, char* argv[]) {
                   << stat.total_sales << " \t| "
                   << stat.avg_sales << " \t| "
                   << stat.percent_share << "%" << std::endl;
+    }
+
+     // Выводим данные на консоль
+    std::cout << "=== Group Report ===" << std::endl;
+    for (const auto& row : groupReportData) {
+        std::cout << row.group_name << " \t| "
+                  << row.total_sale << " \t| "
+                  << row.total_companies << std::endl;
     }
 
     // Создаём папку reports/, если её нет
@@ -84,10 +104,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // // --- ШАГ 2: Записываем все три набора данных ---
-    // ExcelExporter::exportToSheet(belowStats, /*startRow=*/6);
-    // ExcelExporter::exportToSheet(higherStats, /*startRow=*/12);
-    // ExcelExporter::exportToSheet(allStats, /*startRow=*/18);
+    // --- ШАГ 2: Заполняем данные в Excel ---
 
     // Выводим год в Excel
     ExcelExporter::writeYearToSheet(year);
