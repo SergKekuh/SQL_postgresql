@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "ClientStatistics.h"
+#include "GroupReport.h" // Включаем структуру GroupReport
 
 // Подключаем libxl заранее, чтобы использовать типы
 #include <libxl.h>
@@ -15,6 +16,9 @@ public:
 
     // Записывает одну группу данных по столбцу (например, C, D, E...)
     static bool exportToSheet(const std::vector<ClientStatistics>& stats, int startRow);
+
+    // Записывает данные отчета по группам в лист
+    static bool exportGroupReportToSheet(const std::vector<GroupReport>& groupReport, int startRow);
 
      // Экспорт одного статистического объекта
     static bool exportSingleStatToColumn(

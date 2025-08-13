@@ -3,18 +3,19 @@
 #include "StatisticsService.h"
 #include "ExcelExporter.h"
 #include "include/Logger.h"
-#include "include/DatabaseProcedureHandler.h"
+#include "include/GroupReport.h"
+#include "include/DatabaseProcedure.h"
 #include "version/version.hpp"
 
 #include <iostream>
 #include <string>
-
+#include <iomanip> // Для std::setw
 
 int main(int argc, char* argv[]) {
     // Проверка на количество аргументов
     if (argc < 4) {
-        std::cerr << "❗ Нужно передать: год и пороговое значение продаж\n";
-        std::cerr << "Использование: " << argv[0] << " <год> <порог_продаж>\n";
+        std::cerr << "❗ Нужно передать: год, пороговое значение продаж и множитель\n";
+        std::cerr << "Использование: " << argv[0] << " <год> <порог_продаж> <множитель>\n";
         return 1;
     }
 
@@ -38,48 +39,57 @@ int main(int argc, char* argv[]) {
 
     // Сервис статистики
     StatisticsService stats(db);
-    DatabaseProcedureHandler procedureHandler(db);
-   
-    
-    // Парсим аргументы
-    int year = std::atoi(argv[1]);
-    double sales_threshold = std::atof(argv[2]);
-    double multiplier = std::atof(argv[3]);
+    DatabaseProcedures dbProcedures(db);
 
-    //logger.log(Logger::format("Fetching data for year: %d", year));
-    logger.log(Logger::format("Fetching data for year: %d, sales threshold: %.2f, multiplier: %.2f",
-                              year, sales_threshold, multiplier));
-
-    // Выполняем хранимую процедуру generate_group_report_procedure
-    if (!procedureHandler.executeGroupReportProcedure(year, multiplier)) {
-        std::cerr << "❌ Ошибка при выполнении хранимой процедуры\n";
+    // Проверяем существование процедуры
+    if (!dbProcedures.isGroupReportProcedureExists()) {
+        std::cerr << "❗ Процедура generate_group_report_procedure не найдена в БД" << std::endl;
+        logger.log(LOG("Процедура generate_group_report_procedure не найдена"));
         return 1;
     }
+
+    int year = 0;               // Год по умолчанию
+    double sales_threshold = 0.0; // Порог продаж по умолчанию
+    double multiplier = 1.0;    // Множитель по умолчанию
+
+    // Парсим аргументы
+    try {       
+        year = std::stoi(argv[1]);
+        sales_threshold = std::stod(argv[2]);
+        multiplier = std::stod(argv[3]);
+        
+        logger.log(Logger::format("Fetching data for year: %d, sales threshold: %.2f, multiplier: %.2f",
+                                  year, sales_threshold, multiplier));
+    } catch (const std::exception& e) {
+        std::cerr << "Ошибка при парсинге аргументов: " << e.what() << std::endl;
+        logger.log(LOG("Ошибка при парсинге аргументов командной строки"));
+        return 1;
+    }
+
     // Получаем данные из БД
     auto allStats = stats.getAllStatistics(year);
     auto belowStats = stats.getBelowStatistics(year, sales_threshold);
     auto higherStats = stats.getHigherStatistics(year, sales_threshold);
-    auto groupReportData = procedureHandler.fetchGroupReportData();
+    auto groupReport = dbProcedures.callGroupReportProcedure(year, multiplier);
 
     // Выводим на консоль (для проверки)
     std::cout << "=== All statistics ===" << std::endl;
     logger.log(LOG("Printing statistics to console"));
 
     for (const auto& stat : allStats) {
-        std::cout << stat.category << " \t| "
-                  << stat.companies << " \t| "
-                  << stat.total_invoices << " \t| "
-                  << stat.total_sales << " \t| "
-                  << stat.avg_sales << " \t| "
-                  << stat.percent_share << "%" << std::endl;
+        std::cout << std::setw(10) << stat.category << " | "
+                  << std::setw(10) << stat.companies << " | "
+                  << std::setw(10) << stat.total_invoices << " | "
+                  << std::setw(10) << stat.total_sales << " | "
+                  << std::setw(10) << stat.avg_sales << " | "
+                  << std::setw(10) << stat.percent_share << "%" << std::endl;
     }
 
-     // Выводим данные на консоль
-    std::cout << "=== Group Report ===" << std::endl;
-    for (const auto& row : groupReportData) {
-        std::cout << row.group_name << " \t| "
-                  << row.total_sale << " \t| "
-                  << row.total_companies << std::endl;
+    std::cout << "=== Отчет по группам ===" << std::endl;
+    for (const auto& item : groupReport) {
+        std::cout << std::setw(10) << item.group_name << " | "
+                  << std::setw(10) << item.total_sale << " | "
+                  << std::setw(10) << item.total_companies << std::endl;
     }
 
     // Создаём папку reports/, если её нет
@@ -91,55 +101,72 @@ int main(int argc, char* argv[]) {
     }
 
     std::string templatePath = "template/template_empty.xlsx";
+    std::string templatePathVal = "template/template_empty_val_1.xlsx";
+
     std::string filename = "reports/" + ExcelExporter::generateFilenameWithTimestamp("statistics_report", ".xlsx");
+    std::string filenameVal = "reports/" + ExcelExporter::generateFilenameWithTimestamp("group_report", ".xlsx");
 
-    if (!ExcelExporter::createReportsDirectoryIfNotExists("reports/")) {
-        logger.log(LOG("Ошибка создания папки reports/"));
+    try {
+        // --- ШАГ 1: Открываем шаблон ---
+        if (!ExcelExporter::openTemplate(templatePath)) {
+            throw std::runtime_error("Не удалось открыть шаблон Excel Static");
+        }
+        if (!ExcelExporter::openTemplate(templatePathVal)) {
+            throw std::runtime_error("Не удалось открыть шаблон Excel Val");
+        }
+
+        // --- ШАГ 2: Заполняем данные в Excel ---
+        ExcelExporter::writeYearToSheet(year);
+
+        // belowStats → начинаем с строки 6 (C7), колонка I (итог) в строке 12 (I13)
+        int col = 2;  // C
+        for (size_t i = 0; i < belowStats.size(); ++i) {
+            bool isLast = (i == belowStats.size() - 1);
+            ExcelExporter::exportSingleStatToColumn(belowStats[i], col++, /*startRow=*/6, isLast);
+        }
+
+        // higherStats → начинаем с строки 12 (C13)
+        col = 2;
+        for (size_t i = 0; i < higherStats.size(); ++i) {
+            bool isLast = (i == higherStats.size() - 1);
+            ExcelExporter::exportSingleStatToColumn(higherStats[i], col++, /*startRow=*/12, isLast);
+        }
+
+        // allStats → начинаем с строки 18 (C19)
+        col = 2;
+        for (size_t i = 0; i < allStats.size(); ++i) {
+            bool isLast = (i == allStats.size() - 1);
+            ExcelExporter::exportSingleStatToColumn(allStats[i], col++, /*startRow=*/18, isLast);
+        }
+
+        //--------------------VAL----------------------
+        if (!ExcelExporter::exportGroupReportToSheet(groupReport, 6)) { // Начинаем запись с строки 6
+        logger.log("Ошибка записи данных в Excel.");
         return 1;
     }
 
-    // --- ШАГ 1: Открываем шаблон ---
-    if (!ExcelExporter::openTemplate(templatePath)) {
-        logger.log(LOG("Не удалось открыть шаблон Excel"));
+        // --- ШАГ 3: Сохраняем книгу ---
+        if (!ExcelExporter::saveWorkbook(filename)) {
+            throw std::runtime_error("Ошибка при сохранении Excel-файла");
+        }
+        if (!ExcelExporter::saveWorkbook(filenameVal)) {
+            logger.log("Ошибка сохранения Excel-файла.");
+            return 1;
+        }
+        //---------------------------------------
+        std::string logMsg = "✅ Данные успешно экспортированы в: " + filename;
+        std::string logMsgVal = "✅ Данные успешно экспортированы в: " + filenameVal;
+        std::cout << logMsg << "\n";
+        std::cout << logMsgVal <<"\n";
+        logger.log(LOG(logMsg));  
+        logger.log(LOG(logMsgVal));      
+    } 
+    catch (const std::exception& e) 
+    {
+        std::cerr << "Ошибка при работе с Excel: " << e.what() << std::endl;
+        logger.log(LOG("Ошибка при работе с Excel: " + std::string(e.what())));
         return 1;
     }
-
-    // --- ШАГ 2: Заполняем данные в Excel ---
-
-    // Выводим год в Excel
-    ExcelExporter::writeYearToSheet(year);
-
-    // belowStats → начинаем с строки 6 (C7), колонка I (итог) в строке 12 (I13)
-    int col = 2;  // C
-    for (size_t i = 0; i < belowStats.size(); ++i) {
-        bool isLast = (i == belowStats.size() - 1);
-        ExcelExporter::exportSingleStatToColumn(belowStats[i], col++, /*startRow=*/6, isLast);
-    }
-
-    // higherStats → начинаем с строки 12 (C13)
-    col = 2;
-    for (size_t i = 0; i < higherStats.size(); ++i) {
-        bool isLast = (i == higherStats.size() - 1);
-        ExcelExporter::exportSingleStatToColumn(higherStats[i], col++, /*startRow=*/12, isLast);
-    }
-
-    // allStats → начинаем с строки 18 (C19)
-    col = 2;
-    for (size_t i = 0; i < allStats.size(); ++i) {
-        bool isLast = (i == allStats.size() - 1);
-        ExcelExporter::exportSingleStatToColumn(allStats[i], col++, /*startRow=*/18, isLast);
-    }
-
-     // --- ШАГ 3: Сохраняем книгу ---
-    if (!ExcelExporter::saveWorkbook(filename)) {
-        logger.log(LOG("❌ Ошибка при сохранении Excel-файла"));
-        std::cerr << "❌ Не удалось сохранить файл\n";
-        return 1;
-    }
-
-    std::string logMsg = "✅ Данные успешно экспортированы в: " + filename;
-    std::cout << logMsg << "\n";
-    logger.log(LOG(logMsg));
 
     logger.log(LOG("Program finished successfully"));
     return 0;

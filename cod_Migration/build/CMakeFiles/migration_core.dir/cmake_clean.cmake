@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o.d"
   "CMakeFiles/migration_core.dir/src/Database.cpp.o"
   "CMakeFiles/migration_core.dir/src/Database.cpp.o.d"
+  "CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o"
+  "CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o.d"
   "CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o"
   "CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o.d"
   "CMakeFiles/migration_core.dir/src/Logger.cpp.o"

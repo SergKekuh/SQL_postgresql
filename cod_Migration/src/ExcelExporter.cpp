@@ -23,6 +23,33 @@ bool ExcelExporter::openTemplate(const std::string& templatePath) {
     return true;
 }
 
+// Записывает данные отчета по группам в лист
+bool ExcelExporter::exportGroupReportToSheet(const std::vector<GroupReport>& groupReport, int startRow) {
+    try {
+        if (!sharedBook) {
+            throw std::runtime_error("Excel book is not initialized.");
+        }
+
+        libxl::Sheet* sheet = sharedBook->getSheet(0); // Первый лист
+        if (!sheet) {
+            throw std::runtime_error("Sheet not found in the workbook.");
+        }
+
+        int row = startRow;
+        for (const auto& item : groupReport) {
+            sheet->writeStr(row, 1, item.group_name.c_str()); // Колонка B
+            sheet->writeNum(row, 2, item.total_sale);         // Колонка C
+            sheet->writeNum(row, 3, item.total_companies);    // Колонка D
+            ++row;
+        }
+
+        return true;
+    } catch (const std::exception& e) {
+        std::cerr << "Error exporting group report to sheet: " << e.what() << std::endl;
+        return false;
+    }
+}
+
 bool ExcelExporter::exportToSheet(const std::vector<ClientStatistics>& stats, int startRow) {
     using namespace libxl;
 

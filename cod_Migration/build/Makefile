@@ -305,6 +305,30 @@ src/Database.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/Database.cpp.s
 .PHONY : src/Database.cpp.s
 
+src/DatabaseProcedure.o: src/DatabaseProcedure.cpp.o
+.PHONY : src/DatabaseProcedure.o
+
+# target to build an object file
+src/DatabaseProcedure.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o
+.PHONY : src/DatabaseProcedure.cpp.o
+
+src/DatabaseProcedure.i: src/DatabaseProcedure.cpp.i
+.PHONY : src/DatabaseProcedure.i
+
+# target to preprocess a source file
+src/DatabaseProcedure.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.i
+.PHONY : src/DatabaseProcedure.cpp.i
+
+src/DatabaseProcedure.s: src/DatabaseProcedure.cpp.s
+.PHONY : src/DatabaseProcedure.s
+
+# target to generate assembly for a file
+src/DatabaseProcedure.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/migration_core.dir/build.make CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.s
+.PHONY : src/DatabaseProcedure.cpp.s
+
 src/ExcelExporter.o: src/ExcelExporter.cpp.o
 .PHONY : src/ExcelExporter.o
 
@@ -454,6 +478,9 @@ help:
 	@echo "... src/Database.o"
 	@echo "... src/Database.i"
 	@echo "... src/Database.s"
+	@echo "... src/DatabaseProcedure.o"
+	@echo "... src/DatabaseProcedure.i"
+	@echo "... src/DatabaseProcedure.s"
 	@echo "... src/ExcelExporter.o"
 	@echo "... src/ExcelExporter.i"
 	@echo "... src/ExcelExporter.s"
