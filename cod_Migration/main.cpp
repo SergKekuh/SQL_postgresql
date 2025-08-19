@@ -108,58 +108,62 @@ int main(int argc, char* argv[]) {
 
     try {
         // --- ШАГ 1: Открываем шаблон ---
-        if (!ExcelExporter::openTemplate(templatePath)) {
+        libxl::Book* bookStatic = xlCreateBook();
+        libxl::Book* bookVal = xlCreateBook();
+
+        if (!bookStatic->load(templatePath.c_str())) {
             throw std::runtime_error("Не удалось открыть шаблон Excel Static");
         }
-        if (!ExcelExporter::openTemplate(templatePathVal)) {
+        if (!bookVal->load(templatePathVal.c_str())) {
             throw std::runtime_error("Не удалось открыть шаблон Excel Val");
         }
 
-        // --- ШАГ 2: Заполняем данные в Excel ---
+        // --- ШАГ 2: Заполняем данные в Excel (Static) ---
         ExcelExporter::writeYearToSheet(year);
 
-        // belowStats → начинаем с строки 6 (C7), колонка I (итог) в строке 12 (I13)
         int col = 2;  // C
         for (size_t i = 0; i < belowStats.size(); ++i) {
             bool isLast = (i == belowStats.size() - 1);
             ExcelExporter::exportSingleStatToColumn(belowStats[i], col++, /*startRow=*/6, isLast);
         }
 
-        // higherStats → начинаем с строки 12 (C13)
         col = 2;
         for (size_t i = 0; i < higherStats.size(); ++i) {
             bool isLast = (i == higherStats.size() - 1);
             ExcelExporter::exportSingleStatToColumn(higherStats[i], col++, /*startRow=*/12, isLast);
         }
 
-        // allStats → начинаем с строки 18 (C19)
         col = 2;
         for (size_t i = 0; i < allStats.size(); ++i) {
             bool isLast = (i == allStats.size() - 1);
             ExcelExporter::exportSingleStatToColumn(allStats[i], col++, /*startRow=*/18, isLast);
         }
 
-        //--------------------VAL----------------------
-        if (!ExcelExporter::exportGroupReportToSheet(groupReport, 6)) { // Начинаем запись с строки 6
-        logger.log("Ошибка записи данных в Excel.");
-        return 1;
-    }
-
-        // --- ШАГ 3: Сохраняем книгу ---
-        if (!ExcelExporter::saveWorkbook(filename)) {
-            throw std::runtime_error("Ошибка при сохранении Excel-файла");
+        // Сохраняем книгу Static
+        if (!bookStatic->save(filename.c_str())) {
+            throw std::runtime_error("Ошибка при сохранении Excel-файла Static");
         }
-        if (!ExcelExporter::saveWorkbook(filenameVal)) {
-            logger.log("Ошибка сохранения Excel-файла.");
+        bookStatic->release();
+        
+        // --- ШАГ 3: Заполняем данные в Excel (Val) ---
+        if (!ExcelExporter::exportGroupReportToSheet(groupReport, 6)) { // Начинаем запись с строки 6
+            logger.log("Ошибка записи данных в Excel.");
             return 1;
         }
-        //---------------------------------------
+
+        // Сохраняем книгу Val
+        if (!bookVal->save(filenameVal.c_str())) {
+            throw std::runtime_error("Ошибка при сохранении Excel-файла Val");
+        }
+        bookVal->release();
+
+        // Логирование успешного завершения
         std::string logMsg = "✅ Данные успешно экспортированы в: " + filename;
         std::string logMsgVal = "✅ Данные успешно экспортированы в: " + filenameVal;
         std::cout << logMsg << "\n";
-        std::cout << logMsgVal <<"\n";
+        std::cout << logMsgVal << "\n";
         logger.log(LOG(logMsg));  
-        logger.log(LOG(logMsgVal));      
+        logger.log(LOG(logMsgVal));        
     } 
     catch (const std::exception& e) 
     {
