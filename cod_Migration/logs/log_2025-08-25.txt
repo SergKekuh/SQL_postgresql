@@ -1,0 +1,6 @@
+2025-08-25 11:09:00 [INFO] | Запуск программы версии: v1.0.0-15-g9c6a826
+2025-08-25 11:09:00 [INFO] | Successfully connected to the database
+2025-08-25 11:09:00 Fetching data for year: 2025
+2025-08-25 11:09:00 [INFO] | Printing statistics to console
+2025-08-25 11:09:00 [INFO] | ✅ Данные успешно экспортированы в: reports/statistics_report_2025-08-25_11-09-00.xlsx
+2025-08-25 11:09:00 [INFO] | Program finished successfully
