@@ -5,7 +5,7 @@
 #include "GroupReport.h" // Включаем структуру GroupReport
 #include <string>
 #include <vector>
-#include "include/Logger.h"
+#include "Logger.h"
 
 class DatabaseProcedures {
 public:

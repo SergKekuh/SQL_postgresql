@@ -100,24 +100,10 @@ CMakeFiles/migration_core.dir/src/ClientStatistics.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/migration_core.dir/src/ClientStatistics.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/serg/Documents/SQL_postgresql/cod_Migration/src/ClientStatistics.cpp -o CMakeFiles/migration_core.dir/src/ClientStatistics.cpp.s
 
-CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o: CMakeFiles/migration_core.dir/flags.make
-CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o: /home/serg/Documents/SQL_postgresql/cod_Migration/src/ClientUnit.cpp
-CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o: CMakeFiles/migration_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o -MF CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o.d -o CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o -c /home/serg/Documents/SQL_postgresql/cod_Migration/src/ClientUnit.cpp
-
-CMakeFiles/migration_core.dir/src/ClientUnit.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/migration_core.dir/src/ClientUnit.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/serg/Documents/SQL_postgresql/cod_Migration/src/ClientUnit.cpp > CMakeFiles/migration_core.dir/src/ClientUnit.cpp.i
-
-CMakeFiles/migration_core.dir/src/ClientUnit.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/migration_core.dir/src/ClientUnit.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/serg/Documents/SQL_postgresql/cod_Migration/src/ClientUnit.cpp -o CMakeFiles/migration_core.dir/src/ClientUnit.cpp.s
-
 CMakeFiles/migration_core.dir/src/Database.cpp.o: CMakeFiles/migration_core.dir/flags.make
 CMakeFiles/migration_core.dir/src/Database.cpp.o: /home/serg/Documents/SQL_postgresql/cod_Migration/src/Database.cpp
 CMakeFiles/migration_core.dir/src/Database.cpp.o: CMakeFiles/migration_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/migration_core.dir/src/Database.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/migration_core.dir/src/Database.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/migration_core.dir/src/Database.cpp.o -MF CMakeFiles/migration_core.dir/src/Database.cpp.o.d -o CMakeFiles/migration_core.dir/src/Database.cpp.o -c /home/serg/Documents/SQL_postgresql/cod_Migration/src/Database.cpp
 
 CMakeFiles/migration_core.dir/src/Database.cpp.i: cmake_force
@@ -131,7 +117,7 @@ CMakeFiles/migration_core.dir/src/Database.cpp.s: cmake_force
 CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o: CMakeFiles/migration_core.dir/flags.make
 CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o: /home/serg/Documents/SQL_postgresql/cod_Migration/src/DatabaseProcedure.cpp
 CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o: CMakeFiles/migration_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o -MF CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o.d -o CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o -c /home/serg/Documents/SQL_postgresql/cod_Migration/src/DatabaseProcedure.cpp
 
 CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.i: cmake_force
@@ -145,7 +131,7 @@ CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.s: cmake_force
 CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o: CMakeFiles/migration_core.dir/flags.make
 CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o: /home/serg/Documents/SQL_postgresql/cod_Migration/src/ExcelExporter.cpp
 CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o: CMakeFiles/migration_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o -MF CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o.d -o CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o -c /home/serg/Documents/SQL_postgresql/cod_Migration/src/ExcelExporter.cpp
 
 CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.i: cmake_force
@@ -159,7 +145,7 @@ CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.s: cmake_force
 CMakeFiles/migration_core.dir/src/Logger.cpp.o: CMakeFiles/migration_core.dir/flags.make
 CMakeFiles/migration_core.dir/src/Logger.cpp.o: /home/serg/Documents/SQL_postgresql/cod_Migration/src/Logger.cpp
 CMakeFiles/migration_core.dir/src/Logger.cpp.o: CMakeFiles/migration_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/migration_core.dir/src/Logger.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/migration_core.dir/src/Logger.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/migration_core.dir/src/Logger.cpp.o -MF CMakeFiles/migration_core.dir/src/Logger.cpp.o.d -o CMakeFiles/migration_core.dir/src/Logger.cpp.o -c /home/serg/Documents/SQL_postgresql/cod_Migration/src/Logger.cpp
 
 CMakeFiles/migration_core.dir/src/Logger.cpp.i: cmake_force
@@ -173,7 +159,7 @@ CMakeFiles/migration_core.dir/src/Logger.cpp.s: cmake_force
 CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o: CMakeFiles/migration_core.dir/flags.make
 CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o: /home/serg/Documents/SQL_postgresql/cod_Migration/src/StatisticsService.cpp
 CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o: CMakeFiles/migration_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o -MF CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o.d -o CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o -c /home/serg/Documents/SQL_postgresql/cod_Migration/src/StatisticsService.cpp
 
 CMakeFiles/migration_core.dir/src/StatisticsService.cpp.i: cmake_force
@@ -184,63 +170,29 @@ CMakeFiles/migration_core.dir/src/StatisticsService.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/migration_core.dir/src/StatisticsService.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/serg/Documents/SQL_postgresql/cod_Migration/src/StatisticsService.cpp -o CMakeFiles/migration_core.dir/src/StatisticsService.cpp.s
 
-CMakeFiles/migration_core.dir/src/group.cpp.o: CMakeFiles/migration_core.dir/flags.make
-CMakeFiles/migration_core.dir/src/group.cpp.o: /home/serg/Documents/SQL_postgresql/cod_Migration/src/group.cpp
-CMakeFiles/migration_core.dir/src/group.cpp.o: CMakeFiles/migration_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/migration_core.dir/src/group.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/migration_core.dir/src/group.cpp.o -MF CMakeFiles/migration_core.dir/src/group.cpp.o.d -o CMakeFiles/migration_core.dir/src/group.cpp.o -c /home/serg/Documents/SQL_postgresql/cod_Migration/src/group.cpp
-
-CMakeFiles/migration_core.dir/src/group.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/migration_core.dir/src/group.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/serg/Documents/SQL_postgresql/cod_Migration/src/group.cpp > CMakeFiles/migration_core.dir/src/group.cpp.i
-
-CMakeFiles/migration_core.dir/src/group.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/migration_core.dir/src/group.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/serg/Documents/SQL_postgresql/cod_Migration/src/group.cpp -o CMakeFiles/migration_core.dir/src/group.cpp.s
-
-CMakeFiles/migration_core.dir/src/year.cpp.o: CMakeFiles/migration_core.dir/flags.make
-CMakeFiles/migration_core.dir/src/year.cpp.o: /home/serg/Documents/SQL_postgresql/cod_Migration/src/year.cpp
-CMakeFiles/migration_core.dir/src/year.cpp.o: CMakeFiles/migration_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/migration_core.dir/src/year.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/migration_core.dir/src/year.cpp.o -MF CMakeFiles/migration_core.dir/src/year.cpp.o.d -o CMakeFiles/migration_core.dir/src/year.cpp.o -c /home/serg/Documents/SQL_postgresql/cod_Migration/src/year.cpp
-
-CMakeFiles/migration_core.dir/src/year.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/migration_core.dir/src/year.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/serg/Documents/SQL_postgresql/cod_Migration/src/year.cpp > CMakeFiles/migration_core.dir/src/year.cpp.i
-
-CMakeFiles/migration_core.dir/src/year.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/migration_core.dir/src/year.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/serg/Documents/SQL_postgresql/cod_Migration/src/year.cpp -o CMakeFiles/migration_core.dir/src/year.cpp.s
-
 # Object files for target migration_core
 migration_core_OBJECTS = \
 "CMakeFiles/migration_core.dir/src/ClientActivity.cpp.o" \
 "CMakeFiles/migration_core.dir/src/ClientStatistics.cpp.o" \
-"CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o" \
 "CMakeFiles/migration_core.dir/src/Database.cpp.o" \
 "CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o" \
 "CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o" \
 "CMakeFiles/migration_core.dir/src/Logger.cpp.o" \
-"CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o" \
-"CMakeFiles/migration_core.dir/src/group.cpp.o" \
-"CMakeFiles/migration_core.dir/src/year.cpp.o"
+"CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o"
 
 # External object files for target migration_core
 migration_core_EXTERNAL_OBJECTS =
 
 libmigration_core.a: CMakeFiles/migration_core.dir/src/ClientActivity.cpp.o
 libmigration_core.a: CMakeFiles/migration_core.dir/src/ClientStatistics.cpp.o
-libmigration_core.a: CMakeFiles/migration_core.dir/src/ClientUnit.cpp.o
 libmigration_core.a: CMakeFiles/migration_core.dir/src/Database.cpp.o
 libmigration_core.a: CMakeFiles/migration_core.dir/src/DatabaseProcedure.cpp.o
 libmigration_core.a: CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o
 libmigration_core.a: CMakeFiles/migration_core.dir/src/Logger.cpp.o
 libmigration_core.a: CMakeFiles/migration_core.dir/src/StatisticsService.cpp.o
-libmigration_core.a: CMakeFiles/migration_core.dir/src/group.cpp.o
-libmigration_core.a: CMakeFiles/migration_core.dir/src/year.cpp.o
 libmigration_core.a: CMakeFiles/migration_core.dir/build.make
 libmigration_core.a: CMakeFiles/migration_core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX static library libmigration_core.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/serg/Documents/SQL_postgresql/cod_Migration/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libmigration_core.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/migration_core.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/migration_core.dir/link.txt --verbose=$(VERBOSE)
 

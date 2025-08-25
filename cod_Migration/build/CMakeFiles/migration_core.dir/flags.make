@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/serg/Documents/SQL_postgresql/cod_Migration/include -I/usr/include/postgresql -I/home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp -I/home/serg/Documents/SQL_postgresql/cod_Migration/version
+CXX_INCLUDES = -I/home/serg/Documents/SQL_postgresql/cod_Migration/include -I/usr/include/postgresql -I/home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp
 
-CXX_FLAGS = -std=c++17
+CXX_FLAGS = -g -std=c++17 -g -Wall -Wextra -O0
 

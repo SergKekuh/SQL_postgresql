@@ -129,6 +129,7 @@ CMakeFiles/main.dir/main.cpp.o: \
  /usr/include/c++/14/bits/vector.tcc \
  /home/serg/Documents/SQL_postgresql/cod_Migration/include/ClientStatistics.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/include/ExcelExporter.h \
+ /home/serg/Documents/SQL_postgresql/cod_Migration/include/GroupReport.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/libxl.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/IBookT.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/setup.h \
@@ -144,6 +145,9 @@ CMakeFiles/main.dir/main.cpp.o: \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/IConditionalFormattingT.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/ICorePropertiesT.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/ITableT.h \
+ /home/serg/Documents/SQL_postgresql/cod_Migration/include/Logger.h \
+ /home/serg/Documents/SQL_postgresql/cod_Migration/include/GroupReport.h \
+ /home/serg/Documents/SQL_postgresql/cod_Migration/include/DatabaseProcedure.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/include/Logger.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/version/version.hpp \
  /usr/include/c++/14/iostream /usr/include/c++/14/ostream \
@@ -191,4 +195,13 @@ CMakeFiles/main.dir/main.cpp.o: \
  /usr/include/c++/14/bits/locale_facets.tcc \
  /usr/include/c++/14/bits/basic_ios.tcc \
  /usr/include/c++/14/bits/ostream.tcc /usr/include/c++/14/istream \
- /usr/include/c++/14/bits/istream.tcc
+ /usr/include/c++/14/bits/istream.tcc /usr/include/c++/14/iomanip \
+ /usr/include/c++/14/locale \
+ /usr/include/c++/14/bits/locale_facets_nonio.h /usr/include/c++/14/ctime \
+ /usr/include/x86_64-linux-gnu/c++/14/bits/time_members.h \
+ /usr/include/x86_64-linux-gnu/c++/14/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/14/bits/codecvt.h \
+ /usr/include/c++/14/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/14/bits/locale_conv.h \
+ /usr/include/c++/14/bits/quoted_string.h /usr/include/c++/14/sstream \
+ /usr/include/c++/14/bits/sstream.tcc

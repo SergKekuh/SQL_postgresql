@@ -123,6 +123,7 @@ CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o: \
  /usr/include/c++/14/bits/stl_bvector.h \
  /usr/include/c++/14/bits/vector.tcc \
  /home/serg/Documents/SQL_postgresql/cod_Migration/include/ClientStatistics.h \
+ /home/serg/Documents/SQL_postgresql/cod_Migration/include/GroupReport.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/libxl.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/IBookT.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/setup.h \
