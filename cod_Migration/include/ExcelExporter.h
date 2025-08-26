@@ -12,38 +12,39 @@
 class ExcelExporter {
 public:
     // Открывает шаблон Excel
-    static bool openTemplate(const std::string& templatePath);
+    static bool openTemplate(libxl::Book*& book, const std::string& templatePath);
 
     // Записывает одну группу данных по столбцу (например, C, D, E...)
-    static bool exportToSheet(const std::vector<ClientStatistics>& stats, int startRow);
+    static bool exportToSheet(libxl::Book* book, const std::vector<ClientStatistics>& stats, int startRow);
 
     // Записывает данные отчета по группам в лист
-    static bool exportGroupReportToSheet(const std::vector<GroupReport>& groupReport, int startRow);
+    static bool exportGroupReportToSheet(libxl::Book* book, const std::vector<GroupReport>& groupReport, int startRow);
 
-     // Экспорт одного статистического объекта
+    // Экспорт одного статистического объекта
     static bool exportSingleStatToColumn(
+        libxl::Book* book,
         const ClientStatistics& stat,
         int col,
         int startRow,
         bool isLast = false);  // Указывает, является ли эта запись последней в группе
 
     // Сохраняет книгу
-    static bool saveWorkbook(const std::string& outputFilename);
+    static bool saveWorkbook(libxl::Book* book, const std::string& outputFilename);
 
     // Записываем год в Excel
-    static bool writeYearToSheet(int year);
+    static bool writeYearToSheet(libxl::Book* book, int year);
 
-    // Вспомогательные методы
+    // Генерирует имя файла с временной меткой
     static std::string generateFilenameWithTimestamp(
         const std::string& baseName = "statistics_report",
         const std::string& extension = ".xlsx");
 
+    // Создает папку для отчетов, если её нет
     static bool createReportsDirectoryIfNotExists(
         const std::string& dirPath = "reports/");
 
 private:
-    // Статический указатель на книгу
-    static libxl::Book* sharedBook;
+    // Убрали статическую переменную sharedBook, так как теперь используем передачу указателя
 };
 
 #endif // EXCELEXPORTER_H

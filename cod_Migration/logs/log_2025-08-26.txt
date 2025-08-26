@@ -24,3 +24,14 @@
 2025-08-26 09:30:25 [INFO] | Файл шаблона найден: template/template_empty.xlsx
 2025-08-26 09:30:25 [INFO] | Файл шаблона найден: template/template_empty_val_1.xlsx
 2025-08-26 09:30:25 [INFO] | Ошибка при работе с Excel: Не удалось открыть шаблон Excel Val
+2025-08-26 09:51:57 [INFO] | Запуск программы версии: v1.0.0-29-g1e0bb0e
+2025-08-26 09:51:57 [INFO] | Successfully connected to the database
+2025-08-26 09:51:57 Fetching data for year: 2025, sales threshold: 146000.00, multiplier: 2.90
+2025-08-26 09:51:57 [INFO] | Printing statistics to console
+2025-08-26 09:51:57 [INFO] | Файл шаблона найден: template/template_empty.xlsx
+2025-08-26 09:51:57 [INFO] | Файл шаблона найден: template/template_empty_val_1.xlsx
+2025-08-26 09:51:57 [INFO] | Ошибка при работе с Excel: Не удалось открыть шаблон Excel Static
+2025-08-26 10:28:58 [INFO] | Запуск программы версии: v1.0.0-29-g1e0bb0e
+2025-08-26 10:28:58 [INFO] | Successfully connected to the database
+2025-08-26 10:28:58 Fetching data for year: 2025, sales threshold: 146000.00, multiplier: 2.90
+2025-08-26 10:28:58 [INFO] | Printing statistics to console

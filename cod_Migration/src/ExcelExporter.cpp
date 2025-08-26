@@ -4,19 +4,21 @@
 #include <sys/stat.h>
 
 // Определяем статическую переменную
-libxl::Book* ExcelExporter::sharedBook = nullptr;
 
-bool ExcelExporter::openTemplate(const std::string& templatePath) {
-    if (sharedBook) {
-        delete sharedBook;
-        sharedBook = nullptr;
+
+bool ExcelExporter::openTemplate(libxl::Book*& book, const std::string& templatePath) {
+    if (book) {
+        delete book;
+        book = nullptr;
     }
 
-    sharedBook = xlCreateXMLBook();
-    if (!sharedBook->load(templatePath.c_str())) {
-        std::cerr << "❌ Не удалось загрузить шаблон: " << templatePath << "\n";
-        sharedBook->release();
-        sharedBook = nullptr;
+    book = xlCreateXMLBook(); // Используем только xlCreateXMLBook() для .xlsx
+    if (!book->load(templatePath.c_str())) {
+        const char* errorMessage = book->errorMessage();
+        std::cerr << "❌ Ошибка загрузки шаблона: " << templatePath << "\n"
+                  << "  Сообщение libxl: " << (errorMessage ? errorMessage : "Неизвестная ошибка") << "\n";
+        book->release();
+        book = nullptr;
         return false;
     }
 
@@ -24,13 +26,13 @@ bool ExcelExporter::openTemplate(const std::string& templatePath) {
 }
 
 // Записывает данные отчета по группам в лист
-bool ExcelExporter::exportGroupReportToSheet(const std::vector<GroupReport>& groupReport, int startRow) {
+bool ExcelExporter::exportGroupReportToSheet(libxl::Book* book, const std::vector<GroupReport>& groupReport, int startRow) {
     try {
-        if (!sharedBook) {
+        if (!book) {
             throw std::runtime_error("Excel book is not initialized.");
         }
 
-        libxl::Sheet* sheet = sharedBook->getSheet(0); // Первый лист
+        libxl::Sheet* sheet = book->getSheet(0); // Первый лист
         if (!sheet) {
             throw std::runtime_error("Sheet not found in the workbook.");
         }
@@ -50,15 +52,16 @@ bool ExcelExporter::exportGroupReportToSheet(const std::vector<GroupReport>& gro
     }
 }
 
-bool ExcelExporter::exportToSheet(const std::vector<ClientStatistics>& stats, int startRow) {
+
+bool ExcelExporter::exportToSheet(libxl::Book* book, const std::vector<ClientStatistics>& stats, int startRow) {
     using namespace libxl;
 
-    if (!sharedBook) {
-        std::cerr << "❌ Книга не открыта. Вызовите openTemplate(...) сначала\n";
+    if (!book) {
+        std::cerr << "❌ Книга не открыта.\n";
         return false;
     }
 
-    Sheet* sheet = sharedBook->getSheet(0);
+    Sheet* sheet = book->getSheet(0);
     if (!sheet) {
         std::cerr << "❌ Лист не найден в шаблоне\n";
         return false;
@@ -91,7 +94,9 @@ bool ExcelExporter::exportToSheet(const std::vector<ClientStatistics>& stats, in
     return true;
 }
 
+
 bool ExcelExporter::exportSingleStatToColumn(
+    libxl::Book* book,
     const ClientStatistics& stat,
     int col,
     int startRow,
@@ -99,18 +104,17 @@ bool ExcelExporter::exportSingleStatToColumn(
 
     using namespace libxl;
 
-    if (!sharedBook) {
-        std::cerr << "❌ Книга не открыта. Вызовите openTemplate(...) сначала\n";
+    if (!book) {
+        std::cerr << "❌ Книга не открыта.\n";
         return false;
     }
 
-    Sheet* sheet = sharedBook->getSheet(0);
+    Sheet* sheet = book->getSheet(0);
     if (!sheet) {
         std::cerr << "❌ Лист не найден в шаблоне\n";
         return false;
     }
-    if (!isLast)
-    {
+    if (!isLast) {
         // Пишем данные по строкам, начиная со startRow
         sheet->writeNum(startRow + 0, col, stat.companies);         // C7, D7...
         sheet->writeNum(startRow + 1, col, stat.total_invoices);   // C8, D8...
@@ -118,14 +122,12 @@ bool ExcelExporter::exportSingleStatToColumn(
         sheet->writeNum(startRow + 3, col, stat.avg_sales);        // C10, D10...
         sheet->writeNum(startRow + 4, col, stat.percent_share);   // C11, D11...
         sheet->writeNum(startRow + 5, col, stat.percent_share);    // C12, D12...
-    }
-    else
-    {        
-        Font* boldFont = sharedBook->addFont();
+    } else {
+        Font* boldFont = book->addFont();
         boldFont->setSize(12);
         boldFont->setBold(true);
 
-        Format* boldFormat = sharedBook->addFormat();
+        Format* boldFormat = book->addFormat();
         boldFormat->setFont(boldFont);
 
         sheet->writeNum(startRow + 0, 8, stat.companies);         // C7, D7...
@@ -139,16 +141,14 @@ bool ExcelExporter::exportSingleStatToColumn(
     return true;
 }
 
-bool ExcelExporter::saveWorkbook(const std::string& outputFilename) {
-    if (!sharedBook) {
+bool ExcelExporter::saveWorkbook(libxl::Book* book, const std::string& outputFilename) {
+    if (!book) {
         std::cerr << "❌ Книга не была создана или уже сохранена\n";
         return false;
     }
 
-    bool success = sharedBook->save(outputFilename.c_str());
-    sharedBook->release();
-    sharedBook = nullptr;
-
+    bool success = book->save(outputFilename.c_str());
+    book->release();
     return success;
 }
 
@@ -179,15 +179,15 @@ bool ExcelExporter::createReportsDirectoryIfNotExists(const std::string& dirPath
     return true;
 }
 
-bool ExcelExporter::writeYearToSheet(int year) {
+bool ExcelExporter::writeYearToSheet(libxl::Book* book, int year) {
     using namespace libxl;
 
-    if (!sharedBook) {
-        std::cerr << "❌ Книга не открыта. Вызовите openTemplate(...) сначала\n";
+    if (!book) {
+        std::cerr << "❌ Книга не открыта.\n";
         return false;
     }
 
-    Sheet* sheet = sharedBook->getSheet(0);
+    Sheet* sheet = book->getSheet(0);
     if (!sheet) {
         std::cerr << "❌ Лист не найден в шаблоне\n";
         return false;
