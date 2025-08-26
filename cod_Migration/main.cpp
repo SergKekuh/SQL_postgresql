@@ -140,9 +140,8 @@ int main(int argc, char* argv[]) {
         logger.log(LOG("Книга Static пуста."));
         // Освобождаем ресурсы
         if (bookStatic) {
-            logger.log(LOG("Повтор очистки."));
-            //bookStatic->release();
-            bookStatic = nullptr;
+            logger.log(LOG("Обнуление книги Static."));
+            bookStatic = nullptr; // Указатель обнуляется, так как ресурсы уже освобождены в saveWorkbook
         }
 
         // ---------- VAL ----------
@@ -188,8 +187,8 @@ int main(int argc, char* argv[]) {
 
         // Освобождаем ресурсы
         if (bookVal) {
-            //bookVal->release();
-            bookVal = nullptr;
+            logger.log(LOG("Обнуление книги Val."));
+            bookVal = nullptr; // Указатель обнуляется, так как ресурсы уже освобождены в saveWorkbook
         }
 
         // Логирование успешного завершения
