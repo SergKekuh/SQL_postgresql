@@ -6,6 +6,7 @@
 #include "include/GroupReport.h"
 #include "include/DatabaseProcedure.h"
 #include "version/version.hpp"
+#include <filesystem>
 
 #include <iostream>
 #include <string>
@@ -103,24 +104,39 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    std::string templatePath = "template/template.xlsx";
-    //std::string templatePathVal = "template/template_empty_val_1.xlsx";
-
-    std::string filename = "reports/" + ExcelExporter::generateFilenameWithTimestamp("statistics_report", ".xlsx");
-    //std::string filenameVal = "reports/" + ExcelExporter::generateFilenameWithTimestamp("group_report", ".xlsx");
-
+    
     try {
-        // --- ШАГ 1: Открываем шаблон ---
-        libxl::Book* bookStatic = xlCreateBook();
-       
 
-        if (!bookStatic->load(templatePath.c_str())) {
-            std::cerr << "Ошибка загрузки шаблона: " << templatePath << std::endl;            
-            throw std::runtime_error("Не удалось открыть шаблон Excel Static");
+        std::string templatePath = "template/template_empty.xlsx";
+        std::string templatePathVal = "template/template_empty_val_1.xlsx";
+
+        std::string filename = "reports/" + ExcelExporter::generateFilenameWithTimestamp("statistics_report", ".xlsx");
+        std::string filenameVal = "reports/" + ExcelExporter::generateFilenameWithTimestamp("group_report", ".xlsx");
+
+        if (!std::filesystem::exists(templatePath)) {
+            throw std::runtime_error("Файл шаблона не найден: " + templatePath);
+        }
+        else {
+            logger.log(LOG("Файл шаблона найден: " + templatePath));
         }
 
-             
-        
+        if (!std::filesystem::exists(templatePathVal)) {
+            throw std::runtime_error("Файл шаблона не найден: " + templatePathVal);
+        }
+        else {
+            logger.log(LOG("Файл шаблона найден: " + templatePathVal));
+        }
+
+        if (!ExcelExporter::createReportsDirectoryIfNotExists("reports/")) {
+            logger.log(LOG("Ошибка создания папки reports/"));
+            return 1;
+        }
+        // --- ШАГ 1: Открываем шаблон ---
+        //libxl::Book* bookStatic = xlCreateXMLBook();
+                      
+        if (!ExcelExporter::openTemplate(templatePath)) {
+            throw std::runtime_error("Не удалось открыть шаблон Excel Static");
+        }
 
         // --- ШАГ 2: Заполняем данные в Excel (Static) ---
         ExcelExporter::writeYearToSheet(year);
@@ -143,21 +159,43 @@ int main(int argc, char* argv[]) {
             ExcelExporter::exportSingleStatToColumn(allStats[i], col++, /*startRow=*/18, isLast);
         }
 
-        // Сохраняем книгу Static
-        if (!bookStatic->save(filename.c_str())) {
-            throw std::runtime_error("Ошибка при сохранении Excel-файла Static");
+        // --- ШАГ 3: Сохраняем книгу Static
+        if (!ExcelExporter::saveWorkbook(filename)) {
+            logger.log(LOG("❌ Ошибка при сохранении Excel-файла"));
+            std::cerr << "❌ Не удалось сохранить файл\n";
+            return 1;
         }
-        bookStatic->release();
         
+       
+
+        // ---------- VAL ----------
+        // --- ШАГ 1: Открываем шаблон ---
         
+        if (!ExcelExporter::openTemplate(templatePathVal)) {
+            throw std::runtime_error("Не удалось открыть шаблон Excel Static");
+        }
+
+       
+        // --- ШАГ 2: Заполняем данные в Excel (Val) ---
+        
+        if (!ExcelExporter::exportGroupReportToSheet(groupReport, 6)) { // Начинаем запись с строки 6
+            logger.log("Ошибка записи данных в Excel.");
+            return 1;
+        }
+        // Сохраняем книгу Val
+        if (!ExcelExporter::saveWorkbook(filenameVal)) {
+            logger.log(LOG("❌ Ошибка при сохранении Excel-файла"));
+            std::cerr << "❌ Не удалось сохранить файл\n";
+            return 1;
+        }
 
         // Логирование успешного завершения
         std::string logMsg = "✅ Данные успешно экспортированы в: " + filename;
-        //std::string logMsgVal = "✅ Данные успешно экспортированы в: " + filenameVal;
+        std::string logMsgVal = "✅ Данные успешно экспортированы в: " + filenameVal;
         std::cout << logMsg << "\n";
-        //std::cout << logMsgVal << "\n";
+        std::cout << logMsgVal << "\n";
         logger.log(LOG(logMsg));  
-        //logger.log(LOG(logMsgVal));        
+        logger.log(LOG(logMsgVal));          
     } 
     catch (const std::exception& e) 
     {

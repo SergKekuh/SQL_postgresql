@@ -1,5 +1,0 @@
-2025-08-25 10:55:23 [INFO] | Запуск программы версии: v1.0.0-27-gd230781
-2025-08-25 10:55:23 [INFO] | Successfully connected to the database
-2025-08-25 10:55:23 Fetching data for year: 2025, sales threshold: 142000.00, multiplier: 2.90
-2025-08-25 10:55:23 [INFO] | Printing statistics to console
-2025-08-25 10:55:23 [INFO] | Ошибка при работе с Excel: Не удалось открыть шаблон Excel Static
