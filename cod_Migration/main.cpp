@@ -103,6 +103,7 @@ int main(int argc, char* argv[]) {
     }
 
     try {
+        // Определяем пути к шаблонам
         std::string templatePath = "template/template_empty.xlsx";
         std::string templatePathVal = "template/template_empty_val_1.xlsx";
 
@@ -114,6 +115,7 @@ int main(int argc, char* argv[]) {
         if (!ExcelExporter::openTemplate(bookStatic, templatePath)) {
             throw std::runtime_error("Не удалось открыть шаблон Excel Static");
         }
+        logger.log(LOG("Шаблон Static успешно открыт."));
 
         // --- ШАГ 2: Заполняем данные в Excel (Static) ---
         ExcelExporter::writeYearToSheet(bookStatic, year);
@@ -124,42 +126,71 @@ int main(int argc, char* argv[]) {
             ExcelExporter::exportSingleStatToColumn(bookStatic, belowStats[i], col++, /*startRow=*/6, isLast);
         }
 
-        col = 2;
-        for (size_t i = 0; i < higherStats.size(); ++i) {
-            bool isLast = (i == higherStats.size() - 1);
-            ExcelExporter::exportSingleStatToColumn(bookStatic, higherStats[i], col++, /*startRow=*/12, isLast);
-        }
-
-        col = 2;
-        for (size_t i = 0; i < allStats.size(); ++i) {
-            bool isLast = (i == allStats.size() - 1);
-            ExcelExporter::exportSingleStatToColumn(bookStatic, allStats[i], col++, /*startRow=*/18, isLast);
-        }
-
         // --- ШАГ 3: Сохраняем книгу Static
         if (!ExcelExporter::saveWorkbook(bookStatic, filename)) {
             throw std::runtime_error("Ошибка при сохранении Excel-файла Static");
         }
-        bookStatic->release();
+        logger.log(LOG("Книга Static успешно сохранена."));
+
+        if (!bookStatic) {
+            std::cerr << "❌ Книга уже освобождена.\n";
+            return false;
+        }
+
+        logger.log(LOG("Книга Static пуста."));
+        // Освобождаем ресурсы
+        if (bookStatic) {
+            logger.log(LOG("Повтор очистки."));
+            //bookStatic->release();
+            bookStatic = nullptr;
+        }
 
         // ---------- VAL ----------
         // --- ШАГ 1: Открываем шаблон Val ---
+
+        logger.log(LOG("Начинаем обработку второго файла..."));
+
+        if (!std::filesystem::exists(templatePathVal)) {
+            std::cerr << "❌ Файл шаблона не найден: " << templatePathVal << "\n";
+            logger.log(LOG("Файл шаблона не найден: " + templatePathVal));
+            return 1;
+        }
+        logger.log(LOG("Файл шаблона найден: " + templatePathVal));
+
         libxl::Book* bookVal = nullptr;
+
         if (!ExcelExporter::openTemplate(bookVal, templatePathVal)) {
             throw std::runtime_error("Не удалось открыть шаблон Excel Val");
         }
+        logger.log(LOG("Шаблон Val успешно открыт."));
 
         // --- ШАГ 2: Заполняем данные в Excel (Val) ---
+        if (groupReport.empty()) {
+            std::cerr << "❌ Отчет по группам пуст. Нечего записывать в Excel.\n";
+            logger.log(LOG("Отчет по группам пуст."));
+            return false;
+        }
+
+         logger.log(LOG("Колекция groupReport заполнена данными."));
+
         if (!ExcelExporter::exportGroupReportToSheet(bookVal, groupReport, 6)) { // Начинаем запись с строки 6
             logger.log("Ошибка записи данных в Excel.");
             return 1;
         }
 
+        logger.log(LOG("Данные успешно записаны в Excel (Val)."));
+
         // --- ШАГ 3: Сохраняем книгу Val
         if (!ExcelExporter::saveWorkbook(bookVal, filenameVal)) {
             throw std::runtime_error("Ошибка при сохранении Excel-файла Val");
         }
-        bookVal->release();
+        logger.log(LOG("Книга Val успешно сохранена."));
+
+        // Освобождаем ресурсы
+        if (bookVal) {
+            //bookVal->release();
+            bookVal = nullptr;
+        }
 
         // Логирование успешного завершения
         std::string logMsg = "✅ Данные успешно экспортированы в: " + filename;

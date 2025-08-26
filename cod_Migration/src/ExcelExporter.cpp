@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ctime>
 #include <sys/stat.h>
+#include <filesystem>
 
 // Определяем статическую переменную
 
@@ -12,6 +13,7 @@ bool ExcelExporter::openTemplate(libxl::Book*& book, const std::string& template
         book = nullptr;
     }
 
+   
     book = xlCreateXMLBook(); // Используем только xlCreateXMLBook() для .xlsx
     if (!book->load(templatePath.c_str())) {
         const char* errorMessage = book->errorMessage();
@@ -34,7 +36,7 @@ bool ExcelExporter::exportGroupReportToSheet(libxl::Book* book, const std::vecto
 
         libxl::Sheet* sheet = book->getSheet(0); // Первый лист
         if (!sheet) {
-            throw std::runtime_error("Sheet not found in the workbook.");
+            throw std::runtime_error("Лист не найден в шаблоне.");
         }
 
         int row = startRow;
@@ -47,7 +49,7 @@ bool ExcelExporter::exportGroupReportToSheet(libxl::Book* book, const std::vecto
 
         return true;
     } catch (const std::exception& e) {
-        std::cerr << "Error exporting group report to sheet: " << e.what() << std::endl;
+        std::cerr << "❌ Ошибка экспорта отчета по группам: " << e.what() << std::endl;
         return false;
     }
 }
@@ -147,9 +149,27 @@ bool ExcelExporter::saveWorkbook(libxl::Book* book, const std::string& outputFil
         return false;
     }
 
+    // Проверяем, существует ли директория для сохранения файла
+    std::filesystem::path dir = std::filesystem::path(outputFilename).parent_path();
+    if (!std::filesystem::exists(dir)) {
+        std::cerr << "❌ Директория для сохранения файла не существует: " << dir << "\n";
+        book->release();
+        return false;
+    }
+
+    std::cout << "Сохраняем файл: " << outputFilename << "\n";
+
     bool success = book->save(outputFilename.c_str());
+    if (!success) {
+        const char* errorMessage = book->errorMessage();
+        std::cerr << "❌ Ошибка при сохранении книги: " << outputFilename << "\n"
+                  << "  Сообщение libxl: " << (errorMessage ? errorMessage : "Неизвестная ошибка") << "\n";
+        book->release();
+        return true; // Продолжаем выполнение программы
+    }
+    std::cout << "Файл сохранён: " << outputFilename << "\n";
     book->release();
-    return success;
+    return true;
 }
 
 std::string ExcelExporter::generateFilenameWithTimestamp(const std::string& baseName, const std::string& extension) {
