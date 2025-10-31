@@ -126,6 +126,19 @@ int main(int argc, char* argv[]) {
             ExcelExporter::exportSingleStatToColumn(bookStatic, belowStats[i], col++, /*startRow=*/6, isLast);
         }
 
+          // higherStats → начинаем с строки 12 (C13)
+        col = 2;
+        for (size_t i = 0; i < higherStats.size(); ++i) {
+            bool isLast = (i == higherStats.size() - 1);
+            ExcelExporter::exportSingleStatToColumn(bookStatic, higherStats[i], col++, /*startRow=*/12, isLast);
+        }
+
+        // allStats → начинаем с строки 18 (C19)
+        col = 2;
+        for (size_t i = 0; i < allStats.size(); ++i) {
+            bool isLast = (i == allStats.size() - 1);
+            ExcelExporter::exportSingleStatToColumn(bookStatic, allStats[i], col++, /*startRow=*/18, isLast);
+        }
         // --- ШАГ 3: Сохраняем книгу Static
         if (!ExcelExporter::saveWorkbook(bookStatic, filename)) {
             throw std::runtime_error("Ошибка при сохранении Excel-файла Static");
@@ -172,7 +185,7 @@ int main(int argc, char* argv[]) {
 
          logger.log(LOG("Колекция groupReport заполнена данными."));
 
-        if (!ExcelExporter::exportGroupReportToSheet(bookVal, groupReport, 6)) { // Начинаем запись с строки 6
+        if (!ExcelExporter::exportGroupReportToSheet(bookVal, groupReport, 3)) { // Начинаем запись с строки 6
             logger.log("Ошибка записи данных в Excel.");
             return 1;
         }

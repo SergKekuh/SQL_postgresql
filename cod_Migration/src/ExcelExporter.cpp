@@ -3,9 +3,11 @@
 #include <ctime>
 #include <sys/stat.h>
 #include <filesystem>
+#include <fstream>
+#include <map>
 
 // Определяем статическую переменную
-
+Logger ExcelExporter::logger("logs/");
 
 bool ExcelExporter::openTemplate(libxl::Book*& book, const std::string& templatePath) {
     if (book) {
@@ -28,6 +30,7 @@ bool ExcelExporter::openTemplate(libxl::Book*& book, const std::string& template
 }
 
 // Записывает данные отчета по группам в лист
+
 bool ExcelExporter::exportGroupReportToSheet(libxl::Book* book, const std::vector<GroupReport>& groupReport, int startRow) {
     try {
         if (!book) {
@@ -39,21 +42,109 @@ bool ExcelExporter::exportGroupReportToSheet(libxl::Book* book, const std::vecto
             throw std::runtime_error("Лист не найден в шаблоне.");
         }
 
-        int row = startRow;
+        // --- Шаг 1: Сохраняем все формулы ---
+        std::map<std::pair<int, int>, std::string> formulasMap;
+        saveFormulas(sheet, formulasMap);
+
+        // --- Шаг 2: Вставляем два новых столбца, начиная со столбца B (индекс 1) ---
+        int numColsInserted = 2; // Количество вставленных столбцов
+        sheet->insertCol(1, 2); // Вставляем два столбца, начиная со столбца B (индекс 1)
+
+        // --- Шаг 3: Восстанавливаем формулы ---
+        restoreFormulas(sheet, formulasMap, numColsInserted);
+
+        // --- Шаг 4: Записываем новые данные в вставленные столбцы ---
+        int num = 0;
+        int row = startRow + 1;
         for (const auto& item : groupReport) {
-            sheet->writeStr(row, 1, item.group_name.c_str()); // Колонка B
-            sheet->writeNum(row, 2, item.total_sale);         // Колонка C
-            sheet->writeNum(row, 3, item.total_companies);    // Колонка D
+            if (row == 9) {
+                sheet->writeNum(row, 2, num); // Колонка F (была D)
+                ++row;
+            }
+            sheet->writeNum(row, 1, item.total_sale);         // Колонка E (была C)
+            sheet->writeNum(row, 2, item.total_companies);    // Колонка F (была D)
+            num += item.total_companies;
             ++row;
         }
 
         return true;
     } catch (const std::exception& e) {
-        std::cerr << "❌ Ошибка экспорта отчета по группам: " << e.what() << std::endl;
+        logger.log(logger.format("❌ Ошибка экспорта отчета по группам: %s", e.what()));
         return false;
     }
 }
 
+std::string ExcelExporter::updateCellReferences(const std::string& formula, int numColsInserted) {
+    std::string updatedFormula = formula;
+
+    // Ищем все ссылки на столбцы в R1C1-нотации (например, "RC[2]" или "R[-7]C")
+    size_t pos = 0;
+    while ((pos = updatedFormula.find("C[", pos)) != std::string::npos) {
+        size_t start = pos + 2; // Начало числа после "C["
+        size_t end = updatedFormula.find(']', start);
+
+        if (end != std::string::npos) {
+            std::string offsetStr = updatedFormula.substr(start, end - start);
+            int offset = std::stoi(offsetStr);
+
+            // Обновляем смещение столбца
+            offset += numColsInserted;
+
+            // Заменяем старое значение на новое
+            updatedFormula.replace(start, end - start, std::to_string(offset));
+            pos = end; // Продолжаем поиск с конца текущего совпадения
+        } else {
+            break; // Если ']' не найден, выходим из цикла
+        }
+    }
+
+    return updatedFormula;
+}
+
+void ExcelExporter::saveFormulas(libxl::Sheet* sheet, std::map<std::pair<int, int>, std::string>& formulasMap) {
+    if (!sheet) {
+        logger.log("❌ Лист не найден.");
+        return;
+    }
+
+    int rowCount = sheet->lastRow(); // Последняя непустая строка
+    int colCount = 255;              // Максимальное количество столбцов (A-ZZ)
+
+    for (int row = 0; row <= rowCount; ++row) {
+        for (int col = 0; col <= colCount; ++col) {
+            const char* formula = sheet->readFormula(row, col);
+            if (formula) {
+                formulasMap[{row, col}] = formula;
+                logger.log(logger.format("Найдена формула: %s в ячейке (%d, %d)", formula, row, col));
+            }
+        }
+    }
+}
+
+void ExcelExporter::restoreFormulas(libxl::Sheet* sheet, const std::map<std::pair<int, int>, std::string>& formulasMap, int numColsInserted) {
+    if (!sheet) {
+        logger.log("❌ Лист не найден.");
+        return;
+    }
+
+    for (const auto& [coords, formula] : formulasMap) {
+        int originalRow = coords.first;
+        int originalCol = coords.second;
+
+        // Обновляем столбец с учетом смещения
+        int updatedCol = originalCol + numColsInserted;
+
+        // Обновляем ссылки в формуле
+        std::string updatedFormula = updateCellReferences(formula, numColsInserted);
+
+        if (!updatedFormula.empty()) {
+            sheet->writeFormula(originalRow, updatedCol, updatedFormula.c_str());
+            logger.log(logger.format("Формула восстановлена: %s в ячейке (%d, %d)", updatedFormula.c_str(), originalRow, updatedCol));
+        } else {
+            logger.log(logger.format("❌ Обновленная формула пуста для ячейки (%d, %d).", originalRow, updatedCol));
+        }
+    }
+}
 
 bool ExcelExporter::exportToSheet(libxl::Book* book, const std::vector<ClientStatistics>& stats, int startRow) {
     using namespace libxl;

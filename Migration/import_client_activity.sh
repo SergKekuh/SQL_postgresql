@@ -6,7 +6,8 @@ DB_USER="postgres"
 
 # Путь к CSV-файлу
 CSV_FILE="/home/serg/Documents/SQL_postgresql/Migration/client_activity_1.csv"
-
+# Установка пароля для PostgreSQL
+export PGPASSWORD="root"
 # Цвета для красивого вывода
 GREEN='\033[0;32m'
 RED='\033[0;31m'

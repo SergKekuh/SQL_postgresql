@@ -124,6 +124,13 @@ CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o: \
  /usr/include/c++/14/bits/vector.tcc \
  /home/serg/Documents/SQL_postgresql/cod_Migration/include/ClientStatistics.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/include/GroupReport.h \
+ /home/serg/Documents/SQL_postgresql/cod_Migration/include/Logger.h \
+ /usr/include/c++/14/map /usr/include/c++/14/bits/stl_tree.h \
+ /usr/include/c++/14/ext/aligned_buffer.h \
+ /usr/include/c++/14/bits/node_handle.h \
+ /usr/include/c++/14/bits/stl_map.h \
+ /usr/include/c++/14/bits/stl_multimap.h \
+ /usr/include/c++/14/bits/erase_if.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/libxl.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/IBookT.h \
  /home/serg/Documents/SQL_postgresql/cod_Migration/libxl/include_cpp/setup.h \
@@ -212,6 +219,8 @@ CMakeFiles/migration_core.dir/src/ExcelExporter.cpp.o: \
  /usr/include/c++/14/bits/shared_ptr.h \
  /usr/include/c++/14/bits/shared_ptr_base.h \
  /usr/include/c++/14/bits/allocated_ptr.h \
- /usr/include/c++/14/bits/unique_ptr.h \
- /usr/include/c++/14/ext/aligned_buffer.h \
- /usr/include/c++/14/bits/fs_dir.h /usr/include/c++/14/bits/fs_ops.h
+ /usr/include/c++/14/bits/unique_ptr.h /usr/include/c++/14/bits/fs_dir.h \
+ /usr/include/c++/14/bits/fs_ops.h /usr/include/c++/14/fstream \
+ /usr/include/x86_64-linux-gnu/c++/14/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/14/bits/c++io.h \
+ /usr/include/c++/14/bits/fstream.tcc

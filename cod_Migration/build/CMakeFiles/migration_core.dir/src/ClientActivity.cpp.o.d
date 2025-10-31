@@ -120,8 +120,10 @@ CMakeFiles/migration_core.dir/src/ClientActivity.cpp.o: \
  /usr/include/c++/14/bits/uses_allocator_args.h /usr/include/c++/14/tuple \
  /home/serg/Documents/SQL_postgresql/cod_Migration/include/Database.h \
  /usr/include/postgresql/libpq-fe.h \
- /usr/include/postgresql/postgres_ext.h \
- /usr/include/postgresql/pg_config_ext.h /usr/include/c++/14/iostream \
+ /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+ /usr/include/postgresql/postgres_ext.h /usr/include/c++/14/iostream \
  /usr/include/c++/14/ostream /usr/include/c++/14/ios \
  /usr/include/c++/14/exception /usr/include/c++/14/bits/exception_ptr.h \
  /usr/include/c++/14/bits/cxxabi_init_exception.h \

@@ -5,7 +5,8 @@
 #include <vector>
 #include "ClientStatistics.h"
 #include "GroupReport.h" // Включаем структуру GroupReport
-
+#include "Logger.h"      // Включаем класс Logger
+#include <map>
 // Подключаем libxl заранее, чтобы использовать типы
 #include <libxl.h>
 
@@ -44,7 +45,18 @@ public:
         const std::string& dirPath = "reports/");
 
 private:
-    // Убрали статическую переменную sharedBook, так как теперь используем передачу указателя
+    
+    // Сохраняет формулы перед вставкой столбцов
+    static void saveFormulas(libxl::Sheet* sheet, std::map<std::pair<int, int>, std::string>& formulasMap);
+
+    // Восстанавливает формулы после вставки столбцов
+    static void restoreFormulas(libxl::Sheet* sheet, const std::map<std::pair<int, int>, std::string>& formulasMap, int numColsInserted);
+
+    // Обновляет ссылки на ячейки в формулах (R1C1-нотация)
+    static std::string updateCellReferences(const std::string& formula, int numColsInserted);
+
+    // Логгер для записи сообщений
+    static Logger logger;
 };
 
 #endif // EXCELEXPORTER_H

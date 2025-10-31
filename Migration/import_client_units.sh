@@ -4,7 +4,10 @@
 DB_NAME="bd_migrations"
 USER="postgres"
 CSV_FILE="/home/serg/Documents/SQL_postgresql/Migration/client_units_1.csv"
-LOG_FILE="/tmp/import_log.txt"
+LOG_FILE="/var/lib/postgresql/import_log.txt"
+
+# Установка пароля для PostgreSQL
+export PGPASSWORD="root"
 
 # Очистка предыдущего лога (если нужно)
 > "$LOG_FILE" 2>/dev/null || touch "$LOG_FILE"
