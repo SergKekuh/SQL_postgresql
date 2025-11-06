@@ -8,7 +8,7 @@ struct PaymentRecord {
     std::string operation_date;
     std::string purpose;
     double amount;
-    int category_id;
+    int category_id = 0; // будет заполнено после классификации
 };
 
 class Database {
@@ -20,8 +20,11 @@ public:
              const std::string& user, const std::string& password);
     ~Database();
 
-    void insertPayment(const std::string& table, const PaymentRecord& record);
-    std::vector<PaymentRecord> loadPaymentsFromCSV(const std::string& csvPath);
+    // Удалим старый метод
+    // std::vector<PaymentRecord> loadPaymentsFromCSV(const std::string& csvPath);
+
+    // Добавим новый метод
+    std::vector<PaymentRecord> loadPaymentsFromDB(const std::string& table);
 };
 
 #endif // DATABASE_H

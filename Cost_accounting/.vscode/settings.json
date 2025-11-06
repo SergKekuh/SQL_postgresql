@@ -1,0 +1,7 @@
+{
+    "cmake.sourceDirectory": "/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm",
+    "files.associations": {
+        "*.dbclient-js": "javascript",
+        "iostream": "cpp"
+    }
+}

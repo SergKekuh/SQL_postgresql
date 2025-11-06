@@ -1,4 +1,4 @@
 #pragma once
-#define APP_VERSION "v1.0.0-35-g5daac7a"
-#define GIT_COMMIT "5daac7a"
+#define APP_VERSION "v1.0.0-36-g3c3e83f"
+#define GIT_COMMIT "3c3e83f"
 #define GIT_BRANCH "main"
