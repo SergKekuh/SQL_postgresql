@@ -4,26 +4,13 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/include",
-                "${workspaceFolder}/libxl/include_c",
-                "${workspaceFolder}/libxl/include_cpp",
-                "/usr/include/postgresql",
-                "/usr/local/include/postgresql"
+                "/usr/include/postgresql"  // <-- Путь к заголовкам PostgreSQL
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/g++",
+            "compilerPath": "/usr/bin/gcc",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "linux-gcc-x64",
-            "browse": {
-                "path": [
-                    "${workspaceFolder}",
-                    "/usr/include",
-                    "/usr/local/include"
-                ],
-                "limitSymbolsToIncludedHeaders": true
-            },
-            "configurationProvider": "ms-vscode.cmake-tools"
+            "intelliSenseMode": "linux-gcc-x64"
         }
     ],
     "version": 4

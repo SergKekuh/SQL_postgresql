@@ -1,0 +1,4 @@
+/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/build/CMakeFiles/finance_core.dir
+/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/build/CMakeFiles/finance_classifier.dir
+/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/build/CMakeFiles/edit_cache.dir
+/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/build/CMakeFiles/rebuild_cache.dir
