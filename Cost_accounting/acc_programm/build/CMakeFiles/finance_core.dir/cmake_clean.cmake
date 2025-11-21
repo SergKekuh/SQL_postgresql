@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/finance_core.dir/src/CategoryClassifier.cpp.o"
   "CMakeFiles/finance_core.dir/src/CategoryClassifier.cpp.o.d"
+  "CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o"
+  "CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o.d"
   "CMakeFiles/finance_core.dir/src/Database.cpp.o"
   "CMakeFiles/finance_core.dir/src/Database.cpp.o.d"
   "CMakeFiles/finance_core.dir/src/PaymentClassifier.cpp.o"

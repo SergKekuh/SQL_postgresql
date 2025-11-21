@@ -173,6 +173,30 @@ src/CategoryClassifier.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/finance_core.dir/build.make CMakeFiles/finance_core.dir/src/CategoryClassifier.cpp.s
 .PHONY : src/CategoryClassifier.cpp.s
 
+src/CategoryMatcher.o: src/CategoryMatcher.cpp.o
+.PHONY : src/CategoryMatcher.o
+
+# target to build an object file
+src/CategoryMatcher.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/finance_core.dir/build.make CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o
+.PHONY : src/CategoryMatcher.cpp.o
+
+src/CategoryMatcher.i: src/CategoryMatcher.cpp.i
+.PHONY : src/CategoryMatcher.i
+
+# target to preprocess a source file
+src/CategoryMatcher.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/finance_core.dir/build.make CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.i
+.PHONY : src/CategoryMatcher.cpp.i
+
+src/CategoryMatcher.s: src/CategoryMatcher.cpp.s
+.PHONY : src/CategoryMatcher.s
+
+# target to generate assembly for a file
+src/CategoryMatcher.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/finance_core.dir/build.make CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.s
+.PHONY : src/CategoryMatcher.cpp.s
+
 src/Database.o: src/Database.cpp.o
 .PHONY : src/Database.o
 
@@ -259,6 +283,9 @@ help:
 	@echo "... src/CategoryClassifier.o"
 	@echo "... src/CategoryClassifier.i"
 	@echo "... src/CategoryClassifier.s"
+	@echo "... src/CategoryMatcher.o"
+	@echo "... src/CategoryMatcher.i"
+	@echo "... src/CategoryMatcher.s"
 	@echo "... src/Database.o"
 	@echo "... src/Database.i"
 	@echo "... src/Database.s"

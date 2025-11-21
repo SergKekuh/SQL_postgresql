@@ -1,4 +1,4 @@
-#include "../include/PaymentClassifier.h"
+#include "../include/CategoryMatcher.h"
 #include "../include/Database.h"
 #include <iostream>
 #include <vector>
@@ -10,7 +10,7 @@
 int main() {
     // Подключение к БД через класс Database
     Database db("localhost", "finance_db", "postgres", "root");
-    PaymentClassifier classifier("../categories.csv");
+    CategoryMatcher matcher("categories.csv"); // ✅ Новый класс
 
     std::vector<std::string> tables = {
         "payments_privat_utsk",
@@ -54,18 +54,20 @@ int main() {
         // Записываем данные
         for (size_t i = 0; i < records.size(); ++i) {
             auto& record = records[i];
-            record.category_id = classifier.classify(record.purpose);
+            int categoryId = matcher.match(record.purpose);
 
-            if (record.category_id == 0) {
+            if (categoryId == 0) {
                 std::cerr << "Не распознано: " << record.purpose << std::endl;
                 unclassified_records.push_back(record); // добавляем в список нераспознанных
+            } else {
+                std::cout << "[ID:" << categoryId << "] " << record.purpose << " | Сумма: " << record.amount << std::endl;
             }
 
             // Всё равно записываем в XLSX, даже если category_id == 0
             sheet->writeStr(i + 1, 0, record.operation_date.c_str()); // ✅ C++ API
             sheet->writeStr(i + 1, 1, record.purpose.c_str());         // ✅ C++ API
             sheet->writeNum(i + 1, 2, record.amount);                 // ✅ C++ API
-            sheet->writeNum(i + 1, 3, record.category_id);            // ✅ C++ API
+            sheet->writeNum(i + 1, 3, categoryId);                    // ✅ C++ API
         }
 
         std::cout << "Обработано " << records.size() << " записей из " << table << std::endl;
@@ -100,8 +102,8 @@ int main() {
     }
 
     // Сохраняем XLSX-файл
-    if (book->save("classified_payments_from_db.xlsx")) { // ✅ C++ API
-        std::cout << "Результаты сохранены в classified_payments_from_db.xlsx" << std::endl;
+    if (book->save("classified_payments_new_matcher.xlsx")) { // ✅ C++ API
+        std::cout << "Результаты сохранены в classified_payments_new_matcher.xlsx" << std::endl;
     } else {
         std::cerr << "Ошибка: не удалось сохранить XLSX-файл." << std::endl;
     }

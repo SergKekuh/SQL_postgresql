@@ -9,8 +9,7 @@ class CategoryClassifier : public ICategoryClassifier {
 private:
     int id_;
     std::vector<std::string> keywords_;
-
-    std::string toLower(const std::string& s) const;
+    std::string toLower(const std::string& s) const;  // <- Объявлен
 
 public:
     CategoryClassifier(int id, const std::vector<std::string>& keywords);

@@ -4,10 +4,14 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/include/postgresql"  // <-- Путь к заголовкам PostgreSQL
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/libxl/include_c",
+                "${workspaceFolder}/libxl/include_cpp",
+                "/usr/include/postgresql",
+                "/usr/local/include/postgresql"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/gcc",
+            "compilerPath": "/usr/bin/g++",
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "linux-gcc-x64"

@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/src/CategoryClassifier.cpp" "CMakeFiles/finance_core.dir/src/CategoryClassifier.cpp.o" "gcc" "CMakeFiles/finance_core.dir/src/CategoryClassifier.cpp.o.d"
+  "/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/src/CategoryMatcher.cpp" "CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o" "gcc" "CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o.d"
   "/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/src/Database.cpp" "CMakeFiles/finance_core.dir/src/Database.cpp.o" "gcc" "CMakeFiles/finance_core.dir/src/Database.cpp.o.d"
   "/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/src/PaymentClassifier.cpp" "CMakeFiles/finance_core.dir/src/PaymentClassifier.cpp.o" "gcc" "CMakeFiles/finance_core.dir/src/PaymentClassifier.cpp.o.d"
   )

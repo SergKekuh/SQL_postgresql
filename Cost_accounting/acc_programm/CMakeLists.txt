@@ -14,15 +14,15 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBPQ REQUIRED libpq)
 
 if(NOT LIBPQ_FOUND)
-    message(FATAL_ERROR "libpq not found. Please install PostgreSQL development libraries (libpq-dev).")
+    message(FATAL_ERROR "libpq не найден. Установите libpq-dev (Debian/Ubuntu) или postgresql-devel (RHEL/CentOS).")
 endif()
 
 # libxl
 set(LIBXL_PATH ${PROJECT_SOURCE_DIR}/libxl/lib64)
-set(LIBXL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/libxl/include_cpp)  # <-- C++ заголовки
+set(LIBXL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/libxl/include_cpp)
 
 if(NOT EXISTS ${LIBXL_PATH}/libxl.so AND NOT EXISTS ${LIBXL_PATH}/libxl.dll AND NOT EXISTS ${LIBXL_PATH}/libxl.lib)
-    message(FATAL_ERROR "⚠️ libxl library not found at ${LIBXL_PATH}")
+    message(FATAL_ERROR "⚠️ libxl библиотека не найдена в ${LIBXL_PATH}")
 endif()
 
 # Подключаем заголовочные файлы
@@ -37,7 +37,8 @@ set(CORE_SOURCES
     src/CategoryClassifier.cpp
     src/PaymentClassifier.cpp
     src/Database.cpp
-    # Добавь сюда остальные файлы, если появятся
+    src/CategoryMatcher.cpp  # ✅ Добавлено
+    # Добавь сюда другие cpp-файлы, если появятся
 )
 
 add_library(finance_core STATIC ${CORE_SOURCES})

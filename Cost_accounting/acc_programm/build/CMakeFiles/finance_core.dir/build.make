@@ -114,11 +114,26 @@ CMakeFiles/finance_core.dir/src/Database.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/finance_core.dir/src/Database.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/src/Database.cpp -o CMakeFiles/finance_core.dir/src/Database.cpp.s
 
+CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o: CMakeFiles/finance_core.dir/flags.make
+CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o: /home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/src/CategoryMatcher.cpp
+CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o: CMakeFiles/finance_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o -MF CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o.d -o CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o -c /home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/src/CategoryMatcher.cpp
+
+CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/src/CategoryMatcher.cpp > CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.i
+
+CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/src/CategoryMatcher.cpp -o CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.s
+
 # Object files for target finance_core
 finance_core_OBJECTS = \
 "CMakeFiles/finance_core.dir/src/CategoryClassifier.cpp.o" \
 "CMakeFiles/finance_core.dir/src/PaymentClassifier.cpp.o" \
-"CMakeFiles/finance_core.dir/src/Database.cpp.o"
+"CMakeFiles/finance_core.dir/src/Database.cpp.o" \
+"CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o"
 
 # External object files for target finance_core
 finance_core_EXTERNAL_OBJECTS =
@@ -126,9 +141,10 @@ finance_core_EXTERNAL_OBJECTS =
 libfinance_core.a: CMakeFiles/finance_core.dir/src/CategoryClassifier.cpp.o
 libfinance_core.a: CMakeFiles/finance_core.dir/src/PaymentClassifier.cpp.o
 libfinance_core.a: CMakeFiles/finance_core.dir/src/Database.cpp.o
+libfinance_core.a: CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o
 libfinance_core.a: CMakeFiles/finance_core.dir/build.make
 libfinance_core.a: CMakeFiles/finance_core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libfinance_core.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libfinance_core.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/finance_core.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/finance_core.dir/link.txt --verbose=$(VERBOSE)
 

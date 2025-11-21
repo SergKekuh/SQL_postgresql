@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cctype>
 
+// Реализация метода класса
 std::string CategoryClassifier::toLower(const std::string& s) const {
     std::string result = s;
     std::transform(result.begin(), result.end(), result.begin(),
@@ -17,7 +18,8 @@ int CategoryClassifier::getId() const {
 }
 
 bool CategoryClassifier::matches(const std::string& purpose) const {
-    std::string lowerPurpose = toLower(purpose);
+    std::string lowerPurpose = toLower(purpose);  // вызов метода класса
+
     for (const auto& kw : keywords_) {
         if (lowerPurpose.find(toLower(kw)) != std::string::npos) {
             return true;
