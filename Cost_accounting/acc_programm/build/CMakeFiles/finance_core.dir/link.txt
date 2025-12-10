@@ -1,2 +1,0 @@
-/usr/bin/ar qc libfinance_core.a CMakeFiles/finance_core.dir/src/CategoryClassifier.cpp.o CMakeFiles/finance_core.dir/src/PaymentClassifier.cpp.o CMakeFiles/finance_core.dir/src/Database.cpp.o CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o
-/usr/bin/ranlib libfinance_core.a

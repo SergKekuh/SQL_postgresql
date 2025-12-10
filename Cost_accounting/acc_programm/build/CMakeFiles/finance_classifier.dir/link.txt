@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/finance_classifier.dir/link.d CMakeFiles/finance_classifier.dir/src/main.cpp.o -o finance_classifier  -Wl,-rpath,/home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/libxl/lib64 libfinance_core.a -lpq /home/serg/Documents/SQL_postgresql/Cost_accounting/acc_programm/libxl/lib64/libxl.so
