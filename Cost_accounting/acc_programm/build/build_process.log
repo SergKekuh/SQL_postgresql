@@ -1,0 +1,9 @@
+[ 14%] Building CXX object CMakeFiles/finance_core.dir/src/CategoryClassifier.cpp.o
+[ 28%] Building CXX object CMakeFiles/finance_core.dir/src/PaymentClassifier.cpp.o
+[ 42%] Building CXX object CMakeFiles/finance_core.dir/src/Database.cpp.o
+[ 57%] Building CXX object CMakeFiles/finance_core.dir/src/CategoryMatcher.cpp.o
+[ 71%] Linking CXX static library libfinance_core.a
+[ 71%] Built target finance_core
+[ 85%] Building CXX object CMakeFiles/finance_classifier.dir/src/main.cpp.o
+[100%] Linking CXX executable finance_classifier
+[100%] Built target finance_classifier
