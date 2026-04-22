@@ -25,6 +25,7 @@ public:
     // Вспомогательные методы
     std::string getCategoryName(int id) const;
     std::string getCategoryParent(int id) const;
+    std::string getCategorySubcategory(int id) const;
 
 private:
     std::vector<Category> categories_;

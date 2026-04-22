@@ -1,5 +1,5 @@
 #include "../include/CategoryMatcher.h"
-#include "../include/Database.h"
+#include "../include/Database.h" // Предполагаем, что этот файл содержит PaymentRecord и Database
 #include <iostream>
 #include <vector>
 #include <string>
@@ -100,13 +100,20 @@ int main() {
         // Создаем детальный лист для каждой выписки
         libxl::Sheet* sheet = book->addSheet(tableName.c_str());
         if (sheet) {
-            sheet->setCol(0, 0, 12); sheet->setCol(1, 1, 60); 
-            sheet->setCol(2, 2, 15); sheet->setCol(3, 3, 8);
+            // !!! ВАЖНО: Добавляем столбцы для Подраздела и Назначения
+            sheet->setCol(0, 0, 12); 
+            sheet->setCol(1, 1, 60); 
+            sheet->setCol(2, 2, 15); 
+            sheet->setCol(3, 3, 8);
+            sheet->setCol(4, 4, 30); // Подраздел
+            sheet->setCol(5, 5, 40); // Назначение
             
             sheet->writeStr(0, 0, "Дата", headerFormat);
-            sheet->writeStr(0, 1, "Назначение", headerFormat);
+            sheet->writeStr(0, 1, "Назначение платежа", headerFormat);
             sheet->writeStr(0, 2, "Сумма", headerFormat);
             sheet->writeStr(0, 3, "ID", headerFormat);
+            sheet->writeStr(0, 4, "Подраздел", headerFormat); // НОВЫЙ СТОЛБЕЦ
+            sheet->writeStr(0, 5, "Категория", headerFormat); // НОВЫЙ СТОЛБЕЦ
             
             int row = 1;
             for (const auto& rec : records) {
@@ -116,7 +123,6 @@ int main() {
                     all_unclassified.push_back(rec);
                 } else {
                     // НАКОПЛЕНИЕ СУММ ДЛЯ ОБЩЕЙ ТАБЛИЦЫ
-                    // tIndex (0-3) соответствует столбцу банка
                     summaryData[id][tIndex] += rec.amount;
                 }
 
@@ -125,6 +131,10 @@ int main() {
                 sheet->writeStr(row, 1, rec.purpose.c_str(), cellFormat);
                 sheet->writeNum(row, 2, rec.amount, moneyFormat);
                 sheet->writeNum(row, 3, id, cellFormat);
+                // НОВЫЕ СТОЛБЦЫ:
+                sheet->writeStr(row, 4, matcher.getCategorySubcategory(id).c_str(), cellFormat);
+                sheet->writeStr(row, 5, matcher.getCategoryName(id).c_str(), cellFormat);
+                
                 row++;
             }
         }
@@ -136,20 +146,22 @@ int main() {
     if (sumSheet) {
         // Настройка ширины
         sumSheet->setCol(0, 0, 5);  // №
-        sumSheet->setCol(1, 1, 25); // Принадлежность
-        sumSheet->setCol(2, 2, 40); // Назначение
-        sumSheet->setCol(3, 6, 18); // Столбцы банков
-        sumSheet->setCol(7, 7, 20); // Итого
+        sumSheet->setCol(1, 1, 20); // Принадлежность
+        sumSheet->setCol(2, 2, 30); // <<< НОВЫЙ: Подраздел
+        sumSheet->setCol(3, 3, 40); // Назначение
+        sumSheet->setCol(4, 7, 18); // Столбцы банков (теперь начинаются с 4)
+        sumSheet->setCol(8, 8, 20); // Итого (теперь 8)
 
         // Заголовки
         sumSheet->writeStr(0, 0, "№ п/п", headerFormat);
         sumSheet->writeStr(0, 1, "Принадлежность", headerFormat);
-        sumSheet->writeStr(0, 2, "Назначение", headerFormat);
-        sumSheet->writeStr(0, 3, "Приват УТСК", headerFormat);
-        sumSheet->writeStr(0, 4, "Аваль УТСК", headerFormat);
-        sumSheet->writeStr(0, 5, "Приват Форпост", headerFormat);
-        sumSheet->writeStr(0, 6, "Аваль Форпост", headerFormat);
-        sumSheet->writeStr(0, 7, "ИТОГО", headerFormat);
+        sumSheet->writeStr(0, 2, "Подраздел", headerFormat); // <<< НОВЫЙ СТОЛБЕЦ
+        sumSheet->writeStr(0, 3, "Назначение", headerFormat);
+        sumSheet->writeStr(0, 4, "Приват УТСК", headerFormat);
+        sumSheet->writeStr(0, 5, "Аваль УТСК", headerFormat);
+        sumSheet->writeStr(0, 6, "Приват Форпост", headerFormat);
+        sumSheet->writeStr(0, 7, "Аваль Форпост", headerFormat);
+        sumSheet->writeStr(0, 8, "ИТОГО", headerFormat); // Сдвинут
 
         // Итоговые суммы по столбцам (внизу)
         std::vector<double> colTotals(5, 0.0); // 4 банка + 1 общий итог
@@ -158,6 +170,8 @@ int main() {
         // Проходим по всем известным ID (1..116)
         for (int id = 1; id <= 116; ++id) {
             std::string parent = matcher.getCategoryParent(id);
+            // <<< НОВЫЙ: Получаем подраздел
+            std::string subcategory = matcher.getCategorySubcategory(id); 
             std::string name = matcher.getCategoryName(id);
             
             // Проверка: пустая категория (если в CSV есть дырки)?
@@ -178,19 +192,21 @@ int main() {
 
             sumSheet->writeNum(row, 0, id, currentTextFmt);
             sumSheet->writeStr(row, 1, parent.c_str(), currentTextFmt);
-            sumSheet->writeStr(row, 2, name.c_str(), currentTextFmt);
+            // <<< НОВЫЙ СТОЛБЕЦ: Подраздел
+            sumSheet->writeStr(row, 2, subcategory.c_str(), currentTextFmt); 
+            sumSheet->writeStr(row, 3, name.c_str(), currentTextFmt);
 
-            // Пишем суммы по банкам
+            // Пишем суммы по банкам (теперь с 4-го столбца: 3 + k)
             for (int k = 0; k < 4; ++k) {
                 double val = sums[k];
-                sumSheet->writeNum(row, 3 + k, val, currentMoneyFmt);
+                sumSheet->writeNum(row, 4 + k, val, currentMoneyFmt);
                 
                 rowTotal += val;
                 colTotals[k] += val; // копим итог столбца
             }
 
-            // Пишем итог строки
-            sumSheet->writeNum(row, 7, rowTotal, currentMoneyFmt);
+            // Пишем итог строки (теперь в 8-м столбце: 4 + 4 = 8)
+            sumSheet->writeNum(row, 8, rowTotal, currentMoneyFmt);
             colTotals[4] += rowTotal;
 
             row++;
@@ -204,15 +220,16 @@ int main() {
         totalRowFormat->setFillPattern(libxl::FILLPATTERN_SOLID);
         totalRowFormat->setPatternForegroundColor(libxl::COLOR_GRAY25);
 
-        sumSheet->writeStr(row, 2, "ВСЕГО:", headerFormat);
-        sumSheet->writeNum(row, 3, colTotals[0], totalRowFormat);
-        sumSheet->writeNum(row, 4, colTotals[1], totalRowFormat);
-        sumSheet->writeNum(row, 5, colTotals[2], totalRowFormat);
-        sumSheet->writeNum(row, 6, colTotals[3], totalRowFormat);
-        sumSheet->writeNum(row, 7, colTotals[4], totalRowFormat);
+        // Итоговая строка теперь сдвинута
+        sumSheet->writeStr(row, 3, "ВСЕГО:", headerFormat); // Было 2, стало 3
+        sumSheet->writeNum(row, 4, colTotals[0], totalRowFormat);
+        sumSheet->writeNum(row, 5, colTotals[1], totalRowFormat);
+        sumSheet->writeNum(row, 6, colTotals[2], totalRowFormat);
+        sumSheet->writeNum(row, 7, colTotals[3], totalRowFormat);
+        sumSheet->writeNum(row, 8, colTotals[4], totalRowFormat);
     }
 
-    // 4. Лист нераспознанных
+    // 4. Лист нераспознанных (остается без изменений)
     if (!all_unclassified.empty()) {
         libxl::Sheet* badSheet = book->addSheet("Нераспознанные");
         if (badSheet) {
