@@ -1,6 +1,7 @@
 #include "core/Config.hpp"
 #include <fstream>
 #include <iostream>
+#include <nlohmann/json.hpp>
 
 namespace utsk {
 
@@ -15,7 +16,6 @@ bool Config::load(const std::string& filepath) {
         nlohmann::json json;
         file >> json;
 
-        // Парсинг секции database
         if (json.contains("database")) {
             auto& db = json["database"];
             m_dbInfo.host = db.value("host", "localhost");
@@ -25,7 +25,6 @@ bool Config::load(const std::string& filepath) {
             m_dbInfo.password = db.value("password", "");
         }
 
-        // Парсинг секции app (опционально)
         if (json.contains("app")) {
             auto& app = json["app"];
             m_logLevel = app.value("log_level", "info");
@@ -57,13 +56,7 @@ bool Config::save(const std::string& filepath) {
         };
 
         std::ofstream file(filepath);
-        if (!file.is_open()) {
-            std::cerr << "[Config] ERROR: Cannot write file: " << filepath << std::endl;
-            return false;
-        }
-
         file << json.dump(4);
-        std::cout << "[Config] Saved: " << filepath << std::endl;
         return true;
 
     } catch (const std::exception& e) {

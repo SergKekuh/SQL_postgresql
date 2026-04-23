@@ -7,9 +7,6 @@
 
 namespace utsk {
 
-/**
- * @brief Простой логгер с поддержкой уровней и цветного вывода
- */
 class Logger {
 public:
     enum class Level {
@@ -19,36 +16,24 @@ public:
         ERROR
     };
 
-    /**
-     * @brief Получить singleton экземпляр
-     */
     static Logger& getInstance();
 
-    /**
-     * @brief Инициализировать логгер
-     * @param logFile Путь к файлу лога (пустая строка = только консоль)
-     * @param level Минимальный уровень для вывода
-     */
     void init(const std::string& logFile = "", Level level = Level::INFO);
-
-    /**
-     * @brief Записать сообщение
-     */
     void log(Level level, const std::string& message);
 
-    // Вспомогательные методы
-    void debug(const std::string& msg) { log(Level::DEBUG, msg); }
-    void info(const std::string& msg)  { log(Level::INFO, msg); }
+    void debug(const std::string& msg)   { log(Level::DEBUG, msg); }
+    void info(const std::string& msg)    { log(Level::INFO, msg); }
     void warning(const std::string& msg) { log(Level::WARNING, msg); }
-    void error(const std::string& msg) { log(Level::ERROR, msg); }
+    void error(const std::string& msg)   { log(Level::ERROR, msg); }
 
-    // Setters
     void setLevel(Level level) { m_level = level; }
     void setUseColors(bool use) { m_useColors = use; }
 
 private:
-    Logger() = default;
+    Logger();
     ~Logger();
+    Logger(const Logger&) = delete;
+    Logger& operator=(const Logger&) = delete;
 
     std::string levelToString(Level level);
     std::string getTimestamp();
@@ -63,7 +48,6 @@ private:
 
 } // namespace utsk
 
-// Макросы для удобства
 #define LOG_DEBUG(msg)   utsk::Logger::getInstance().debug(msg)
 #define LOG_INFO(msg)    utsk::Logger::getInstance().info(msg)
 #define LOG_WARNING(msg) utsk::Logger::getInstance().warning(msg)

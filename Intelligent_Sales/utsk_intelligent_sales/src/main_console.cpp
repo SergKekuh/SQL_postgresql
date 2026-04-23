@@ -5,9 +5,6 @@
 #include "core/Database.hpp"
 #include "services/ClientService.hpp"
 #include "services/ProductService.hpp"
-#include "services/RecommendationService.hpp"
-#include "services/AnalyticsService.hpp"
-#include "services/SurveyService.hpp"
 
 using namespace utsk;
 
@@ -18,33 +15,24 @@ void printSeparator() {
 int main() {
     Logger::getInstance().init("", Logger::Level::INFO);
     
-    LOG_INFO("========================================");
     LOG_INFO("UTSK Intelligent Sales - Console v1.0.0");
-    LOG_INFO("========================================");
     
+    // Загрузка конфигурации
     Config config;
-    if (!config.load(".env")) { 
-        LOG_WARNING("Failed to load .env, proceeding with defaults");
+    if (!config.load("config/db_config.json")) {
+        std::cerr << "Failed to load config/db_config.json!" << std::endl;
+        return 1;
     }
     
-    // --- РЕШЕНИЕ КОНФЛИКТА ТИПОВ: Конвертируем Config::DatabaseInfo в Database::ConnectionInfo ---
-    auto configInfo = config.getDatabaseInfo();
-    Database::ConnectionInfo dbInfo;
-    dbInfo.host = configInfo.host;
-    dbInfo.port = configInfo.port;
-    dbInfo.dbname = configInfo.dbname;
-    dbInfo.user = configInfo.user;
-    dbInfo.password = configInfo.password;
-    
+    // Подключение к БД
     Database db;
-    if (!db.connect(dbInfo)) {
-        LOG_ERROR("Failed to connect to database!");
+    if (!db.connect(config.getDatabaseInfo())) {
+        std::cerr << "Failed to connect to database!" << std::endl;
         return 1;
     }
     
     ClientService clientService(db);
     ProductService productService(db);
-    RecommendationService recService(db);
     
     printSeparator();
     
@@ -54,10 +42,8 @@ int main() {
     std::cout << "─────────────────────────────────────────\n";
     std::cout << "Всего клиентов:        " << stats.totalClients << "\n";
     std::cout << "Активных (30 дней):    " << stats.active30Days << "\n";
-    std::cout << "Активных (90 дней):    " << stats.active90Days << "\n";
     std::cout << std::fixed << std::setprecision(2);
     std::cout << "Общая выручка:         " << stats.totalRevenue << " грн\n";
-    std::cout << "Выручка за 30 дней:    " << stats.revenue30Days << " грн\n";
     
     printSeparator();
     
@@ -66,72 +52,49 @@ int main() {
     std::cout << "🏷️  РАСПРЕДЕЛЕНИЕ ПО СТАТУСАМ\n";
     std::cout << "─────────────────────────────────────────\n";
     for (const auto& s : statusStats) {
-        std::cout << std::left << std::setw(25) << s.statusName 
+        std::cout << std::left << std::setw(20) << s.statusName 
                   << std::right << std::setw(6) << s.count 
-                  << " (" << std::setw(5) << s.percentage << "%)\n";
+                  << " (" << std::setw(6) << s.percentage << "%)\n";
     }
     
     printSeparator();
     
-    // Клиенты, требующие опроса
+    // Направления
+    auto dirStats = clientService.getDirectionDistribution();
+    std::cout << "🎯 РАСПРЕДЕЛЕНИЕ ПО НАПРАВЛЕНИЯМ\n";
+    std::cout << "─────────────────────────────────────────\n";
+    for (const auto& d : dirStats) {
+        std::cout << std::left << std::setw(30) << d.directionName 
+                  << std::right << std::setw(6) << d.count 
+                  << " (" << std::setw(6) << d.percentage << "%)\n";
+    }
+    
+    printSeparator();
+    
+    // Клиенты на опрос
     auto surveyClients = clientService.getRequiringSurvey();
     std::cout << "⚠️  ТРЕБУЮТ ОПРОСА: " << surveyClients.size() << " клиентов\n";
     std::cout << "─────────────────────────────────────────\n";
-    int count = 0;
     for (const auto& c : surveyClients) {
-        std::cout << std::left << std::setw(15) << c.getCode() 
+        std::cout << std::left << std::setw(12) << c.getCode() 
                   << std::setw(40) << c.getName().substr(0, 38) << "\n";
-        if (++count >= 5) break;
     }
     
     printSeparator();
     
     // Товары
     auto products = productService.getAll();
-    std::cout << "📦 ТОВАРЫ (первые 5 из " << products.size() << ")\n";
+    std::cout << "📦 ТОВАРЫ (первые 10 из " << products.size() << ")\n";
     std::cout << "─────────────────────────────────────────\n";
-    count = 0;
+    int count = 0;
     for (const auto& p : products) {
-        std::cout << std::left << std::setw(15) << p.getCode() 
-                  << std::setw(40) << p.getName().substr(0, 38) << "\n";
-        if (++count >= 5) break;
+        std::cout << std::left << std::setw(12) << p.getCode() 
+                  << std::setw(48) << p.getName().substr(0, 46) << "\n";
+        if (++count >= 10) break;
     }
     
     printSeparator();
     
-    // Рекомендации
-    auto topRecs = recService.getTopRecommendations(3);
-    std::cout << "💡 ТОП-3 УМНЫЕ РЕКОМЕНДАЦИИ\n";
-    std::cout << "─────────────────────────────────────────\n";
-    for(const auto& r : topRecs) {
-        std::cout << "Клиенту: " << r.getClientCode() << " -> Предложить: " << r.getProductName() << "\n";
-    }
-    
-    printSeparator();
-    
-    // --- ДЕМОНСТРАЦИЯ МОДУЛЯ ОПРОСОВ ---
-    SurveyService surveyService(db);
-    if (!surveyClients.empty()) {
-        auto targetClient = surveyClients.front();
-        std::cout << "📞 СИМУЛЯЦИЯ ОПРОСА\n";
-        std::cout << "─────────────────────────────────────────\n";
-        std::cout << "Звоним клиенту: " << targetClient.getName() << " (" << targetClient.getCode() << ")\n";
-        
-        SurveyResult survey;
-        survey.setClientCode(targetClient.getCode());
-        survey.setContacted(true);
-        survey.setContactPerson("Иван Иванович (Директор)");
-        survey.setFeedback("Был перерыв в закупках из-за логистики. Возвращаются к работе, нужен счет на арматуру.");
-        
-        if (surveyService.saveSurveyResult(survey)) {
-            std::cout << "✅ Опрос успешно проведен и сохранен в БД!\n";
-            std::cout << "✅ Флаг 'requires_survey' для клиента снят.\n";
-        } else {
-            std::cout << "❌ Ошибка при сохранении опроса.\n";
-        }
-        printSeparator();
-    }
-
     db.disconnect();
     LOG_INFO("Application finished successfully");
     

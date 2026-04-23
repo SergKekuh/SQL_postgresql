@@ -6,17 +6,12 @@
 
 namespace utsk {
 
-// ANSI цвета
 namespace Color {
     const std::string RESET   = "\033[0m";
-    const std::string BLACK   = "\033[30m";
     const std::string RED     = "\033[31m";
     const std::string GREEN   = "\033[32m";
     const std::string YELLOW  = "\033[33m";
-    const std::string BLUE    = "\033[34m";
-    const std::string MAGENTA = "\033[35m";
     const std::string CYAN    = "\033[36m";
-    const std::string WHITE   = "\033[37m";
     const std::string BOLD    = "\033[1m";
 }
 
@@ -24,6 +19,8 @@ Logger& Logger::getInstance() {
     static Logger instance;
     return instance;
 }
+
+Logger::Logger() = default;
 
 Logger::~Logger() {
     if (m_file.is_open()) {
@@ -33,18 +30,13 @@ Logger::~Logger() {
 
 void Logger::init(const std::string& logFile, Level level) {
     std::lock_guard<std::mutex> lock(m_mutex);
-    
     m_level = level;
     
     if (!logFile.empty()) {
         m_file.open(logFile, std::ios::out | std::ios::app);
-        if (!m_file.is_open()) {
-            std::cerr << "[Logger] WARNING: Cannot open log file: " << logFile << std::endl;
-        }
     }
     
     m_initialized = true;
-    info("Logger initialized");
 }
 
 void Logger::log(Level level, const std::string& message) {
@@ -56,14 +48,12 @@ void Logger::log(Level level, const std::string& message) {
     std::string levelStr = levelToString(level);
     std::string fullMessage = "[" + timestamp + "] [" + levelStr + "] " + message;
     
-    // Вывод в консоль
     if (m_useColors) {
         std::cout << colorize(level, fullMessage) << std::endl;
     } else {
         std::cout << fullMessage << std::endl;
     }
     
-    // Запись в файл (без цветов)
     if (m_file.is_open()) {
         m_file << fullMessage << std::endl;
         m_file.flush();
@@ -73,10 +63,10 @@ void Logger::log(Level level, const std::string& message) {
 std::string Logger::levelToString(Level level) {
     switch (level) {
         case Level::DEBUG:   return "DEBUG";
-        case Level::INFO:    return "INFO";
-        case Level::WARNING: return "WARN";
+        case Level::INFO:    return "INFO ";
+        case Level::WARNING: return "WARN ";
         case Level::ERROR:   return "ERROR";
-        default:             return "UNKNOWN";
+        default:             return "???? ";
     }
 }
 
