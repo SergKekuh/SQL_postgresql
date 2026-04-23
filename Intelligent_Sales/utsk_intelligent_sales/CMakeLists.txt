@@ -28,6 +28,7 @@ add_executable(utsk_console
     src/services/ClientService.cpp
     src/services/ProductService.cpp
     src/services/AnalyticsService.cpp
+    src/services/RecommendationService.cpp
     src/ui/ConsoleUI.cpp
     src/ui/ConsoleMenu.cpp
     src/ui/TablePrinter.cpp

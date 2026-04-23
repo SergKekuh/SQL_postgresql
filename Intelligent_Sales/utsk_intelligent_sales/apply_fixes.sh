@@ -1,3 +1,50 @@
+#!/bin/bash
+
+echo "🚀 Применяем исправления для UI и сервиса рекомендаций..."
+
+echo "📄 Обновление include/ui/ConsoleUI.hpp..."
+cat > include/ui/ConsoleUI.hpp << 'EOF'
+#ifndef CONSOLE_UI_HPP
+#define CONSOLE_UI_HPP
+
+#include "core/Database.hpp"
+#include "services/ClientService.hpp"
+#include "services/ProductService.hpp"
+#include "services/RecommendationService.hpp"
+#include "ui/ConsoleMenu.hpp"
+#include "ui/TablePrinter.hpp"
+
+namespace utsk {
+
+class ConsoleUI {
+public:
+    ConsoleUI(Database& db, ClientService& clientSvc, ProductService& productSvc, RecommendationService& recSvc);
+    void run();
+
+private:
+    void showDashboard();
+    void showProducts();
+    void showStatusDistribution();
+    void showDirectionDistribution();
+    void showRequiringSurvey();
+    void showClientList();
+    void showRecommendations(const std::string& clientCode);
+    void waitForKey();
+
+    Database& m_db;
+    ClientService& m_clientService;
+    ProductService& m_productService;
+    RecommendationService& m_recService;
+    ConsoleMenu m_menu;
+};
+
+} // namespace utsk
+
+#endif
+EOF
+
+echo "📄 Обновление src/ui/ConsoleUI.cpp..."
+cat > src/ui/ConsoleUI.cpp << 'EOF'
 #include "ui/ConsoleUI.hpp"
 #include "core/Logger.hpp"
 #include <iostream>
@@ -59,12 +106,12 @@ void ConsoleUI::showRequiringSurvey() {
     table.addColumn("Статус", 16);
     
     for (const auto& c : clients) {
-        std::vector<std::string> row;
-        row.push_back(c.getCode());
-        row.push_back(c.getName().substr(0, 38));
-        row.push_back(c.getClientType().value_or("-"));
-        row.push_back(c.getStatusName().value_or("-"));
-        table.addRow(row);
+        table.addRow({
+            c.getCode(),
+            c.getName().substr(0, 38),
+            c.getClientType().value_or("-"),
+            c.getStatusName().value_or("-")
+        });
     }
     table.print();
     waitForKey();
@@ -82,11 +129,7 @@ void ConsoleUI::showStatusDistribution() {
     for (const auto& s : stats) {
         std::stringstream ss;
         ss << std::fixed << std::setprecision(1) << s.percentage;
-        std::vector<std::string> row;
-        row.push_back(s.statusName);
-        row.push_back(std::to_string(s.count));
-        row.push_back(ss.str() + "%");
-        table.addRow(row);
+        table.addRow({s.statusName, std::to_string(s.count), ss.str() + "%"});
     }
     table.print();
     waitForKey();
@@ -104,11 +147,7 @@ void ConsoleUI::showDirectionDistribution() {
     for (const auto& d : stats) {
         std::stringstream ss;
         ss << std::fixed << std::setprecision(1) << d.percentage;
-        std::vector<std::string> row;
-        row.push_back(d.directionName);
-        row.push_back(std::to_string(d.count));
-        row.push_back(ss.str() + "%");
-        table.addRow(row);
+        table.addRow({d.directionName, std::to_string(d.count), ss.str() + "%"});
     }
     table.print();
     waitForKey();
@@ -125,11 +164,11 @@ void ConsoleUI::showProducts() {
     
     int count = 0;
     for (const auto& p : products) {
-        std::vector<std::string> row;
-        row.push_back(p.getCode());
-        row.push_back(p.getName().substr(0, 43));
-        row.push_back(p.getDirectionName().value_or("-"));
-        table.addRow(row);
+        table.addRow({
+            p.getCode(),
+            p.getName().substr(0, 43),
+            p.getDirectionName().value_or("-")
+        });
         if (++count >= 20) break;
     }
     table.print();
@@ -145,10 +184,7 @@ void ConsoleUI::showClientList() {
     table.addColumn("Название", 50);
     
     for (const auto& [code, name] : clients) {
-        std::vector<std::string> row;
-        row.push_back(code);
-        row.push_back(name);
-        table.addRow(row);
+        table.addRow({code, name});
     }
     table.print();
     
@@ -182,16 +218,71 @@ void ConsoleUI::showRecommendations(const std::string& clientCode) {
     for (const auto& rec : recs) {
         std::stringstream stock;
         stock << std::fixed << std::setprecision(1) << rec.inStockBalance;
-        std::vector<std::string> row;
-        row.push_back(std::to_string(index++));
-        row.push_back(rec.productCode);
-        row.push_back(rec.productName.substr(0, 38));
-        row.push_back(rec.reason);
-        row.push_back(stock.str());
-        table.addRow(row);
+        table.addRow({
+            std::to_string(index++),
+            rec.productCode,
+            rec.productName.substr(0, 38),
+            rec.reason,
+            stock.str()
+        });
     }
     table.print();
     waitForKey();
 }
 
 } // namespace utsk
+EOF
+
+echo "📄 Обновление src/main_console.cpp..."
+cat > src/main_console.cpp << 'EOF'
+#include "core/Config.hpp"
+#include "core/Logger.hpp"
+#include "core/Database.hpp"
+#include "services/ClientService.hpp"
+#include "services/ProductService.hpp"
+#include "services/RecommendationService.hpp"
+#include "ui/ConsoleUI.hpp"
+#include <iostream>
+
+using namespace utsk;
+
+int main() {
+    Logger::getInstance().init("", Logger::Level::INFO);
+    
+    LOG_INFO("UTSK Intelligent Sales - Console v1.0.0");
+    
+    Config config;
+    if (!config.load("config/db_config.json")) {
+        std::cerr << "Failed to load config/db_config.json!" << std::endl;
+        return 1;
+    }
+    
+    // Подключение к БД (типы уже совпадают!)
+    Database db;
+    if (!db.connect(config.getDatabaseInfo())) {
+        std::cerr << "Failed to connect to database!" << std::endl;
+        return 1;
+    }
+    
+    ClientService clientService(db);
+    ProductService productService(db);
+    RecommendationService recService(db);
+    
+    ConsoleUI ui(db, clientService, productService, recService);
+    ui.run();
+    
+    db.disconnect();
+    LOG_INFO("Application finished");
+    
+    return 0;
+}
+EOF
+
+echo "✅ Все исправления применены!"
+echo "🔨 Компиляция..."
+
+cmake --build build -j $(nproc)
+
+echo "🎉 Готово! Для запуска выполните: ./build/utsk_console"
+EOF
+```
