@@ -61,18 +61,18 @@ void TablePrinter::printLine(char left, char mid, char right, char fill) {
 
 void TablePrinter::printRow(const std::vector<std::string>& row) {
     if (row.size() == 1 && row[0] == "---") {
-        printLine('├', '┼', '┤', '─');
+        printLine('+', '+', '+', '-');
         return;
     }
     
-    std::cout << "│";
+    std::cout << "|";
     for (size_t i = 0; i < m_columns.size() && i < row.size(); ++i) {
         std::cout << alignText(row[i], m_columns[i].width, m_columns[i].align);
         if (i < m_columns.size() - 1) {
-            std::cout << "│";
+            std::cout << "|";
         }
     }
-    std::cout << "│\n";
+    std::cout << "|\n";
 }
 
 void TablePrinter::print() {
@@ -85,11 +85,11 @@ void TablePrinter::print() {
             totalWidth += col.width + 1; // ширина + разделитель
         }
         
-        std::cout << "\n╔" << std::string(totalWidth, '═') << "╗\n";
-        std::cout << "║" << alignText(m_title, totalWidth, Alignment::Center) << "║\n";
-        printLine('╠', '╦', '╣', '═');
+        std::cout << "\n+" << std::string(totalWidth, '-') << "+\n";
+        std::cout << "|" << alignText(m_title, totalWidth, Alignment::Center) << "|\n";
+        printLine('+', '+', '+', '-');
     } else {
-        printLine('┌', '┬', '┐', '─');
+        printLine('+', '+', '+', '-');
     }
     
     // Заголовки колонок
@@ -98,7 +98,7 @@ void TablePrinter::print() {
         headers.push_back(col.header);
     }
     printRow(headers);
-    printLine('├', '┼', '┤', '─');
+    printLine('+', '+', '+', '-');
     
     // Данные
     for (const auto& row : m_rows) {
@@ -106,7 +106,7 @@ void TablePrinter::print() {
     }
     
     // Нижняя граница
-    printLine('└', '┴', '┘', '─');
+    printLine('+', '+', '+', '-');
     std::cout << "\n";
 }
 
