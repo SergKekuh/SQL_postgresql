@@ -1,5 +1,4 @@
 #include "ui/ConsoleUI.hpp"
-#include "core/Logger.hpp"
 #include <iomanip>
 #include <iostream>
 #include <sstream>
